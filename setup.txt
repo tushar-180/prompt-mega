@@ -1,0 +1,359 @@
+SETUP WORKFLOW, BDE DIGITAL PROSPECTING SYSTEM
+
+I am setting up a pre-sales prospecting workflow for our software development and IT services business.
+
+The purpose of this run is to build the exact workspace structure, folders, lists, sheets, tabs, fields, and rules that the later "Digital Prospect Audit & Outreach" master workflow depends on. Everything the master workflow reads or writes has to exist and be named exactly as written here, otherwise that run will fail partway through.
+
+This is a SETUP RUN ONLY.
+
+Do not research prospects.
+Do not create outreach.
+Do not send emails.
+Do not invent existing company data.
+
+All dates in this system use the Asia/Kolkata time zone. Any date field you create, any date you record, and any date rule you write is read in that time zone (time zone: Asia/Kolkata).
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can actually reach ClickUp, Google Drive, Google Sheets, Gmail, Google Search, and Google PageSpeed Insights. If any of those is not connected or not authorized, stop and say exactly which one is missing. Do not report the setup as complete when a required connection is missing.
+
+Use the Chrome browser plugin whenever a direct app integration cannot do the job or cannot do it reliably. It is not a fallback you should feel bad about reaching for, it is the normal way to handle anything the API connections do not cover. In practice that means opening Chrome and doing it in the interface for things like:
+
+Creating or editing ClickUp custom fields that need specific dropdown or label values, because dropdown option lists usually have to be configured in the ClickUp UI.
+Confirming the ClickUp Space, Folder, and List structure looks right on screen after you create it.
+Creating tabs inside the Google Sheet and naming them exactly, if the Sheets connection cannot add or rename tabs.
+Checking that the Google Drive folder structure appears as expected.
+Opening Google PageSpeed Insights to confirm it loads and is usable for the later audit runs.
+Running a quick Google Search to confirm search access works from this environment.
+Anything else where the integration returns an error, returns something unclear, or silently does nothing.
+
+Whenever you use the Chrome plugin, say so in the final report and note what you did through the browser instead of through an integration. If the Chrome plugin itself is unavailable and a piece of setup genuinely cannot be finished without it, mark that piece as blocked rather than guessing that it worked.
+
+Never use the Chrome plugin to send an email, contact a company, or create prospect data during this setup run.
+
+
+CLICKUP SETUP
+
+In ClickUp, create or verify this structure.
+
+Space: Sales
+Folder: Business Development
+List: Digital Audit Prospects
+
+If the Space, Folder, or List already exists and serves the same purpose, reuse it instead of creating a duplicate.
+
+Inside the List "Digital Audit Prospects", create or verify these custom fields. Names have to match exactly, since the master workflow looks them up by name.
+
+Company Name (Text)
+Website URL (URL)
+Company Domain (Text)
+Industry (Text)
+Country / Market (Text)
+Company Summary (Long Text)
+Contact Name (Text)
+Contact Role (Text)
+Contact Email (Email or Text)
+Contact Source (URL or Text)
+BDE Notes (Long Text), manually written notes from the BDE, the master workflow reads this and must never overwrite it
+Research Status (Dropdown) with values Pending, In Progress, Completed, Needs Information, Needs Review, Hold
+Last Audit Date (Date, time zone: Asia/Kolkata)
+Re-Audit Required (Dropdown) with values Yes, No
+Primary Opportunity (Text), and note that "No Clear Current Opportunity" is a valid and expected value
+Recommended Service (Dropdown) with values Website Development, Mobile App Development, Custom Software Development, AI / Automation, UI / UX Design, Dedicated Developers / Staff Augmentation, None
+Opportunity Score (Number)
+Priority (Dropdown) with values High, Medium, Low, Hold
+Competitors Reviewed (Long Text)
+Website Findings (Long Text)
+Search Visibility Findings (Long Text)
+PageSpeed Findings (Long Text)
+Evidence / Sources (Long Text)
+Decision Maker (Text), holds either a verified person or a role marked as "Individual Not Verified"
+Last Outreach Date (Date, time zone: Asia/Kolkata)
+Outreach Status (Dropdown) with values Not Started, Draft Ready, Existing Draft, Sent, Hold, Not Appropriate, Needs Review
+Next Action (Long Text)
+Next Action Date (Date, time zone: Asia/Kolkata)
+Prospect Source (Text), filled in by the BDE when a prospect is added, the master workflow does not write to it
+Review Cycle (Text)
+
+Set the default value of Research Status to Pending and Outreach Status to Not Started where ClickUp allows a default, so newly added prospects land in the master workflow's queue correctly.
+
+Do not remove or rename existing fields the team is already using. If a matching field already exists under a slightly different name, reuse it and record the mismatch in the setup report rather than creating a near duplicate.
+
+
+GOOGLE DRIVE SETUP
+
+In Google Drive, create or verify this folder.
+
+BDE Digital Prospecting
+
+Inside it, create or verify:
+
+01 - Prospect Research
+02 - Audit References
+03 - Outreach References
+04 - Workflow Rules
+
+Do not duplicate folders that already exist.
+
+
+GOOGLE SHEET SETUP
+
+Inside Google Drive, BDE Digital Prospecting, 04 - Workflow Rules, create a Google Sheet named:
+
+BDE Service & Qualification Rules
+
+Create these tabs, named exactly like this, since the master workflow opens them by name:
+
+Approved Services
+Opportunity Scoring
+Outreach Rules
+Prospecting Rules
+Competitor Rules
+Audit Criteria
+
+
+APPROVED SERVICES TAB
+
+Columns: Service Name, What It Covers, Typical Prospect Signal, Active
+
+Rows:
+
+Website Development
+New websites, website redevelopment, frontend and backend website work
+Evidence of significant website limitations or a business requirement for a new or rebuilt website
+Yes
+
+Mobile App Development
+Native and cross-platform mobile applications
+Verified business need for a mobile customer or operational experience
+Yes
+
+Custom Software Development
+Custom business systems, SaaS products, portals and applications
+Verified need for custom workflow, platform, integration or digital product development
+Yes
+
+AI / Automation
+AI-enabled applications, automation and workflow solutions
+Verified manual process, automation requirement or AI product opportunity
+Yes
+
+UI / UX Design
+User research, interface design and usability improvement
+Observable usability or conversion problems, or a verified redesign requirement
+Yes
+
+Dedicated Developers / Staff Augmentation
+Dedicated engineering resources and development teams
+Evidence of engineering hiring, capacity requirement or an explicitly stated resource need
+Yes
+
+Service names here must match the Recommended Service dropdown values in ClickUp exactly. Do not add services the business has not approved.
+
+
+OPPORTUNITY SCORING TAB
+
+Columns: Criterion, Maximum Points, Scoring Guidance
+
+Rows:
+
+Evidence of Relevant Need
+4
+0 = no meaningful evidence, 1 = weak signal, 2 = moderate evidence, 3 = strong evidence, 4 = multiple strong verified signals
+
+Fit With Approved Service
+3
+0 = no fit, 1 = weak fit, 2 = reasonable fit, 3 = direct fit with an approved core service
+
+Competitive / Digital Gap
+2
+0 = no meaningful gap, 1 = some observable difference, 2 = clear evidence-backed opportunity compared with relevant competitors
+
+Contactability / Timing
+1
+0 = outreach should currently be held or there is no usable contact path, 1 = an appropriate contact path exists and no hold applies
+
+Add the priority thresholds below the criteria, with a total of 10 possible points:
+
+8 to 10 = High
+5 to 7 = Medium
+3 to 4 = Low
+0 to 2 = Hold
+
+Also add a rule row stating that when required scoring information is unavailable, the result is recorded as Needs Review rather than an invented score.
+
+These are live workflow rules. They must not be changed during a prospect research run.
+
+
+OUTREACH RULES TAB
+
+Columns: Rule, Value, Notes
+
+Rows:
+
+Cold Outreach Hold Period
+30 days
+Do not create another cold outreach draft if equivalent outreach went out in the previous 30 days, unless a meaningful new opportunity signal has appeared.
+
+Draft Only
+Yes
+The workflow creates Gmail drafts only. It must never send an email automatically.
+
+Duplicate Draft Check
+Required
+Search existing Gmail drafts and relevant conversations before creating another draft.
+
+Manual Notes Protection
+Required
+Never overwrite BDE Notes entered by a human.
+
+Future Contact Request
+Respect
+If a prospect asked to be contacted on a specific future date (time zone: Asia/Kolkata), do not contact them before that date.
+
+Previously Declined
+Hold
+If a prospect declined earlier and no meaningful new evidence justifies re-engagement, do not create another cold email.
+
+Existing Customer
+Hold
+Do not treat an existing customer as a new cold prospect.
+
+Outcome Guarantees
+Prohibited
+Outreach must never guarantee rankings, traffic, revenue, leads, conversions or any other business outcome.
+
+
+PROSPECTING RULES TAB
+
+Columns: Rule, Value
+
+Rows:
+
+Prospects Per Run
+10
+
+Queue Order
+Oldest pending task first
+
+Eligibility
+Research Status is Pending, Website URL is present, and the task has not already been completed for the current review cycle
+
+Review Cycle Format
+Monthly, recorded as YYYY-MM (time zone: Asia/Kolkata), for example 2026-08
+
+Prospect Type
+B2B companies that could reasonably need software development, website development, mobile development, custom software, AI or automation, UI and UX, or dedicated engineering resources
+
+Allowed Sources
+Google Search, company websites, public company pages, approved public business sources
+
+Excluded
+Existing customers, obvious competitors to our own IT services business, companies without a verifiable website, duplicate companies, companies with insufficient public evidence
+
+Minimum Evidence
+At least one meaningful and verifiable opportunity signal before a prospect is qualified
+
+Non-Branded Queries Per Prospect
+Up to 3
+
+Organic Results Reviewed
+First 20, ads and sponsored placements ignored
+
+Brand Search Alone
+Not sufficient
+
+Missing Website URL
+Set Research Status to Needs Information, comment on the task, move on, and never guess the website
+
+No Forced Opportunity
+Yes
+
+A company is not qualified simply because it has a website.
+
+
+COMPETITOR RULES TAB
+
+Columns: Rule, Value
+
+Rows:
+
+Maximum Competitors
+3
+
+Comparison Requirements
+Similar services or products, similar customer type, and similar target market where geography matters
+
+Do Not
+Automatically use the first three Google results as competitors
+
+Comparison Style
+Like-for-like observable evidence only
+
+Traffic Claims
+Never claim private traffic or analytics data that is not publicly available
+
+Record For Each Competitor
+Company name, website, and the reason it is considered comparable
+
+
+AUDIT CRITERIA TAB
+
+Columns: Area, Observable Signal, Use in Audit
+
+Rows:
+
+Website, Broken public pages or links, Yes
+Website, Major navigation or usability problems, Yes
+Website, Missing or unclear primary call to action, Yes
+Website, Important product or service information that is difficult to locate, Yes
+Website, Broken contact or conversion path, Yes
+Website, Mobile usability issue observed during review, Yes
+Website, Important service pages that appear to be missing, Yes
+Website, Repetitive or very limited service content, Yes
+Performance, Google PageSpeed mobile Performance score, Yes
+Performance, Google PageSpeed Accessibility score, Yes
+Performance, Google PageSpeed Best Practices score, Yes
+Performance, Google PageSpeed SEO score, Yes
+Performance, Core Web Vitals or field data where available, Yes
+Search Visibility, Position for defined non-branded commercial searches, Yes
+Search Visibility, Not found within the first 20 organic results, Yes
+Competitor, Competitor repeatedly appears for the same relevant searches, Yes
+Competitor, Competitor has materially stronger relevant service or content coverage, Yes
+
+Add two convention rows so the master workflow records gaps consistently:
+
+Convention, Unverifiable information is recorded as "Not Verified", Yes
+Convention, An unavailable metric is recorded as "Unavailable" and never estimated, Yes
+
+Never summarize any of this as "bad website" or "bad SEO". Store the observable evidence and the source URL behind it.
+
+
+VERIFY SETUP
+
+Once everything is created or verified, go back and confirm all of the following, using the Chrome plugin to look at the actual screens where an integration cannot confirm it:
+
+The ClickUp Space, Folder, and List exist.
+Every required custom field exists with the exact name listed above.
+BDE Notes and Decision Maker exist, since the master workflow reads and writes them.
+Recommended Service dropdown values match the Approved Services tab exactly and include None.
+Priority values match the scoring thresholds, High, Medium, Low, Hold.
+Research Status and Outreach Status carry the full value lists above.
+All date fields are set to the Asia/Kolkata time zone.
+The Google Drive folder structure exists.
+The Google Sheet "BDE Service & Qualification Rules" exists in 04 - Workflow Rules.
+All six tabs exist with the exact names.
+Approved Services holds the six service categories.
+Opportunity Scoring holds the criteria, the 10 point total, and the thresholds.
+Outreach Rules holds the hold period, draft-only rule, and duplicate checks.
+Prospecting Rules allows 10 prospects per master run, matching the master workflow.
+Competitor Rules exists.
+Audit Criteria exists.
+Google PageSpeed Insights and Google Search are both reachable from this environment.
+
+Do not create fake prospect records to test the workflow.
+
+Finish with a short SETUP REPORT covering what you created, what already existed and was reused, what is still missing, what was blocked by permissions or a missing connection, what you had to do through the Chrome plugin rather than an integration, and anything that needs a human to confirm.
+
+If any required piece could not be created, say so plainly instead of calling the setup complete.

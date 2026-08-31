@@ -1,0 +1,32 @@
+Before you dive in, just make sure you can actually get into everything you'll need the Jira ticket, Sentry org, Supabase project, the Google Sheet, the GitHub repo, and the Slack channel. If any of those won't load or you're missing permissions, stop right there and say exactly what's blocked.
+
+Start in Jira workspace named: “acme-corp”, project BUGLAB. Pull up the ticket "Checkout fails when applying discount code SAVE20" and go through everything on it  description, comments, attachments, labels, environment details, timestamps (time zone: Asia/Kolkata), linked issues, whatever else is attached. From that, work out the affected feature, workflow, user journey, transaction flow, and API endpoint.
+
+Head to Sentry, org acme-corp, and search for errors from 2 hours before to 30 minutes after the failure timestamp on the ticket (time zone: Asia/Kolkata). Go through the stack traces, breadcrumbs, request details, user context, session activity (note timestamps in time zone: Asia/Kolkata), releases, and anything else relevant. Use the traces, requests, responses, status codes, and correlation IDs to nail down the failure event and back it up with evidence. You want the evidence that best explains what the ticket describes.
+
+Then, go to the Supabase project ecommerce-prod and check the data of the affected user - users, sessions, carts, orders, payments, discounts and any other table related to the workflow. Figure out what shape the user and the database were in right before it broke, and jot down any timestamps in time zone: Asia/Kolkata.
+
+Pop open the Test Accounts Google Sheet and grab whichever test account looks closest to that user's state. Note down whatever test data you'll need to actually reproduce the bug with it.
+
+Go through the ecommerce-api GitHub repo and find the code behind the affected workflow endpoints, services, functions, validation logic, business rules, DB operations, integrations, whatever's part of it. Pin down the exact files and code paths involved.
+
+Once you've pulled evidence from Jira, Sentry, Supabase, the sheet, and the repo, put together a reproduction package with:
+bug summary, affected feature, environment, user account used, preconditions, required user state, required database state, test data, API endpoint involved, exact request payload, expected result, actual result, relevant error messages, logs, and stack traces, detailed step-by-step reproduction instructions with all timestamps converted to Asia/Kolkata, a confidence assessment (High, Medium, or Low) with justification, the suspected root cause, and references to all relevant source code files involved in the issue.
+Write the steps so another engineer can just follow along and reproduce the bug  they shouldn't have to circle back to QA for anything.
+
+If something's missing  evidence, logs, records, monitoring data, source code, whatever  say so plainly. Note what's missing, how it affects your confidence in the reproduction, and keep confirmed findings clearly separate from assumptions.
+
+Post the finished package to #qa-bugs on Slack as one structured message with everything in it.
+
+Drop that same package as a comment on the Jira ticket.
+
+Update the ticket's Investigation Summary field too  just a couple sentences on where reproduction stands, which systems are involved, and your best guess at the root cause. Save the full write-up for the comment below so you're not repeating yourself.
+
+Set Reproduction Status to Reproduced.
+
+Then leave one more comment with the evidence, how it turned out, your confidence level, and what you'd tell engineering to do next.
+
+Don't call this done until the package's posted in Slack, it's on the Jira ticket, the Investigation Summary field is updated, Reproduction Status is set to Reproduced, and every conclusion actually traces back to real evidence  Jira, the logs, monitoring data, database records, or the code.
+
+Last check before you wrap up  make sure everything you're claiming is backed by something real. Anything that's a guess or a hypothesis rather than confirmed, label it clearly as one.
+

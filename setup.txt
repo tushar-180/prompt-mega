@@ -16,7 +16,7 @@ All dates in this system use the Asia/Kolkata time zone. Any date field you crea
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can actually reach ClickUp, Google Drive, Google Sheets, Gmail, Google Search, and Google PageSpeed Insights. If any of those is not connected or not authorized, stop and say exactly which one is missing. Do not report the setup as complete when a required connection is missing.
+Confirm you can actually reach ClickUp, Google Drive, Google Sheets, Gmail, Google Search, Google PageSpeed Insights, and the Chrome browser plugin. If any of those is not connected or not authorized, stop and say exactly which one is missing. Do not report the setup as complete when a required connection is missing.
 
 Use the Chrome browser plugin whenever a direct app integration cannot do the job or cannot do it reliably. It is not a fallback you should feel bad about reaching for, it is the normal way to handle anything the API connections do not cover. In practice that means opening Chrome and doing it in the interface for things like:
 
@@ -61,7 +61,7 @@ Last Audit Date (Date, time zone: Asia/Kolkata)
 Re-Audit Required (Dropdown) with values Yes, No
 Primary Opportunity (Text), and note that "No Clear Current Opportunity" is a valid and expected value
 Recommended Service (Dropdown) with values Website Development, Mobile App Development, Custom Software Development, AI / Automation, UI / UX Design, Dedicated Developers / Staff Augmentation, None
-Opportunity Score (Number)
+Opportunity Score (Number), and because this is a numeric field an unavailable score is recorded by leaving it empty and setting Research Status to Needs Review, never by typing text into it
 Priority (Dropdown) with values High, Medium, Low, Hold
 Competitors Reviewed (Long Text)
 Website Findings (Long Text)
@@ -70,7 +70,7 @@ PageSpeed Findings (Long Text)
 Evidence / Sources (Long Text)
 Decision Maker (Text), holds either a verified person or a role marked as "Individual Not Verified"
 Last Outreach Date (Date, time zone: Asia/Kolkata)
-Outreach Status (Dropdown) with values Not Started, Draft Ready, Existing Draft, Sent, Hold, Not Appropriate, Needs Review
+Outreach Status (Dropdown) with values Not Started, Draft Ready, Existing Draft, Draft Deferred, Sent, Hold, Not Appropriate, Needs Review
 Next Action (Long Text)
 Next Action Date (Date, time zone: Asia/Kolkata)
 Prospect Source (Text), filled in by the BDE when a prospect is added, the master workflow does not write to it
@@ -89,17 +89,17 @@ BDE Digital Prospecting
 
 Inside it, create or verify:
 
-01 - Prospect Research
-02 - Audit References
-03 - Outreach References
-04 - Workflow Rules
+01 Prospect Research
+02 Audit References
+03 Outreach References
+04 Workflow Rules
 
 Do not duplicate folders that already exist.
 
 
 GOOGLE SHEET SETUP
 
-Inside Google Drive, BDE Digital Prospecting, 04 - Workflow Rules, create a Google Sheet named:
+Inside Google Drive, BDE Digital Prospecting, 04 Workflow Rules, create a Google Sheet named:
 
 BDE Service & Qualification Rules
 
@@ -193,8 +193,12 @@ Columns: Rule, Value, Notes
 Rows:
 
 Cold Outreach Hold Period
-30 days
-Do not create another cold outreach draft if equivalent outreach went out in the previous 30 days, unless a meaningful new opportunity signal has appeared.
+90 days
+Do not create another cold outreach draft if equivalent outreach went out in the previous 90 days, unless a new and verified opportunity signal has appeared. For a run dated 2026-08-31 this puts the cutoff at 2026-06-02, so mail sent on or after that date holds the prospect.
+
+Drafts Per Run
+2
+A run creates at most 2 Gmail drafts even when 3 prospects qualify. The 2 highest Opportunity Scores take the slots, ties broken by the count of evidence items carrying source URLs, remaining ties broken by Company Name A to Z. The prospect that misses out is set to Draft Deferred with a Next Action Date and a written reason.
 
 Draft Only
 Yes
@@ -232,10 +236,10 @@ Columns: Rule, Value
 Rows:
 
 Prospects Per Run
-10
+3
 
 Queue Order
-Oldest pending task first
+Last Audit Date ascending, an empty Last Audit Date counts as older than any filled one, ties broken by ClickUp task creation date ascending, remaining ties broken by Company Name A to Z
 
 Eligibility
 Research Status is Pending, Website URL is present, and the task has not already been completed for the current review cycle
@@ -247,19 +251,25 @@ Prospect Type
 B2B companies that could reasonably need software development, website development, mobile development, custom software, AI or automation, UI and UX, or dedicated engineering resources
 
 Allowed Sources
-Google Search, company websites, public company pages, approved public business sources
+Google Search, company websites, public company pages, public press and news pages, public company registries
+
+Excluded Sources
+Any site requiring a login, including LinkedIn, Apollo, Upwork and Freelancer
 
 Excluded
 Existing customers, obvious competitors to our own IT services business, companies without a verifiable website, duplicate companies, companies with insufficient public evidence
 
 Minimum Evidence
-At least one meaningful and verifiable opportunity signal before a prospect is qualified
+At least 3 recorded evidence items each carrying a source URL, drawn from at least 2 of the 4 inputs, being the website audit, the PageSpeed run, the search observations and the competitor comparison
+
+Minimum Website Findings
+3 separate observable findings per prospect, each with its own source URL
 
 Non-Branded Queries Per Prospect
-Up to 3
+Exactly 3
 
 Organic Results Reviewed
-First 20, ads and sponsored placements ignored
+Top 20, ads and sponsored placements ignored
 
 Brand Search Alone
 Not sufficient
@@ -283,7 +293,10 @@ Maximum Competitors
 3
 
 Comparison Requirements
-Similar services or products, similar customer type, and similar target market where geography matters
+Four points, being similar product or service, similar buyer type, similar geographic market where geography changes the result, and similar business category. Record the match on each of the four points.
+
+Selection Tie Breakers
+Where more than 3 competitors qualify, keep the 3 matching on the most points, break a tie on closeness of geographic market, break a remaining tie on which competitor appeared in more of the 3 reviewed queries. Where fewer than 3 qualify, name the ones that do and write the shortfall with its reason.
 
 Do Not
 Automatically use the first three Google results as competitors
@@ -326,9 +339,50 @@ Add two convention rows so the master workflow records gaps consistently:
 
 Convention, Unverifiable information is recorded as "Not Verified", Yes
 Convention, An unavailable metric is recorded as "Unavailable" and never estimated, Yes
+Convention, Mobile review width is 390 pixels, Yes
+Convention, A finding names the observable evidence and its source URL, never a summary judgment, Yes
 
 Never summarize any of this as "bad website" or "bad SEO". Store the observable evidence and the source URL behind it.
 
+
+SAMPLE DATA SEEDING
+
+Create seven prospect tasks in the List "Digital Audit Prospects". These are the only records this setup run is allowed to create, and they exist so the master workflow has a real queue that exercises its selection, exception and tie breaking rules.
+
+Find the companies yourself using Google Search, or through the Chrome browser plugin if the search integration is unavailable or unclear. Never invent a company, and never seed one you could not open in a browser. Each seeded company has to clear all of these: a real business with a live public website that loads without a login, a commercial B2B or business facing website, not an IT services, software development or digital agency business, since the Prospecting Rules tab excludes our own competitors, and not an existing customer of ours.
+
+Vary the searches so the seven do not all come off one page of results. Searches along these lines work: manufacturing companies Ahmedabad, logistics companies Gujarat, industrial equipment suppliers India, diagnostic labs Ahmedabad, education institutes Gujarat, B2B distributors India. Record the exact query you ran and the URL you found the company on.
+
+Fill only these fields on a seeded task: Company Name, Website URL, Company Domain, Industry, Country / Market, Contact Email where the table below gives one, BDE Notes where the table below gives one, Prospect Source written as the seed label plus the exact query plus the date 2026-08-31, Research Status, Outreach Status, Re-Audit Required, Last Audit Date, Last Outreach Date and Review Cycle. Leave Company Summary, Contact Name, Contact Role, Contact Source, Website Findings, Search Visibility Findings, PageSpeed Findings, Evidence / Sources, Primary Opportunity, Recommended Service, Opportunity Score, Priority, Competitors Reviewed, Decision Maker, Next Action and Next Action Date empty, because the master workflow writes those and seeding them would mask whether it ran.
+
+Copy no real person's name and no real email address into this system. The contact addresses below are fictional placeholder domains and are the only contact values allowed in the seed. Everything else about the seeded companies is public company information.
+
+Create the tasks in the order A to G, since the queue tie breaker reads ClickUp task creation date and the order decides which prospects the first master run picks up.
+
+SEED-A. A company you found by search. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email contact@example.com. BDE Notes empty.
+
+SEED-B. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email hello@example.net. BDE Notes filled with exactly this line and nothing more: Met the owner at a trade expo, keep the first email short. Do not change this line.
+
+SEED-C. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email empty. BDE Notes empty.
+
+SEED-D. Company Name filled in from a search result, Website URL deliberately left empty, Company Domain empty. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email empty. BDE Notes empty.
+
+SEED-E. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date 2026-06-20. Last Outreach Date 2026-07-10. Review Cycle 2026-06. Contact Email contact@example.org. BDE Notes empty.
+
+SEED-F. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required Yes. Last Audit Date 2026-07-15. Last Outreach Date empty. Review Cycle 2026-07. Contact Email contact@example.com. BDE Notes empty. Post one comment on this task titled DIGITAL AUDIT SUMMARY whose body reads: Seed record for cycle 2026-07, not a real audit.
+
+SEED-G. A different company. Research Status Completed. Outreach Status Not Started. Re-Audit Required No. Last Audit Date 2026-08-05. Last Outreach Date empty. Review Cycle 2026-08. Contact Email empty. BDE Notes empty. Post one comment on this task titled DIGITAL AUDIT SUMMARY whose body reads: Seed record for cycle 2026-08, not a real audit.
+
+
+EXPECTED BEHAVIOUR OF THE MASTER WORKFLOW AGAINST THIS SEED
+
+Write this section into the setup report so whoever grades the master run knows what a correct result looks like.
+
+A first master run dated 2026-08-31 should select SEED-A, SEED-B and SEED-C, because all three carry an empty Last Audit Date and the creation order breaks the tie. It should audit all three, and because the run allows only 2 drafts, one of the three has to end on Draft Deferred with a written reason naming the two that took the slots. It must leave the BDE Notes line on SEED-B untouched. SEED-C has no Contact Email, so its draft, if it wins a slot, carries an empty To field and an opening body line reading RECIPIENT NOT VERIFIED. SEED-G must never be selected, since its Review Cycle already holds 2026-08.
+
+A second master run dated 2026-08-31 should select SEED-D, SEED-E and SEED-F, because the first run set Review Cycle 2026-08 on A, B and C. SEED-D has no Website URL, so it ends on Needs Information with a comment and no research. SEED-E was contacted on 2026-07-10, inside the 90 day hold, so it ends on Hold with that date recorded. SEED-F carries a prior cycle audit comment and Re-Audit Required Yes, so a fresh audit is correct there.
+
+A third master run should select nothing and change nothing.
 
 VERIFY SETUP
 
@@ -339,21 +393,23 @@ Every required custom field exists with the exact name listed above.
 BDE Notes and Decision Maker exist, since the master workflow reads and writes them.
 Recommended Service dropdown values match the Approved Services tab exactly and include None.
 Priority values match the scoring thresholds, High, Medium, Low, Hold.
-Research Status and Outreach Status carry the full value lists above.
+Research Status and Outreach Status carry the full value lists above, and Outreach Status includes Draft Deferred.
 All date fields are set to the Asia/Kolkata time zone.
 The Google Drive folder structure exists.
-The Google Sheet "BDE Service & Qualification Rules" exists in 04 - Workflow Rules.
+The Google Sheet "BDE Service & Qualification Rules" exists in 04 Workflow Rules.
 All six tabs exist with the exact names.
 Approved Services holds the six service categories.
 Opportunity Scoring holds the criteria, the 10 point total, and the thresholds.
-Outreach Rules holds the hold period, draft-only rule, and duplicate checks.
-Prospecting Rules allows 10 prospects per master run, matching the master workflow.
+Outreach Rules holds the 90 day hold period, the 2 draft cap, the draft-only rule, and duplicate checks.
+Prospecting Rules allows 3 prospects per master run and 2 drafts per run, matching the master workflow.
 Competitor Rules exists.
 Audit Criteria exists.
+The seven seed tasks exist in creation order A to G with the field values listed in the seeding section.
+No seeded task carries a real person's name or a real email address.
 Google PageSpeed Insights and Google Search are both reachable from this environment.
 
-Do not create fake prospect records to test the workflow.
+Confirm the seven seeded tasks exist, that SEED-D has no Website URL, that SEED-B carries its BDE Notes line, and that SEED-F and SEED-G each carry their seed comment. Create no prospect record beyond those seven.
 
-Finish with a short SETUP REPORT covering what you created, what already existed and was reused, what is still missing, what was blocked by permissions or a missing connection, what you had to do through the Chrome plugin rather than an integration, and anything that needs a human to confirm.
+Finish with a short SETUP REPORT covering what you created, the seven seeded companies with the search query behind each one, what already existed and was reused, what is still missing, what was blocked by permissions or a missing connection, what you had to do through the Chrome plugin rather than an integration, and anything that needs a human to confirm.
 
 If any required piece could not be created, say so plainly instead of calling the setup complete.

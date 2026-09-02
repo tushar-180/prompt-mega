@@ -1,3 +1,5 @@
+1. Your workflow prompt *
+
 Work 1 live tender end to end. By the end there's a Bid, Conditional Bid or No Bid on the table, and the bid owner should be able to check it line by line against what the buyer actually published. Treat today as 2026-09-01, Asia/Kolkata. Every date window, every age calculation, every deadline comparison below runs off that. A No Bid with the evidence behind it is a good outcome. Bidding is not the win condition here, so don't let the analysis drift that way.
 
 The tender comes off a Google Sheet, Tender Tracker 2026. It's in My Drive under Tender Management, then 2026. Go to the Pending Tenders tab. Row 1 holds the headers, so your data starts at row 2. Columns, left to right: Tender Name, Buyer Name, Tender Reference, Status, Submission Deadline, Contract Start Date, Contract Duration, Bid Owner, Bid Owner Email, Priority, Drive Folder, Portal URL, Decision, Decision Date. Pick 1 row per run, never 2. Keep only rows where Status says Pending Review and Decision is blank, and where the Submission Deadline lands somewhere between 2026-09-01 and 2026-12-31 inclusive, Asia/Kolkata. Sort what's left by deadline, earliest first. On a tie Priority settles it, High over Medium over Low, and if that still ties, Tender Reference A to Z. Don't ask which one to take. The sort has already answered that. And if nothing survives the filter, write nothing anywhere: just report in the closing message how many rows you read and what knocked each one out.
@@ -39,3 +41,15 @@ Reach each app through its connected integration where that works. Where it does
 Only 2 things stop the run outright: the Tender Tracker 2026 sheet failing on both routes, or the tender folder failing on both routes. Report either as blocked, quoting the exact error text each route gave back. Everything else gets written down and worked around. A document that won't open, a portal page behind a login, a Notion page that isn't there, a missing Jira project or component, an event or a draft that won't save: name it exactly as this brief names it, say what it cost the analysis, mark the requirements it left as Cannot Determine, and finish every part of the run that doesn't depend on it. Don't invent a file, folder, sheet tab, Notion page, Jira issue, calendar event, portal notice or certificate. Don't report something as opened or created when it wasn't. Don't report an app as unreachable when only 1 of the 2 routes was tried. And don't take the reading of a requirement that lets the company bid just because it lets the company bid.
 
 You're done when: the selected row on Pending Tenders carries the decision and 2026-09-01; the Notion page inside Tender Decisions has every field named above either filled in or marked Cannot Determine; the Jira component Bid Compliance holds the compliance issues within the cap of 12, plus 1 issue per clarification question; Bid Production holds its 6; the 6 events sit on the Bid Management calendar inside the working day rule with no guests; 1 unsent draft sits in Gmail Drafts; and the closing message covers the tender you took and what ruled the other rows out, the authoritative deadline and the notice that set it, requirement counts by compliance status, the fatal issues, the curable ones, the Cannot Determine items, the clarification questions you kept and the ones you dropped with reasons, every step that fell back to the Chrome browser plugin with the error that sent it there, and every step still blocked with the error from both routes.
+
+2. Workflow type (examples: prospecting, qualification, onboarding, account management, or renewal preparation) *
+Qualification - tender bid/no-bid qualification and compliance assessment
+
+3. Is this a pre-sales or post-sales workflow? *
+Pre-sales
+
+4. Typical frequency of this task *
+Weekly
+
+5. What systems, applications, or files are typically involved? *
+Google Sheets, Google Drive, Buyer's public tender portal, Notion, Jira, Google Calendar, Gmail, Chrome browser plugin

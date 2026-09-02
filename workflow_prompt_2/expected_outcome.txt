@@ -1,0 +1,90 @@
+EXPECTED OUTCOME, FOR THE PERSON GRADING THE RUN
+
+Do not paste this file into the agent session that runs dummy_setup.txt or finalPrompt.txt. It holds the answers the master run is supposed to work out for itself. Run the setup in one session, then run the master prompt in a fresh session, then check the result against this.
+
+THE ROW IT SHOULD PICK
+
+Row 2, ABC-HMS-2026-001 Hospital Management System. Rows 3 to 6 are all ruled out, and each one tests a different clause of the selection rule.
+
+Row 3, ABC-LIS-2026-007, has the earliest deadline of the lot at 2026-09-11 but Status reads Submitted, not Pending Review.
+Row 4, AAA-HAT-2026-005, ties on the 2026-09-20 deadline and sorts earlier than ABC-HMS-2026-001 alphabetically, but its Priority is Medium against High, and Priority is the second sort key, so it loses before the alphabetical tie breaker is ever reached. An agent that jumps from the deadline tie straight to A to Z picks this row and gets the whole run wrong.
+Row 5, PMU-WBP-2026-003, ties on deadline and on High priority, and loses on Tender Reference in A to Z order.
+Row 6, SHM-BBN-2026-002, already carries a Decision.
+
+Five data rows in total. Four exclusion routes, one per row, so a wrong pick names the clause that was missed.
+
+THE AUTHORITATIVE DEADLINE
+
+2026-09-24 17:00 Asia/Kolkata, set by Corrigendum 01 dated 2026-08-25.
+
+The trap is that 09_Addendum_01.pdf, dated 2026-08-18, moves the deadline later, to 2026-09-28, and the corrigendum dated a week after it moves it back earlier, to 2026-09-24. Latest dated publication wins, not the latest date printed and not the most generous one. An answer of 2026-09-28 means the agent sorted by the deadline value instead of by the publication date. An answer of 2026-09-20 means it never opened the addendum or the corrigendum at all. The Submission Deadline cell in the sheet still reads 2026-09-20 and stays that way, since the master run only writes Decision and Decision Date.
+
+THE CONTRACT PERIOD
+
+2026-11-01 to 2029-10-31, from the Contract Start Date cell plus 36 months.
+
+COMPLIANCE, THE ITEMS THAT SHOULD NOT READ COMPLIANT
+
+E1, turnover. Cannot Determine. Corrigendum 01 and 11_Clarification_Responses.pdf are both dated 2026-08-25 and contradict each other, 30 crore against 50 crore. Neither wins. Both readings get recorded and the question goes to the clarification list. An agent that picks 30 crore because it is the friendlier number, or picks the corrigendum because corrigenda usually win, has missed the same date rule.
+
+E2, three government hospital management system references. Partially Compliant. Notion holds three hospital management system projects in the right value band and inside five years, but Lakeside Private Hospitals HMS has Customer Type Private, so only two of the three references satisfy every part. The failing point has to be named.
+
+E3, ISO 27001 valid for the whole contract period. Partially Compliant with a 10 month gap. The certificate expires 2028-12-15 and the contract runs to 2029-10-31. This one is deliberately the same shape as the worked example inside the master prompt, so it should be got right. Whether the agent calls the gap curable is the interesting part, since Notion holds no renewal record with an owner and a date before the contract start, which by the master prompt's own rule makes it fatal rather than curable.
+
+S1, 30 minute severity 1 response. Not Compliant but curable. Notion says the current state is 60 minutes and holds an approved expansion plan owned by Meera Iyer with a target date of 2026-10-20, before the 2026-11-01 contract start, which is exactly what the curable test asks for.
+
+A1, single sign on with the government identity gateway. Cannot Determine. The requirement only exists in 09_Addendum_01.pdf, and Notion holds no capability record on it either way. Reading silence as a pass or as a fail is the error here.
+
+T7, the 18 person team from 2026-11-01. Not Compliant but curable. The Notion headcount record against the 17 committed issues in the Jira project DEL leaves, at 2026-11-01, 2 senior developers short, 2 developers short, 1 QA engineer short, 2 business analysts short and 1 database administrator short, with project manager, DevOps engineer and solution architect covered. The ramp up plan record in Notion names Meera Iyer and dates before contract start, which makes it curable. Earliest clear dates from the Jira Due dates are 2026-12-18 for senior developer, 2026-11-20 for developer, 2026-11-27 for QA engineer, 2026-12-04 for business analyst and 2027-07-31 for database administrator.
+
+Everything else mandatory, E4, E5, E6, T1, T2, T3, C2 and S2, should read Compliant against the seeded Notion evidence.
+
+CMMI Level 5 on page 12 of 03_Technical_Requirements.pdf is Not Compliant, the company holds Level 3, but it is marked desirable, so it must not drive the decision or count against the mandatory set.
+
+THE DECISION
+
+Conditional Bid.
+
+Not Bid, because mandatory items sit at Partially Compliant and Cannot Determine.
+Not No Bid, because No Bid needs a mandatory requirement that is both Not Compliant and fatal, and both Not Compliant mandatory items, S1 and T7, carry a named owner and a date before contract start.
+
+A run that reports Bid has ignored E1, E2, E3 or A1. A run that reports No Bid has probably read the CMMI item as mandatory, or called S1 or T7 fatal without checking the plan records behind them.
+
+THE CALENDAR
+
+Counting working days back from 2026-09-24, with 18 working days sitting between 2026-09-01 and the deadline inclusive, no compression should be triggered and the six events should land on these dates, all 10:00 to 11:00 Asia/Kolkata, no guests.
+
+Proposal Preparation, 2026-09-03.
+Compliance Review, 2026-09-10.
+Technical Review, 2026-09-14.
+Commercial Review, 2026-09-16.
+Management Approval, 2026-09-18.
+Final Tender Submission, 2026-09-22.
+
+If the agent worked off 2026-09-28 instead, every one of these shifts and the error is easy to spot.
+
+THE REST OF THE ARTEFACTS
+
+Jira, on component Bid Compliance, one issue each for E1, E2, E3, S1, A1 and T7, so six, well inside the cap of 12, plus one issue per clarification question kept. Every one labelled ABC-HMS-2026-001 and prefixed [ABC-HMS-2026-001]. On component Bid Production, six issues due on the six calendar dates above. Bid Compliance and Bid Production held nothing before the run, so anything else in there came from this run.
+
+Notion, one page inside Tender Decisions titled ABC-HMS-2026-001 Hospital Management System.
+
+Gmail, one unsent draft in Drafts, subject [ABC-HMS-2026-001] Bid Decision Conditional Bid, addressed to the signed in account.
+
+Google Sheet, row 2 only, Decision reading Conditional Bid and Decision Date reading 2026-09-01. No other cell touched.
+
+Clarification questions, at most three. The turnover conflict at E1 has to be one of them. The single sign on scope at A1 is the strongest second. Anything asked about the CMMI item or about submission formatting should have been dropped, since the answer moves nothing.
+
+THE SECOND RUN
+
+Run the master prompt again on the same seed and the counts must not move. Still one decision page, six production issues, six calendar events, one draft. If a second set appears, the label search or the prefix search is not being run before writing.
+
+WHAT THE SEED DOES NOT TEST
+
+The submission deadline window. With five rows, every exclusion is on Status, Priority, alphabetical order or a filled Decision, and no row sits outside the 2026-09-01 to 2026-12-31 window, so an agent that never applies the window loses nothing. To bring that back, change the Submission Deadline on row 6 to 2027-01-15, which rules it out on the window as well as on its Decision, or add a sixth row dated 2026-08-28.
+
+The cap of 12 on compliance issues, since only six mandatory items fail.
+The calendar compression branch, since the deadline leaves enough working days.
+The blocked portal branch, since the Portal URL cell holds a page that opens. The portal will carry no notices for this fictional reference, so the addendum, the corrigendum and the clarification responses in the Drive folder are what drive the supersession logic.
+
+To test the compression branch, move the Submission Deadline on row 2 to 2026-09-08 and reseed. To test the blocked portal branch, clear the Portal URL cell, which should cap the decision at Conditional Bid on its own and mark every requirement a notice could have moved as Cannot Determine.

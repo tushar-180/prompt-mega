@@ -1,0 +1,567 @@
+SETUP WORKFLOW, BDE DIGITAL PROSPECTING SYSTEM
+
+I am setting up a pre-sales prospecting workflow for our software development and IT services business.
+
+The purpose of this run is to build the exact workspace structure, folders, lists, sheets, tabs, task records, and rules that the later "Digital Prospect Audit & Outreach" master workflow depends on. Everything the master workflow reads or writes has to exist and be named exactly as written here, otherwise that run will fail partway through.
+
+This is a SETUP RUN ONLY.
+
+Do not research prospects.
+Do not create outreach.
+Do not send emails.
+Do not invent existing company data.
+
+All dates in this system use the Asia/Kolkata time zone. Any date field you create, any date you record, and any date rule you write is read in that time zone (time zone: Asia/Kolkata).
+
+
+SCENARIO DATES AND CLICKUP CREATION TIMESTAMPS, READ THIS BEFORE SEEDING
+
+The master workflow runs against a fixed scenario date, 2026-08-31 in Asia/Kolkata for the first cycle. That date decides what the master run writes into Last Audit Date and Review Cycle. It is not a claim about when this data was created, and it is not a filter on the queue.
+
+ClickUp stamps its own creation timestamp on every task at the moment it is created, and that timestamp cannot be backdated through the API or the interface. The seven seeded tasks will therefore carry the real wall clock date of this setup run, which will normally fall after 2026-08-31. That is expected and correct. Do not try to backdate a creation timestamp, do not fake one in a record key, and do not hold off on seeding because the dates look inconsistent with the scenario date.
+
+Because of that, a ClickUp creation timestamp is never an eligibility test. A task is eligible on the scenario date regardless of when ClickUp says it was created. The creation timestamp has exactly one job in this system, the second tie breaker in queue order, and it is read at full precision from the ClickUp API rather than from the minute shown on screen, because all seven seeds are created inside the same minute.
+
+Write both of those rules onto the Prospecting Rules tab exactly as set out in the Google Sheet section below. The master workflow treats that sheet as authoritative wherever the sheet and its own brief disagree, so the sheet is where this gets settled. A master run that reports zero eligible prospects because every task was created after the scenario date has misread the queue, and these rows are what stop that happening.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can actually reach ClickUp through the connected ClickUp MCP integration, Google Drive, Google Sheets, Gmail, Google Search, Google PageSpeed Insights, and the Chrome browser plugin. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so where one of those is not connected, errors, refuses the call, reports a tool it does not recognise, returns nothing where the screen shows something, or hands back something that does not match what the screen shows, do that piece through Chrome instead, carry on with the setup, and say in the report which route you used and what error sent you there. Stop and name the piece only where Chrome cannot reach it either, quoting the error from both attempts. Do not report the setup as complete when a required piece could not be built by either route.
+
+Do every piece of ClickUp work through the connected ClickUp MCP integration first, which covers creating or verifying the Space, Folder and List, creating a task, writing a task description and posting a comment. Move a ClickUp step to the Chrome browser plugin the moment that MCP is unavailable, errors, refuses the call, reports a tool it does not recognise, returns nothing where the ClickUp screen shows something, or hands back something that does not match what that screen itself shows, retrying once where the failure looks transient and waiting out a rate limit rather than falling back for it.
+
+Use the Chrome browser plugin whenever a direct app integration cannot do the job or cannot do it reliably. It is not a fallback you should feel bad about reaching for, it is the normal way to handle anything the API connections do not cover. In practice that means opening Chrome and doing it in the interface for things like:
+
+Reading a seeded task on screen to confirm its audit record block came through intact, since the ClickUp editor can reformat text on save and neither the MCP nor the API will tell you it did. This one is a standing exception to the MCP first rule above: read the block back through the MCP, and where the MCP read and the screen disagree, the screen is what the record actually holds.
+Confirming the ClickUp Space, Folder, and List structure looks right on screen after you create it.
+Creating tabs inside the Google Sheet and naming them exactly, if the Sheets connection cannot add or rename tabs.
+Checking that the Google Drive folder structure appears as expected.
+Opening Google PageSpeed Insights to confirm it loads and is usable for the later audit runs.
+Running a quick Google Search to confirm search access works from this environment.
+Anything else where the integration returns an error, returns something unclear, or silently does nothing.
+
+Whenever you use the Chrome plugin, say so in the final report and note what you did through the browser instead of through an integration. If the Chrome plugin itself is unavailable and a piece of setup genuinely cannot be finished without it, mark that piece as blocked rather than guessing that it worked.
+
+Never use the Chrome plugin to send an email, contact a company, or create prospect data during this setup run.
+
+
+CLICKUP SETUP
+
+In ClickUp, create or verify this structure.
+
+Space: Sales
+Folder: Business Development
+List: Digital Audit Prospects
+
+If the Space, Folder, or List already exists and serves the same purpose, reuse it instead of creating a duplicate.
+
+WHAT THE CLICKUP FREE PLAN ALLOWS, AND WHAT THIS SYSTEM THEREFORE USES
+
+This system is built to run entirely on ClickUp Free Forever. Everything below is inside that plan.
+
+Custom fields are the trap. Free Forever does not block them outright, it grants a fixed 100 uses of the feature, and that allowance never resets. Once it is spent, creating another field fails and, worse, saving a value into a field that already exists fails too, with the message that Custom Fields is not available on your current plan. An earlier version of this setup burned that allowance building a 30 field schema and left the workspace unable to write to any of them. There is no way back from that short of paying.
+
+So this system uses no custom field at all. Create none, and treat any that already exist as inert: leave them exactly where they are, write nothing into them, and say in the setup report that they exist and are unused. Deleting them is not this run's job and would not refund the allowance anyway.
+
+Everything lives instead in the two places the Free plan gives you without a meter: the task description and task comments.
+
+Four other Free plan limits shape this setup:
+
+Five Spaces per workspace. If the workspace already holds five Spaces and none of them is Sales, do not try to create a sixth. Put the Folder in whichever existing Space the team uses for sales work, record the Space you used in the setup report, and note it as a deviation, since the master brief names Sales and will need telling. Forty Lists per Space and a hundred Folders per Space are the other structural caps, and this system needs one of each, so neither will bite.
+
+A hundred API requests per minute. A run that reads and rewrites task descriptions in a loop can reach that, and the symptom is a request failing rather than a clear message. Work steadily, one task at a time, and if a call fails on rate limiting, wait and repeat it rather than treating it as a blocked step.
+
+Plain comments are free and unlimited, which is what this system posts. Assigned comments, meaning a comment assigned to a person as an action item, are not on the Free plan. Never assign a comment, on any task, at any point.
+
+Automations are capped at five rules and a hundred executions. This system uses none, so build none.
+
+Company Name is the ClickUp task name. There is no Company Name key, because a company's name has one home and that is the title of its task.
+
+Everything else lives in a fenced block at the very top of the task description, called the audit record. The two marker lines are part of it. An empty record, which is what a new task starts with, reads exactly like this:
+
+[BDE AUDIT RECORD v1]
+Research Status:
+Review Cycle:
+Last Audit Date:
+Re-Audit Required:
+Website URL:
+Company Domain:
+Prospect Source:
+Contact Name:
+Contact Email:
+Contact Role:
+Contact Source:
+BDE Notes:
+Website Findings:
+Search Visibility Findings:
+PageSpeed Findings:
+Evidence / Sources:
+Competitors Reviewed:
+Primary Opportunity:
+Recommended Service:
+Opportunity Score:
+Priority:
+Decision Maker:
+Outreach Status:
+Last Outreach Date:
+Next Action:
+Next Action Date:
+[END BDE AUDIT RECORD]
+
+Twenty six keys, and the rules that govern them:
+
+All twenty six are present on every task, in that order, always, including the ones holding nothing. A key with nothing after its colon is empty, and empty is a normal state that the master workflow reads and writes. A key that is absent altogether is a broken record, and the master workflow treats that task as Needs Review and names the missing key rather than guessing at it. This is the one thing that replaces the old field manager check, so get it right at seed time.
+
+Five keys hold lists rather than a single value: Website Findings, Search Visibility Findings, PageSpeed Findings, Evidence / Sources and Competitors Reviewed. Their key line stops at the colon, and each item sits on its own line underneath, opening with a hyphen and a space. The item belongs to the nearest key line above it. Every other key holds a single line of text after its colon.
+
+The two marker lines are written character for character as shown, including the square brackets. Anything in the description above the opening marker or below the closing marker belongs to whoever typed it, and is preserved exactly.
+
+To change a record, read the whole description first, alter only the key lines you were told to alter, and write the description back with every other character identical. Never rebuild a record from memory, and never write a description that drops a key you did not have a value for. Rebuilding from memory is how BDE Notes gets lost.
+
+BDE Notes sits inside the block like any other key, and the master workflow reads it and never rewrites it. Prospect Source is the same.
+
+The allowed values for each key live on the Record Schema tab of the Google Sheet, described below. That tab is what a ClickUp dropdown used to be: the list of values the master workflow is permitted to write. Nothing in ClickUp enforces it now, so the tab is what stands between the system and a made up status, which is why it gets built before any task is seeded and why this setup run is not complete until it exists and can be read back off the screen. The master brief carries a fallback copy of these values so a master run never stops over a missing tab, but that fallback is a safety net for that run and not a substitute for building the tab here, and a sheet finished with six tabs is a failed setup.
+
+Plain text only inside the block. No bold, no headings, no tables, no links wrapped in markup. ClickUp will render the item lines as bullets and that is fine, since the text and its order survive; anything fancier does not.
+
+
+BUILDING THE RECORD ON A TASK
+
+The ClickUp MCP integration can write a task description, which means the audit record needs no browser work and none of the field manager trouble the earlier version of this setup ran into. Write the block as part of creating the task, or as an update to a task that already exists.
+
+On a task that already exists and has no block, add one, filling the keys from whatever that task already holds and leaving the rest empty. On a task that already has a block, leave it alone unless a value is wrong.
+
+After writing any description, read the task back and confirm the block came through with all twenty six keys and both markers. A description write that silently truncated or reformatted is the failure mode here, and reading it back is the only way to see it.
+
+
+GOOGLE DRIVE SETUP
+
+In Google Drive, create or verify this folder.
+
+BDE Digital Prospecting
+
+Inside it, create or verify:
+
+01 Prospect Research
+02 Audit References
+03 Outreach References
+04 Workflow Rules
+
+Do not duplicate folders that already exist.
+
+
+GOOGLE SHEET SETUP
+
+Inside Google Drive, BDE Digital Prospecting, 04 Workflow Rules, create a Google Sheet named:
+
+BDE Service & Qualification Rules
+
+Create these tabs, named exactly like this, since the master workflow opens them by name:
+
+Record Schema
+Approved Services
+Opportunity Scoring
+Outreach Rules
+Prospecting Rules
+Competitor Rules
+Audit Criteria
+
+Seven tabs. Record Schema is the newest and the one an older sheet will be missing, so check for it by name rather than assuming a sheet that exists is a sheet that is current.
+
+Verify the tab list by reading it, not by trusting the call that created it. Open the workbook in the Chrome browser plugin, read the tab strip along the bottom and the All Sheets menu including any hidden sheet, count the tabs, and write the seven names you actually saw into the setup report. A workbook showing six tabs is the known failure of this setup and it is fixed here rather than reported as a limitation: create the tab that is missing, name it exactly, fill it from the section below, and read the list again. Where the Sheets connection cannot add or rename a tab, or reports a tool it does not recognise, or claims a tab exists that the screen does not show, add it by hand in Chrome and note in the report that you did. Do not finish this run with a tab absent, and do not treat a connector's account of the tab list as final when the browser can show the workbook itself.
+
+If this sheet already exists from an earlier setup run, do not build a second one. Open it and bring every tab into line with the rows set out below, adding tabs that are missing, adding rows that are missing and correcting rows whose wording differs from the wording here. A sheet left over from an earlier version of this setup is the most likely reason a master run misreads the queue or finds no Record Schema tab, so treat the tab contents below as the current version and the sheet as the thing to be updated.
+
+
+RECORD SCHEMA TAB
+
+This tab does the job ClickUp dropdowns used to do. Nothing in ClickUp validates the audit record now, so this is the list of values the master workflow is allowed to write, and it gets built before a single task is seeded. Build it first, before the other six tabs and before any task, and read it back off the screen once it is filled. If the workbook already exists and this tab is not in it, adding it is the single most important thing this run does, whatever else is already in place.
+
+Columns: Key, Type, Allowed Values or Format, Written By
+
+One row per key, twenty six rows, in the order the keys appear in the record block. Fill Type and Allowed Values or Format like this.
+
+The five choice keys, where the master workflow may write a listed value and nothing else:
+
+Research Status. Choice. Pending, In Progress, Completed, Needs Information, Needs Review, Hold. Master workflow.
+Outreach Status. Choice. Not Started, Draft Ready, Existing Draft, Draft Deferred, Sent, Hold, Not Appropriate, Needs Review. Master workflow.
+Re-Audit Required. Choice. Yes, No. BDE, and the master workflow only to set Yes back to No after a re-audit.
+Recommended Service. Choice. Website Development, Mobile App Development, Custom Software Development, AI / Automation, UI / UX Design, Dedicated Developers / Staff Augmentation, None. Master workflow.
+Priority. Choice. High, Medium, Low, Hold. Master workflow.
+
+The number key:
+
+Opportunity Score. Number. A whole number from 0 to 10, or empty. Never text, and an unavailable score is recorded by leaving it empty and setting Research Status to Needs Review. Master workflow.
+
+The date keys:
+
+Last Audit Date. Date. YYYY-MM-DD in Asia/Kolkata, or empty. Master workflow.
+Last Outreach Date. Date. YYYY-MM-DD in Asia/Kolkata, or empty. BDE.
+Next Action Date. Date. YYYY-MM-DD in Asia/Kolkata, or empty. Master workflow.
+Review Cycle. Text. YYYY-MM in Asia/Kolkata, or empty. Master workflow.
+
+The five list keys, whose key line stops at the colon and whose items each sit on their own line opening with a hyphen and a space:
+
+Website Findings. List. Three to six items, each one sentence plus its source URL. Master workflow.
+Search Visibility Findings. List. One item per query, three items. Master workflow.
+PageSpeed Findings. List. Scores, field data, top diagnostics, report URL. Master workflow.
+Evidence / Sources. List. One item per evidence item, each carrying a full URL. Master workflow.
+Competitors Reviewed. List. One item per competitor, up to three. Master workflow.
+
+The single line text keys:
+
+Website URL. Text. A full URL including https, or empty. BDE, read only for the master workflow.
+Company Domain. Text. The bare domain taken from Website URL, or empty. Master workflow.
+Prospect Source. Text. Free text. BDE, never written by the master workflow.
+Contact Name. Text. Free text, or empty. BDE. The master workflow reads it for the Gmail outreach search and does not write it.
+Contact Email. Text. One address, or empty. BDE, read only for the master workflow.
+Contact Role. Text. Free text or Not Verified. Master workflow.
+Contact Source. Text. The URL the contact was read on, or Not Verified. Master workflow.
+BDE Notes. Text. Free text typed by a human. BDE only, never written or altered by the master workflow.
+Primary Opportunity. Text. One sentence, or the words No Clear Current Opportunity. Master workflow.
+Decision Maker. Text. A verified person, or a role plus the words Individual Not Verified. Master workflow.
+Next Action. Text. One sentence opening with the word BDE. Master workflow.
+
+Add three rule rows at the bottom of the tab:
+
+Missing Key. A record missing any of the twenty six keys is broken. The master workflow sets Research Status to Needs Review, names the missing key on the Rule Conflicts line, and does not invent the key or rebuild the record.
+Unlisted Value. Where the value the research produced is not on this tab, the master workflow leaves that key unchanged and records the intended value on the Rule Conflicts line.
+Empty Is Valid. An empty key means empty. It is not missing, it is not an error, and it is not a reason to skip a task.
+
+
+APPROVED SERVICES TAB
+
+Columns: Service Name, What It Covers, Typical Prospect Signal, Active
+
+Rows:
+
+Website Development
+New websites, website redevelopment, frontend and backend website work
+Evidence of significant website limitations or a business requirement for a new or rebuilt website
+Yes
+
+Mobile App Development
+Native and cross-platform mobile applications
+Verified business need for a mobile customer or operational experience
+Yes
+
+Custom Software Development
+Custom business systems, SaaS products, portals and applications
+Verified need for custom workflow, platform, integration or digital product development
+Yes
+
+AI / Automation
+AI-enabled applications, automation and workflow solutions
+Verified manual process, automation requirement or AI product opportunity
+Yes
+
+UI / UX Design
+User research, interface design and usability improvement
+Observable usability or conversion problems, or a verified redesign requirement
+Yes
+
+Dedicated Developers / Staff Augmentation
+Dedicated engineering resources and development teams
+Evidence of engineering hiring, capacity requirement or an explicitly stated resource need
+Yes
+
+Service names here must match the Recommended Service values on the Record Schema tab exactly, since that tab is what the master workflow checks against before writing the key. Do not add services the business has not approved.
+
+
+OPPORTUNITY SCORING TAB
+
+Columns: Criterion, Maximum Points, Scoring Guidance
+
+Rows:
+
+Evidence of Relevant Need
+4
+0 = no meaningful evidence, 1 = weak signal, 2 = moderate evidence, 3 = strong evidence, 4 = multiple strong verified signals
+
+Fit With Approved Service
+3
+0 = no fit, 1 = weak fit, 2 = reasonable fit, 3 = direct fit with an approved core service
+
+Competitive / Digital Gap
+2
+0 = no meaningful gap, 1 = some observable difference, 2 = clear evidence-backed opportunity compared with relevant competitors
+
+Contactability / Timing
+1
+0 = outreach should currently be held or there is no usable contact path, 1 = an appropriate contact path exists and no hold applies
+
+Add the priority thresholds below the criteria, with a total of 10 possible points:
+
+8 to 10 = High
+5 to 7 = Medium
+3 to 4 = Low
+0 to 2 = Hold
+
+Also add a rule row stating that when required scoring information is unavailable, the result is recorded as Needs Review rather than an invented score.
+
+These are live workflow rules. They must not be changed during a prospect research run.
+
+
+OUTREACH RULES TAB
+
+Columns: Rule, Value, Notes
+
+Rows:
+
+Cold Outreach Hold Period
+90 days
+Do not create another cold outreach draft if equivalent outreach went out in the previous 90 days, unless a new and verified opportunity signal has appeared. For a run dated 2026-08-31 this puts the cutoff at 2026-06-02, so mail sent on or after that date holds the prospect.
+
+Drafts Per Run
+2
+A run creates at most 2 Gmail drafts even when 3 prospects qualify. The 2 highest Opportunity Scores take the slots, ties broken by the count of evidence items carrying source URLs, remaining ties broken by Company Name A to Z. The prospect that misses out is set to Draft Deferred with a Next Action Date and a written reason.
+
+Draft Only
+Yes
+The workflow creates Gmail drafts only. It must never send an email automatically.
+
+Duplicate Draft Check
+Required
+Search existing Gmail drafts and relevant conversations before creating another draft.
+
+Outreach Mailbox
+The connected Gmail account
+Write the actual Gmail address this workspace is authorised for into the Value column, replacing this line. Where the master brief names a placeholder such as [your.name@yourcompany.com], the address recorded here is the mailbox whose Drafts folder the master run writes to, and the placeholder is not treated as a missing connection.
+
+Manual Notes Protection
+Required
+Never overwrite BDE Notes entered by a human.
+
+Future Contact Request
+Respect
+If a prospect asked to be contacted on a specific future date (time zone: Asia/Kolkata), do not contact them before that date.
+
+Previously Declined
+Hold
+If a prospect declined earlier and no meaningful new evidence justifies re-engagement, do not create another cold email.
+
+Existing Customer
+Hold
+Do not treat an existing customer as a new cold prospect.
+
+Outcome Guarantees
+Prohibited
+Outreach must never guarantee rankings, traffic, revenue, leads, conversions or any other business outcome.
+
+
+PROSPECTING RULES TAB
+
+Columns: Rule, Value
+
+Rows:
+
+Prospects Per Run
+3
+
+Queue Order
+Last Audit Date ascending, an empty Last Audit Date counts as older than any filled one, ties broken by ClickUp task creation date ascending, remaining ties broken by Company Name A to Z. Read the creation timestamp from the ClickUp API at full precision, not from the minute shown in the interface, because tasks seeded in one batch share the same displayed minute.
+
+Eligibility
+Research Status is Pending and Review Cycle does not already hold the current review cycle. Nothing else filters the queue. Website URL is not an eligibility test, an empty one is handled by the Missing Website URL rule below and the task still counts toward the 3 selected. ClickUp task creation timestamp is not an eligibility test either, see Task Creation Timestamp below.
+
+Run Date
+A fixed scenario date supplied by the master brief, 2026-08-31 in Asia/Kolkata for the first cycle. It sets the values written into Last Audit Date and Review Cycle, and it is never compared against a ClickUp task creation timestamp.
+
+Task Creation Timestamp
+Set by ClickUp itself and impossible to backdate, so seeded and newly added tasks routinely carry a timestamp later than the run date. A task is never excluded, deferred, skipped or called ineligible because its creation timestamp falls after the run date. The timestamp is used only as the second tie breaker in Queue Order.
+
+Snapshot Reading
+Reading the tasks as they stand on the run date means reading the current state of the list at the moment the master workflow opens it. It does not mean only the tasks that already existed on that calendar date.
+
+Zero Eligible Result
+Valid only when every task in the list genuinely fails the Eligibility rule above on Research Status or Review Cycle. A run reporting zero eligible prospects for any date related reason has misread the queue and must be re-run against the Eligibility, Task Creation Timestamp and Snapshot Reading rules on this tab.
+
+Review Cycle Format
+Monthly, recorded as YYYY-MM (time zone: Asia/Kolkata), for example 2026-08
+
+Prospect Type
+B2B companies that could reasonably need software development, website development, mobile development, custom software, AI or automation, UI and UX, or dedicated engineering resources
+
+Allowed Sources
+Google Search, company websites, public company pages, public press and news pages, public company registries
+
+Excluded Sources
+Any site requiring a login, including LinkedIn, Apollo, Upwork and Freelancer
+
+Excluded
+Existing customers, obvious competitors to our own IT services business, companies without a verifiable website, duplicate companies, companies with insufficient public evidence
+
+Minimum Evidence
+At least 3 recorded evidence items each carrying a source URL, drawn from at least 2 of the 4 inputs, being the website audit, the PageSpeed run, the search observations and the competitor comparison
+
+Minimum Website Findings
+3 separate observable findings per prospect, each with its own source URL
+
+Non-Branded Queries Per Prospect
+Exactly 3
+
+Organic Results Reviewed
+Top 20, ads and sponsored placements ignored
+
+Brand Search Alone
+Not sufficient
+
+Missing Website URL
+Set Research Status to Needs Information, comment on the task, move on, and never guess the website
+
+No Forced Opportunity
+Yes
+
+A company is not qualified simply because it has a website.
+
+
+COMPETITOR RULES TAB
+
+Columns: Rule, Value
+
+Rows:
+
+Maximum Competitors
+3
+
+Comparison Requirements
+Four points, being similar product or service, similar buyer type, similar geographic market where geography changes the result, and similar business category. Record the match on each of the four points.
+
+Selection Tie Breakers
+Where more than 3 competitors qualify, keep the 3 matching on the most points, break a tie on closeness of geographic market, break a remaining tie on which competitor appeared in more of the 3 reviewed queries. Where fewer than 3 qualify, name the ones that do and write the shortfall with its reason.
+
+Do Not
+Automatically use the first three Google results as competitors
+
+Comparison Style
+Like-for-like observable evidence only
+
+Traffic Claims
+Never claim private traffic or analytics data that is not publicly available
+
+Record For Each Competitor
+Company name, website, and the reason it is considered comparable
+
+
+AUDIT CRITERIA TAB
+
+Columns: Area, Observable Signal, Use in Audit
+
+Rows:
+
+Website, Broken public pages or links, Yes
+Website, Major navigation or usability problems, Yes
+Website, Missing or unclear primary call to action, Yes
+Website, Important product or service information that is difficult to locate, Yes
+Website, Broken contact or conversion path, Yes
+Website, Mobile usability issue observed during review, Yes
+Website, Important service pages that appear to be missing, Yes
+Website, Repetitive or very limited service content, Yes
+Performance, Google PageSpeed mobile Performance score, Yes
+Performance, Google PageSpeed Accessibility score, Yes
+Performance, Google PageSpeed Best Practices score, Yes
+Performance, Google PageSpeed SEO score, Yes
+Performance, Core Web Vitals or field data where available, Yes
+Search Visibility, Position for defined non-branded commercial searches, Yes
+Search Visibility, Not found within the first 20 organic results, Yes
+Competitor, Competitor repeatedly appears for the same relevant searches, Yes
+Competitor, Competitor has materially stronger relevant service or content coverage, Yes
+
+Add two convention rows so the master workflow records gaps consistently:
+
+Convention, Unverifiable information is recorded as "Not Verified", Yes
+Convention, An unavailable metric is recorded as "Unavailable" and never estimated, Yes
+Convention, Mobile review width is 390 pixels, Yes
+Convention, A finding names the observable evidence and its source URL, never a summary judgment, Yes
+
+Never summarize any of this as "bad website" or "bad SEO". Store the observable evidence and the source URL behind it.
+
+
+SAMPLE DATA SEEDING
+
+Create seven prospect tasks in the List "Digital Audit Prospects". These are the only records this setup run is allowed to create, and they exist so the master workflow has a real queue that exercises its selection, exception and tie breaking rules.
+
+Check the List first. If a set of seed tasks is already there from an earlier setup run, create nothing. Check each one against the seeding table below, correct any field that does not match, leave the creation timestamps and the BDE Notes line on SEED-B untouched, and record in the setup report that the existing seeds were reused rather than recreated. Seven seed tasks is the ceiling for this List, not seven per run. If a partial set is there, fill in only the missing letters.
+
+Find the companies yourself using Google Search, or through the Chrome browser plugin if the search integration is unavailable or unclear. Never invent a company, and never seed one you could not open in a browser. Each seeded company has to clear all of these: a real business with a live public website that loads without a login, a commercial B2B or business facing website, not an IT services, software development or digital agency business, since the Prospecting Rules tab excludes our own competitors, and not an existing customer of ours.
+
+Vary the searches so the seven do not all come off one page of results. Searches along these lines work: manufacturing companies Ahmedabad, logistics companies Gujarat, industrial equipment suppliers India, diagnostic labs Ahmedabad, education institutes Gujarat, B2B distributors India. Record the exact query you ran and the URL you found the company on.
+
+Each seeded task gets the company name as its task name, and a full audit record block as its description, carrying all twenty six keys in order whether or not the seed fills them.
+
+Fill only these keys on a seeded task: Website URL, Company Domain, Contact Email where the table below gives one, BDE Notes where the table below gives one, Prospect Source written as the seed label plus the exact query plus the actual calendar date you ran that search, Research Status, Outreach Status, Re-Audit Required, Last Audit Date, Last Outreach Date and Review Cycle. That is eleven keys.
+
+Leave the other fifteen present and empty: Contact Name, Contact Role, Contact Source, Website Findings, Search Visibility Findings, PageSpeed Findings, Evidence / Sources, Competitors Reviewed, Primary Opportunity, Recommended Service, Opportunity Score, Priority, Decision Maker, Next Action and Next Action Date. Present and empty is the whole point. The master workflow writes them, and seeding them would mask whether it ran, while dropping them from the block would make the record broken rather than empty.
+
+Copy no real person's name and no real email address into this system. The contact addresses below are fictional placeholder domains and are the only contact values allowed in the seed. Everything else about the seeded companies is public company information.
+
+Create the tasks in the order A to G, one at a time and in that sequence, since the queue tie breaker reads ClickUp task creation date and the order decides which prospects the first master run picks up. Let ClickUp assign the creation timestamps and leave them alone. They will carry the real date of this setup run rather than the 2026-08-31 scenario date, which is expected, is not a fault, and never makes a seeded task ineligible. Record the actual creation date of the seven tasks in the setup report so whoever grades the master run can see it was later than the scenario date on purpose.
+
+SEED-A. A company you found by search. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email contact@example.com. BDE Notes empty.
+
+SEED-B. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email hello@example.net. BDE Notes filled with exactly this line and nothing more: Met the owner at a trade expo, keep the first email short. Do not change this line.
+
+SEED-C. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email empty. BDE Notes empty.
+
+SEED-D. Task name filled in from a search result, Website URL deliberately left empty, Company Domain empty. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date empty. Last Outreach Date empty. Review Cycle empty. Contact Email empty. BDE Notes empty.
+
+SEED-E. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required No. Last Audit Date 2026-06-20. Last Outreach Date 2026-07-10. Review Cycle 2026-06. Contact Email contact@example.org. BDE Notes empty.
+
+SEED-F. A different company. Research Status Pending. Outreach Status Not Started. Re-Audit Required Yes. Last Audit Date 2026-07-15. Last Outreach Date empty. Review Cycle 2026-07. Contact Email contact@example.com. BDE Notes empty. Post one comment on this task titled DIGITAL AUDIT SUMMARY whose body reads: Seed record for cycle 2026-07, not a real audit.
+
+SEED-G. A different company. Research Status Completed. Outreach Status Not Started. Re-Audit Required No. Last Audit Date 2026-08-05. Last Outreach Date empty. Review Cycle 2026-08. Contact Email empty. BDE Notes empty. Post one comment on this task titled DIGITAL AUDIT SUMMARY whose body reads: Seed record for cycle 2026-08, not a real audit.
+
+
+EXPECTED BEHAVIOUR OF THE MASTER WORKFLOW AGAINST THIS SEED
+
+Write this section into the setup report so whoever grades the master run knows what a correct result looks like.
+
+Before any of it, the creation timestamp rule. All seven seeds carry a ClickUp creation timestamp later than the 2026-08-31 scenario date, because ClickUp stamps that itself at seed time and it cannot be backdated. Every run below selects its prospects as though that were not the case, since creation timestamp is only ever the second tie breaker in queue order. A master run that returns zero eligible prospects on the grounds that the tasks did not exist on 2026-08-31 is a failed run, not a clean one, and the Prospecting Rules tab rows Eligibility, Run Date, Task Creation Timestamp, Snapshot Reading and Zero Eligible Result are what it should have read.
+
+A first master run dated 2026-08-31 should select SEED-A, SEED-B and SEED-C, because all three carry an empty Last Audit Date and the creation order breaks the tie. It should audit all three, and because the run allows only 2 drafts, one of the three has to end on Draft Deferred with a written reason naming the two that took the slots. It must leave the BDE Notes line on SEED-B untouched. SEED-C has no Contact Email, so its draft, if it wins a slot, carries an empty To field and an opening body line reading RECIPIENT NOT VERIFIED. SEED-G must never be selected, since its Review Cycle already holds 2026-08.
+
+A second master run dated 2026-08-31 should select SEED-D, SEED-E and SEED-F, because the first run set Review Cycle 2026-08 on A, B and C. SEED-D has no Website URL, so it ends on Needs Information with a comment and no research. SEED-E was contacted on 2026-07-10, inside the 90 day hold, so it ends on Hold with that date recorded. SEED-F carries a prior cycle audit comment and Re-Audit Required Yes, so a fresh audit is correct there.
+
+A third master run should select nothing and change nothing.
+
+VERIFY SETUP
+
+Once everything is created or verified, go back and confirm all of the following, using the Chrome plugin to look at the actual screens where an integration cannot confirm it:
+
+The ClickUp Space, Folder, and List exist.
+No custom field was created, and any custom fields left over from an earlier setup attempt are named in the report as present and unused.
+No comment was assigned to a person, since assigned comments are not on the Free plan.
+No automation was created, since this system uses none.
+The Space the Folder actually sits in is named in the report, and where the five Space cap forced something other than Sales, that deviation is called out so the master brief can be told.
+Every one of the seven seeded tasks carries an audit record block in its description, with both marker lines and all twenty six keys in order, read back off the task after writing rather than assumed from the write call.
+The report carries that as a count per task, written as 26 of 26 keys, and names any key missing from any task.
+The Record Schema tab lists all twenty six keys with their types and allowed values, and the five choice keys carry their full value lists, with Outreach Status including Draft Deferred and Recommended Service including None.
+Recommended Service values on the Record Schema tab match the Approved Services tab exactly.
+Priority values match the scoring thresholds, High, Medium, Low, Hold.
+All three date keys are documented as YYYY-MM-DD in Asia/Kolkata, and Review Cycle as YYYY-MM.
+The Google Drive folder structure exists.
+The Google Sheet "BDE Service & Qualification Rules" exists in 04 Workflow Rules.
+All seven tabs exist with the exact names, Record Schema among them, confirmed by reading the tab strip and the All Sheets list on screen in Chrome rather than from the call that created them, with the seven names you saw written into the report. Where that reading turns up six, create the missing tab now, fill it, and read the list again before finishing.
+The Record Schema tab holds twenty six key rows, one per key in record order, and the report says 26 of 26 rather than that the tab exists.
+Approved Services holds the six service categories.
+Opportunity Scoring holds the criteria, the 10 point total, and the thresholds.
+Outreach Rules holds the 90 day hold period, the 2 draft cap, the draft-only rule, duplicate checks, and the Outreach Mailbox row carrying the real Gmail address rather than a placeholder.
+Prospecting Rules allows 3 prospects per master run and 2 drafts per run, matching the master workflow.
+Prospecting Rules carries the Eligibility, Run Date, Task Creation Timestamp, Snapshot Reading and Zero Eligible Result rows, and the Eligibility row does not require Website URL to be present.
+The seven seeded tasks are eligible when read against that Eligibility row, and the ClickUp creation timestamps they actually carry are written into the setup report.
+Competitor Rules exists.
+Audit Criteria exists.
+The seven seed tasks exist in creation order A to G with the key values listed in the seeding section.
+No seeded task carries a real person's name or a real email address.
+Google PageSpeed Insights and Google Search are both reachable from this environment.
+
+Confirm the seven seeded tasks exist, that SEED-D has no Website URL, that SEED-B carries its BDE Notes line, and that SEED-F and SEED-G each carry their seed comment. Create no prospect record beyond those seven.
+
+Then open each of the seven tasks and read its description back. Count the keys, confirm both markers survived, and confirm the eleven seeded keys hold what the seeding table says they should, in particular Website URL, Company Domain, Contact Email, Prospect Source, Research Status, Outreach Status, Re-Audit Required, Last Audit Date, Last Outreach Date and Review Cycle, with SEED-E, SEED-F and SEED-G carrying their dates and cycles. Confirm the other fifteen keys are present and empty rather than absent, since that difference is what the master workflow reads to tell an empty record from a broken one.
+
+Do this by reading the description, not by trusting the write. The ClickUp editor can reformat a description on save, and a block that came back with its markers stripped or its keys collapsed onto one line is a broken record that no error was raised about. Where a block did not survive, write it again and read it back again. Any task seeded by an earlier setup attempt will have no block at all, and giving it one is part of this run.
+
+Finish with a short SETUP REPORT covering what you created, the seven seeded companies with the search query behind each one, what already existed and was reused, what is still missing, what was blocked by permissions or a missing connection, what you had to do through the Chrome plugin rather than an integration, and anything that needs a human to confirm.
+
+If any required piece could not be created, say so plainly instead of calling the setup complete, naming the piece, the error the integration returned and the error the Chrome attempt returned. A setup that leaves the Record Schema tab out of the workbook is not complete, whatever else it built.

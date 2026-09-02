@@ -1,0 +1,81 @@
+Open Google Drive and start from the company's central tender management folder. The expected folder should be named `Tender Management`, with the current year stored underneath it. For example, open `Tender Management/2026`. Inside that folder, look for the main tender tracking spreadsheet named `Tender Tracker 2026`. If the company uses a different name, search for the actual tender tracker instead of assuming this exact filename.
+
+Open the Google Sheet named `Tender Tracker 2026` and inspect the actual workbook tabs. The expected tab for this workflow is `Pending Tenders`. Other tabs may include `Active Tenders`, `Submitted Tenders`, `Won Tenders`, `Lost Tenders`, or `Tender Archive`. Use the actual tabs available in the workbook and do not create or assume tabs that do not exist.
+
+In the `Pending Tenders` sheet, find the tender that needs to be analyzed. Read the actual row and use the information available in columns such as `Tender Name`, `Buyer Name`, `Tender Reference`, `Status`, `Submission Deadline`, `Contract Start Date`, `Contract Duration`, `Bid Owner`, `Priority`, `Drive Folder`, and `Portal URL`. If the user has already provided a specific tender name, use that tender instead of selecting another one. If multiple tenders are marked as pending and the user has not specified which one to analyze, do not randomly select one. Identify the pending tenders and ask for the correct tender.
+
+The tender row should contain a link to the relevant Google Drive folder whenever possible. Follow that exact folder link. The expected folder naming convention is `Tenders/<Year>/<Buyer Name>/<Tender Reference> - <Short Tender Name>`. For example, the folder may be named `Tenders/2026/ABC Government Health Department/ABC-HMS-2026-001 - Hospital Management System`. If the company uses a different structure, follow the actual structure found in Google Drive.
+
+Once the tender folder is open, verify that it belongs to the selected tender by matching the buyer name, tender reference, project name, or other identifying information. Do not open a similarly named tender folder unless you can confirm that it belongs to the correct tender.
+
+Inside the tender folder, expect the documents to follow a clear naming convention such as `01_RFP_Main_Document.pdf`, `02_Eligibility_Criteria.pdf`, `03_Technical_Requirements.pdf`, `04_Commercial_Requirements.pdf`, `05_SLA_Requirements.pdf`, `06_Annexure_A_Company_Profile.pdf`, `07_Annexure_B_Technical_Compliance.xlsx`, `08_Pricing_Schedule.xlsx`, `09_Addendum_01.pdf`, `10_Corrigendum_01.pdf`, and `11_Clarification_Responses.pdf`. These are examples of the naming convention only. Use the actual filenames found in the tender folder and do not assume these exact files exist.
+
+If the tender folder contains a Google Sheet or Excel workbook, open the actual workbook and inspect its real sheet tabs. A compliance workbook may follow a naming convention such as `ABC-HMS-2026-001_Compliance_Matrix.xlsx`, with tabs such as `Mandatory Requirements`, `Technical Compliance`, `Eligibility`, and `Commercial Compliance`. A pricing workbook may follow a convention such as `ABC-HMS-2026-001_Pricing_Schedule.xlsx`, with tabs such as `Price Schedule` and `Commercial Summary`. Use the actual workbook and actual tab names found in the files.
+
+After reviewing the complete tender pack in Google Drive, open the tender portal using the `Portal URL` stored in the `Tender Tracker 2026` sheet. If the portal URL is not available, use the buyer name and tender reference to locate the official tender portal through Web Search. Use Chrome or Computer Use when the portal requires browser interaction.
+
+Check the live portal for the latest published version of the tender. Look for notices, addenda, corrigenda, amendments, revised documents, clarification notices, clarification responses, deadline changes, technical changes, eligibility changes, and submission instructions. Pay special attention to information published after the original RFP.
+
+For example, if `01_RFP_Main_Document.pdf` states a submission deadline of 20 September 2026 but the portal contains `Corrigendum 02` changing the deadline to 25 September 2026, treat 25 September 2026 as the authoritative deadline. If another later corrigendum changes the deadline again, use the latest official deadline.
+
+Create the effective requirement set from the complete document pack and the live portal information. For each important requirement, identify the actual requirement, whether it is mandatory, the source filename, the relevant document version, any addendum or corrigendum that changed it, the current compliance status, the company evidence, the risk, and the required action.
+
+Use the actual filename when recording evidence. For example, record `03_Technical_Requirements.pdf`, not simply "technical document". If the requirement came from a Google Sheet, record the actual workbook name and sheet tab. For example, record `ABC-HMS-2026-001_Compliance_Matrix.xlsx → Mandatory Requirements`.
+
+After establishing the effective requirements, open Notion and locate the company's bid and capability information. The expected Notion structure should follow a naming convention such as `Company Knowledge Base → Certifications`, `Company Knowledge Base → Project Experience`, `Company Knowledge Base → Client References`, `Company Knowledge Base → Technical Capabilities`, and `Bid Management → Historical Bid Outcomes`. Use the actual workspace structure if it differs.
+
+When checking certifications, use the actual certification records. For example, if the Notion page `Company Knowledge Base → Certifications` contains `ISO 27001`, verify its certificate number, validity period, scope, and any renewal information that is relevant to the tender.
+
+When checking experience, use actual records from pages such as `Company Knowledge Base → Project Experience` and `Company Knowledge Base → Client References`. Match the tender's required project type, customer type, project size, technology, contract value, and experience period against the actual company evidence.
+
+Always check certification, licensing, insurance, staffing, compliance, and other continuing requirements across the complete contract period when the tender requires them to remain valid. If the contract runs from October 2026 through September 2029 and the company's ISO certification expires in December 2028, record that the current certification does not cover the full contract period. Then determine whether renewal before the required period is realistically possible.
+
+Open ClickUp and locate the company's tender and delivery management workspace. The expected naming convention is `Bid Management` as the ClickUp Space, with Lists such as `Tender Pipeline`, `Active Bids`, `Bid Compliance`, and `Bid Production`. Use the actual Space and List names if the workspace uses different names.
+
+For the selected tender, search ClickUp using the tender reference and short tender name. For example, search for `ABC-HMS-2026-001` rather than only searching for "hospital tender". Review current delivery commitments, assigned resources, upcoming project completion dates, bench availability, and team capacity.
+
+If the tender requires twenty developers, five QA engineers, two DevOps engineers, and one project manager, compare those requirements against the actual ClickUp resource information. Do not only check today's availability. Check whether the required team can realistically be available from the stated project start date and whether existing commitments affect the company's ability to deliver the full contract.
+
+Create ClickUp compliance tasks using a consistent naming convention such as `[ABC-HMS-2026-001] Verify Mandatory Turnover Requirement`, `[ABC-HMS-2026-001] Verify ISO 27001 Certification`, `[ABC-HMS-2026-001] Confirm Project Reference Evidence`, `[ABC-HMS-2026-001] Confirm Delivery Team Availability`, and `[ABC-HMS-2026-001] Confirm 24x7 Support Requirement`. Use the actual tender reference in every task title whenever the reference is available.
+
+Create bid production tasks using the same naming convention. Examples include `[ABC-HMS-2026-001] Complete Technical Proposal`, `[ABC-HMS-2026-001] Complete Commercial Proposal`, `[ABC-HMS-2026-001] Complete Legal Review`, `[ABC-HMS-2026-001] Complete Final Compliance Review`, `[ABC-HMS-2026-001] Obtain Management Approval`, and `[ABC-HMS-2026-001] Final Tender Submission`.
+
+Separate fatal issues from curable issues. A mandatory eligibility requirement that the company cannot satisfy should be treated as fatal. A missing document that can be obtained before submission may be curable. A staffing shortage that can be resolved before the project start date may be curable. Do not classify an issue as curable without evidence that it can realistically be resolved.
+
+Use `Cannot Determine` when the available documents, portal information, or company evidence are not enough to establish compliance. Do not assume that an unclear requirement means the company qualifies. Do not assume that it means the company fails either. Explain exactly what information is missing.
+
+Open the Notion area used for historical bid decisions. The expected naming convention is `Bid Management → Historical Bid Outcomes`. Search for previous bids involving the same buyer, similar buyers, similar contract values, similar project types, and similar requirements. Use this information as business context and not as the sole reason for a Bid or No Bid decision.
+
+Review clarification opportunities carefully. If the buyer has limited clarification questions, only recommend questions that could materially affect eligibility, compliance, pricing, technical scope, staffing, contract risk, or the final bid decision. If the answer would not materially change the bid, do not waste a clarification question on it.
+
+If a clarification question is required, create a ClickUp task using the naming convention `[ABC-HMS-2026-001] Prepare Clarification Question - 24x7 Support SLA`. Include the exact requirement and the reason the clarification matters.
+
+Once the full analysis is complete, make exactly one decision: `Bid`, `Conditional Bid`, or `No Bid`.
+
+Use `Bid` when the company meets the important mandatory requirements, has realistic delivery capacity, and there are no unresolved issues that create unacceptable risk.
+
+Use `Conditional Bid` when the company is generally eligible but important issues need to be resolved before the bid can safely proceed. These may include certification renewal, staffing confirmation, missing evidence, clarification responses, or other realistic and curable issues.
+
+Use `No Bid` when there is a fatal requirement that the company cannot realistically satisfy. Clearly explain the requirement, the evidence showing the failure, and why it cannot be corrected.
+
+After making the decision, create or update the tender decision record in Notion. The expected naming convention is `Bid Management → Tender Decisions → <Tender Reference> - <Short Tender Name>`. For example, `Bid Management → Tender Decisions → ABC-HMS-2026-001 - Hospital Management System`.
+
+The Notion decision record should contain the tender name, buyer name, tender reference, original deadline, authoritative deadline, contract start date, contract end date, effective RFP version, relevant addenda and corrigenda, mandatory requirements, compliance status, fatal issues, curable issues, Cannot Determine items, clarification questions, final decision, decision reasoning, evidence reviewed, ClickUp task references, and calendar milestone references.
+
+Use Google Calendar to schedule the bid production milestones using the actual authoritative submission deadline. Use event names following a consistent convention such as `[ABC-HMS-2026-001] Proposal Preparation`, `[ABC-HMS-2026-001] Compliance Review`, `[ABC-HMS-2026-001] Technical Review`, `[ABC-HMS-2026-001] Commercial Review`, `[ABC-HMS-2026-001] Management Approval`, and `[ABC-HMS-2026-001] Final Tender Submission`.
+
+Work backward from the actual portal deadline when creating the internal schedule. Do not use the deadline from the original RFP if a later official corrigendum or addendum changed it. Leave enough time between the internal final review and the actual portal submission deadline to handle corrections and unexpected problems.
+
+If Google Calendar is not available through the connected application, use Chrome or Computer Use as the fallback. If the event still cannot be created, record the required calendar milestone in the final report and clearly state that it was not created.
+
+Finally, send the bid recommendation to the bid owner through Gmail. Use a clear subject naming convention such as `[ABC-HMS-2026-001] Bid Decision - Conditional Bid`. The email should state the tender name, buyer, authoritative deadline, final decision, key compliance findings, fatal issues, curable issues, Cannot Determine items, recommended clarification questions, and the most important actions that need to happen next.
+
+The final response should clearly state the exact tender that was analyzed, the actual Google Drive folder that was opened, the actual Google Sheet and sheet tab that were used to identify the tender, the actual tender documents reviewed, the actual Google Sheets and tabs reviewed, the live portal updates found, the authoritative deadline, the effective requirements, the Notion evidence reviewed, the ClickUp capacity information reviewed, the final Bid or Conditional Bid or No Bid decision, the reason for that decision, the fatal issues, the curable issues, the Cannot Determine items, the recommended clarification questions, the ClickUp tasks created, the Google Calendar events created, the Notion decision record created or updated, and the Gmail recommendation sent.
+
+If any application is unavailable, first try the connected application and then use Chrome or Computer Use as the fallback. This applies to Google Drive, Google Sheets, Notion, ClickUp, Google Calendar, Gmail, and the tender portal. Do not stop at the first failed connection. Use the fallback when it is available.
+
+Always use the actual names discovered in the workspace. The example names in this workflow are naming conventions and expected structures, not fake resources that should be claimed as existing. Never invent a file, folder, sheet, sheet tab, Notion page, ClickUp Space, ClickUp List, ClickUp task, Calendar event, Gmail message, tender portal update, or document.
+
+Never say that something was opened if it was not actually opened. Never say that something was created if it was not actually created. Never claim compliance without evidence. Never use an outdated tender requirement when an official later update changed it. Never choose an optimistic interpretation simply because it allows the company to proceed.
+
+The final purpose of the workflow is to answer one practical business question using real evidence from the company's systems and the buyer's live tender information: knowing what the buyer actually requires right now, can the company realistically comply and deliver the contract, and should the company spend its time and resources bidding?

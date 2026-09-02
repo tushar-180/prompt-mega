@@ -1,0 +1,254 @@
+SETUP WORKFLOW, TENDER BID DECISION SYSTEM
+
+I am setting up a pre bid tender evaluation workflow for our software development and IT services business.
+
+The purpose of this run is to build the exact workspace structure, folders, sheets, tabs, documents, Notion databases, Jira projects, components, issues and calendar that the later Tender Bid Decision master workflow depends on, and to fill it with sample tender data that workflow can be tested against. Everything the master workflow reads or writes has to exist and be named exactly as written here, otherwise that run will fail partway through.
+
+This is a SETUP RUN ONLY.
+
+Do not evaluate the tender.
+Do not decide Bid, Conditional Bid or No Bid.
+Do not create the compliance issues, the decision page, the calendar events or the email draft that the master run creates.
+Do not send any email.
+Do not put real client, employee or company confidential data anywhere in this seed.
+
+All dates in this system use the Asia/Kolkata time zone. Any date field you create and any date you write is read in that time zone.
+
+
+THE DATA YOU ARE SEEDING IS FICTIONAL, AND IT HAS TO LOOK IT
+
+The buyer ABC Government Health Department, the tender ABC-HMS-2026-001, every person named below and every project named below are invented for testing. None of them is a real organisation, a real public tender or a real member of staff. Every document you create in Google Drive opens with this line on page 1, before anything else:
+
+SAMPLE TEST DOCUMENT, NOT A REAL TENDER, CREATED FOR WORKFLOW TESTING ON 2026-09-01.
+
+Keep that line in. It costs the master run nothing and it stops a seeded file being mistaken later for a real tender document. Do not put a real government department name, a real company letterhead, a real officer name or a real digital signature on any seeded document, and do not copy a real published RFP wholesale into one.
+
+
+WHERE WEB SEARCH COMES IN, AND WHERE IT DOES NOT
+
+Two things come off the live web and nothing else does.
+
+One, the Portal URL cell. Search for a public tender notice or tender listing page on a real government e procurement portal that opens fully in Chrome without a login and without a captcha wall, open it to confirm that, and write that exact URL into the Portal URL cell of the target row. That page carries no notices for a fictional reference, and that is expected and fine. It is there so the master run's portal step reaches a page that genuinely opens rather than a dead address, and so the blocked portal branch is not the only branch the test ever exercises. Say in the report which URL you used and that you confirmed it opens with no account.
+
+Two, the wording of the seeded clauses. Read a couple of real published government IT tender documents to see how eligibility, technical and SLA clauses are normally phrased, and write the filler clauses in that register. Take the style, not the text. Do not lift more than a sentence from any one source, and do not carry across a real buyer name, a real tender reference or a real bidder name.
+
+Everything else in this seed is the hard text written out below. Where a clause is given in quotation marks below, write it exactly as given, because the master run's decisions turn on those words. Where the instruction says write your own, write ordinary plausible content that a hospital management system tender would carry.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can reach Google Drive, Google Sheets, Google Calendar, Gmail, Notion and Jira, and confirm the Chrome browser plugin is available. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so where one of those is not connected, errors, times out, refuses the call, reports a tool it does not recognise, returns nothing where the screen shows something, or hands back something that does not match what the screen shows, do that piece through Chrome instead, carry on with the setup, and say in the report which route you used and what error sent you there. Stop and name the piece only where Chrome cannot reach it either, quoting the error from both attempts. Do not report the setup as complete when a required piece could not be built by either route.
+
+A report that says an app is not connected, not authorised or not working is not a finished setup run. The browser is the second route and it is expected to be used, not treated as a last resort, so an integration that fails is a reason to open the app in Chrome and carry on rather than a reason to stop. Retry once where a failure looks transient and wait out a rate limit rather than falling back for it. Where the integration and the screen disagree about what is there, the screen is what the workspace actually holds.
+
+In practice, through Chrome, that means creating or renaming a Google Sheet tab where the Sheets connection cannot, typing the seed rows into the sheet on screen, creating the Drive folders and opening each seeded document to confirm the page markers and page breaks survived the save, creating the Notion teamspaces, databases and properties and adding records where the Notion connection cannot add a property or a select option, creating the Jira projects, choosing the project key, adding the components under project settings, creating and assigning issues and setting Due dates, creating the Bid Management calendar under calendar settings, and confirming the Gmail address and that Drafts holds nothing with the [ABC-HMS-2026-001] prefix. Never use Chrome to send an email during this run.
+
+Note the Gmail address of the single signed in account before you start. It goes into the Bid Owner Email cell of the target row, so the draft the master run leaves unsent is addressed back to the person running the test and nothing can leave the workspace even if something goes wrong.
+
+
+GOOGLE DRIVE, FOLDERS
+
+In My Drive, create or verify this structure.
+
+Tender Management, and inside it a subfolder 2026. This is where the tracker sheet lives.
+
+Tenders, and inside it 2026, and inside that a folder named ABC Government Health Department, and inside that two folders.
+
+ABC-HMS-2026-001 Hospital Management System, which is the real tender pack.
+
+ABC-HMS-2025-014 Legacy Records Migration, which is a decoy holding a different tender for the same buyer. It gets two documents only, 01_RFP_Main_Document.pdf and 02_Eligibility_Criteria.pdf, both printing the reference ABC-HMS-2025-014 and a submission deadline of 2025-11-14, both about migrating legacy paper records. It exists so a master run that matches on buyer name instead of tender reference lands in the wrong folder and can be caught doing it. Nothing else goes in it.
+
+If a folder already exists and serves the same purpose, reuse it rather than creating a second one.
+
+
+GOOGLE DRIVE, THE TENDER PACK DOCUMENTS
+
+The master run cites sources as a filename with a page number, so the seeded documents have to carry page numbers a person can check. Create each document below as a Google Doc titled with the filename exactly as written, extension included, or as a Google Sheet where the filename ends in .xlsx. A Google Doc titled 01_RFP_Main_Document.pdf reads the same to the master run as a PDF would and keeps the citation format intact. Inside every document, start each page with a line reading Page 1, Page 2 and so on, with a page break before each of those lines, so a citation like 03_Technical_Requirements.pdf page 14 lands somewhere a person can open and read.
+
+All eleven documents go in ABC-HMS-2026-001 Hospital Management System.
+
+01_RFP_Main_Document.pdf, 8 pages. Page 1 carries the sample data line, then Tender Reference ABC-HMS-2026-001, Tender Name Hospital Management System, Buyer ABC Government Health Department, Issue Date 2026-08-05, Document Version 1.0, Submission Deadline 2026-09-20 17:00 Asia/Kolkata, Contract Start Date 2026-11-01, Contract Duration 36 months. Pages 2 to 8 carry your own writing on background, scope of work, instructions to bidders, the evaluation method and the submission format. Do not put eligibility, technical or SLA requirements in this document. It exists to set the reference, the version and the original deadline.
+
+02_Eligibility_Criteria.pdf, 4 pages. Page 1 is the sample data line and the reference. Page 2 carries E1 and E2, written exactly as follows.
+
+E1, mandatory. "The bidder shall have an average annual turnover of not less than INR 50 crore in each of the last three completed financial years, certified by a chartered accountant."
+
+E2, mandatory. "The bidder shall have completed at least three hospital management system implementations for government health customers, each of contract value not less than INR 20 crore, completed within the last five years as on the submission date."
+
+Page 3 carries E3, E4 and E5.
+
+E3, mandatory. "The bidder shall hold a valid ISO 27001 certification covering software development and support services, valid for the entire contract period."
+
+E4, mandatory. "The bidder shall hold a valid ISO 9001 certification."
+
+E5, mandatory, your own wording, company incorporated in India with a valid GST registration.
+
+Page 4 carries E6, mandatory, your own wording, a declaration that the bidder is not blacklisted by any government body. Mark every one of E1 to E6 as mandatory on the page in those words.
+
+03_Technical_Requirements.pdf, 16 pages. Page 1 is the sample data line and the reference. Page 4 carries T1, mandatory, "The solution shall support HL7 FHIR R4 interoperability with existing state health information systems." Page 5 carries T2, mandatory, "The solution shall provide role based access control with a tamper evident audit trail retained for seven years." Page 6 carries T3, mandatory, "All patient data shall be hosted in data centres located within India." Page 15 carries T7, mandatory, "The bidder shall deploy a dedicated delivery team of 18 people from the contract start date, comprising 4 senior developers, 6 developers, 2 QA engineers, 2 business analysts, 1 project manager, 1 database administrator, 1 DevOps engineer and 1 solution architect." Pages 7 to 14 carry eleven requirements of your own writing, every one of them marked desirable rather than mandatory, one per page except where two sit together, covering things like mobile applications, offline working, analytics dashboards, multilingual support, biometric attendance and integration with a hospital pharmacy system. One of those eleven, on page 12, reads "The bidder should hold a CMMI Level 5 appraisal." Mark it desirable. Pages 2, 3 and 16 carry your own framing text.
+
+04_Commercial_Requirements.pdf, 6 pages. Page 3 carries C2, mandatory, "The successful bidder shall furnish a performance bank guarantee of 10 percent of the contract value within 15 days of the award." The other pages carry your own writing on payment milestones, price validity of 180 days and the price format, all marked desirable or informational rather than mandatory.
+
+05_SLA_Requirements.pdf, 5 pages. Page 2 carries S1, mandatory, "The bidder shall provide 24x7 support with a response time of 30 minutes for severity 1 incidents." Page 3 carries S2, mandatory, "The solution shall maintain 99.5 percent uptime measured monthly." Page 4 carries one requirement of your own marked desirable, a quarterly service review. Pages 1 and 5 carry your own framing text.
+
+06_Annexure_A_Company_Profile.pdf, 3 pages, blank forms for company details, turnover figures and authorised signatory, no requirements.
+
+07_Annexure_B_Technical_Compliance.xlsx, a Google Sheet with exactly four tabs named Mandatory Requirements, Technical Compliance, Eligibility and Commercial Compliance. Mandatory Requirements carries headers on row 1 reading Requirement ID, Requirement, Source Document, Source Page, Bidder Response, Evidence Reference, and rows 2 to 14 listing all 13 mandatory requirements, E1 to E6, T1, T2, T3, T7, C2, S1 and S2, each with its source filename and page number filled in and the last two columns left empty for the bidder. Technical Compliance lists the T items, Eligibility the E items and Commercial Compliance the C items, same header shape, responses left empty.
+
+08_Pricing_Schedule.xlsx, a Google Sheet with exactly two tabs named Price Schedule and Commercial Summary. Price Schedule carries line items for licences, implementation, data migration, training and three years of support, with quantity and unit columns filled and rate and amount columns empty. Commercial Summary carries the total fields empty, price validity 180 days and the payment milestone split.
+
+09_Addendum_01.pdf, 2 pages, dated 2026-08-18. Page 1 carries the sample data line, the reference, Addendum 01, Date 2026-08-18 and Document Version 1.1. It states that the submission deadline is revised to 2026-09-28 17:00 Asia/Kolkata. Page 2 adds A1, mandatory, "The solution shall integrate single sign on with the state government identity gateway prior to go live."
+
+10_Corrigendum_01.pdf, 2 pages, dated 2026-08-25. Page 1 carries the sample data line, the reference, Corrigendum 01, Date 2026-08-25 and Document Version 1.2. It states that the submission deadline is revised to 2026-09-24 17:00 Asia/Kolkata. Page 2 states that clause E1 is revised to read "The bidder shall have an average annual turnover of not less than INR 30 crore in each of the last three completed financial years, certified by a chartered accountant."
+
+11_Clarification_Responses.pdf, 3 pages, dated 2026-08-25. Page 1 carries the sample data line, the reference, Clarification Responses, Date 2026-08-25. Page 2 carries four numbered questions and answers, three of them your own harmless wording about submission format, bid validity and the pre bid meeting, and question 4 reading "Query, will the turnover requirement be relaxed for small and medium enterprises. Response, the turnover requirement at clause E1 stands unchanged at INR 50 crore average annual turnover for the last three completed financial years." Page 3 carries your own closing text.
+
+That last pair is deliberate. Two publications carrying the same date and contradicting each other on the same clause is the conflict the master run has to notice and refuse to settle on its own. Do not soften either wording and do not change either date.
+
+
+GOOGLE SHEET, TENDER TRACKER 2026
+
+Create or verify a Google Sheet named exactly Tender Tracker 2026 in My Drive under Tender Management, subfolder 2026. It has a tab named exactly Pending Tenders. Row 1 carries these headers in this order, one per column from A to N.
+
+Tender Name, Buyer Name, Tender Reference, Status, Submission Deadline, Contract Start Date, Contract Duration, Bid Owner, Bid Owner Email, Priority, Drive Folder, Portal URL, Decision, Decision Date.
+
+Format every date column as plain text or as a date shown in YYYY-MM-DD so nothing gets re read as an American date. Bid Owner Email carries the signed in Gmail address on every row. Decision and Decision Date stay empty on every row except where stated.
+
+Row 2. Hospital Management System, ABC Government Health Department, ABC-HMS-2026-001, Pending Review, 2026-09-20, 2026-11-01, 36 months, Arjun Rao, the signed in address, High, Tenders/2026/ABC Government Health Department/ABC-HMS-2026-001 Hospital Management System, the public portal URL you found, empty, empty.
+
+Row 3. District Laboratory Information System, ABC Government Health Department, ABC-LIS-2026-007, Submitted, 2026-09-11, 2026-12-01, 24 months, Arjun Rao, the signed in address, High, empty, empty, empty, empty.
+
+Row 4. Hospital Asset Tracking Platform, State Health Mission, AAA-HAT-2026-005, Pending Review, 2026-09-20, 2026-12-01, 18 months, Sneha Kulkarni, the signed in address, Medium, empty, empty, empty, empty.
+
+Row 5. Municipal Water Billing Platform, Pune Municipal Utilities Board, PMU-WBP-2026-003, Pending Review, 2026-09-20, 2026-12-15, 24 months, Sneha Kulkarni, the signed in address, High, empty, empty, empty, empty.
+
+Row 6. Regional Blood Bank Network, State Health Mission, SHM-BBN-2026-002, Pending Review, 2026-10-09, 2027-01-04, 36 months, Arjun Rao, the signed in address, Medium, empty, empty, No Bid, 2026-08-27.
+
+Five data rows under the header, no more and no fewer. Every one of the four that is not row 2 is ruled out by a different clause of the master run's selection rule, one on Status, one on Priority losing a deadline tie, one on Tender Reference losing an alphabetical tie, and one on Decision already being filled, so a wrong selection says which clause was missed.
+
+The Drive Folder cell is empty on every row except row 2, and that is on purpose. Only one tender has a pack behind it, so a master run that selects the wrong row has nothing to open and shows it has gone wrong instead of quietly analysing something else. Leave those cells empty. Row 4 sharing a deadline with row 2 while sorting earlier alphabetically is on purpose too. Do not renumber it, do not reorder the rows and do not sort the tab.
+
+
+NOTION
+
+Create or verify two teamspaces, Company Knowledge Base and Bid Management.
+
+In Company Knowledge Base, create four databases, Certifications, Project Experience, Client References and Technical Capabilities.
+
+Certifications carries the properties Name, Certificate Number, Issue Date, Expiry Date, Scope and Issuing Body, and these five records.
+
+ISO 27001:2022, certificate number IS-2025-884213, issued 2025-12-16, expiring 2028-12-15, scope "Design, development, implementation and support of software services at the Pune and Bengaluru delivery centres", issuing body an invented certification body.
+
+ISO 9001:2015, certificate number QM-2024-119045, issued 2024-04-01, expiring 2030-03-31, scope covering software development and support.
+
+ISO 20000-1:2018, certificate number SM-2024-330871, issued 2024-01-15, expiring 2029-12-31, scope covering IT service management.
+
+CMMI Level 3, appraisal reference CM-2024-5512, appraised 2024-07-01, valid to 2027-06-30, scope covering development.
+
+SOC 2 Type II, report reference SOC-2025-2210, issued 2025-04-01, expiring 2027-03-31, scope covering hosted application services.
+
+Project Experience carries the properties Name, Project Type, Customer Type, Contract Value Band, Completion Date, Client Name and Description, and these five records.
+
+Meridian State Hospital Network HMS, project type Hospital Management System, customer type Government, contract value band INR 20 to 50 crore, completed 2024-03-31.
+
+Northern Districts Health Records Platform, project type Hospital Management System, customer type Government, contract value band INR 20 to 50 crore, completed 2023-09-30.
+
+Lakeside Private Hospitals HMS, project type Hospital Management System, customer type Private, contract value band INR 20 to 50 crore, completed 2025-01-31.
+
+Statewide Transport ERP, project type ERP, customer type Government, contract value band INR 50 crore and above, completed 2022-11-30.
+
+Harbour Logistics Tracking Suite, project type Logistics, customer type Private, contract value band INR 5 to 20 crore, completed 2025-06-30.
+
+Only two of those five satisfy every part of E2. That is the point of the third one, so leave its customer type reading Private.
+
+Client References carries Name, Client Name, Project, Contact Role, Reference Date, and three records tied to the first three projects above, contacts written as a role rather than a named person.
+
+Technical Capabilities carries the properties Name, Capability, Current State, Evidence, Owner and Target Date, and these six records.
+
+Support desk, capability 24x7 support, current state "24x7 support with a 60 minute response time for severity 1 incidents", evidence the current support contract, owner Meera Iyer, target date empty.
+
+Support desk expansion, capability severity 1 response time, current state "Approved plan to move severity 1 response from 60 minutes to 30 minutes", evidence an approved internal plan, owner Meera Iyer, target date 2026-10-20.
+
+Interoperability, capability HL7 FHIR R4, current state implemented and in production on two projects, owner Kavita Rao.
+
+Security controls, capability role based access control with tamper evident audit trail, current state implemented with a seven year retention policy, owner Rahul Deshpande.
+
+Hosting, capability data residency, current state all hosting in Indian data centres in Mumbai and Hyderabad, owner Nikhil Bose.
+
+Delivery headcount by role, capability delivery capacity, current state "Senior Developer 6, Developer 9, QA Engineer 3, Business Analyst 2, Project Manager 2, Database Administrator 1, DevOps Engineer 2, Solution Architect 2", owner Meera Iyer.
+
+Do not create a record about single sign on or a government identity gateway anywhere in Notion. The master run has to meet a requirement the company evidence says nothing about and mark it accordingly, and a helpful extra record would remove that.
+
+Add one more record to Technical Capabilities, name Delivery ramp up plan for ABC-HMS-2026-001, capability hiring and allocation, current state "2 senior developers, 2 developers, 1 QA engineer and 2 business analysts recruited and joining by 2026-10-26, database administrator offer accepted with joining date 2026-10-19", evidence the signed offer tracker, owner Meera Iyer, target date 2026-10-26.
+
+In Bid Management, create two databases.
+
+Historical Bid Outcomes, carrying Name, Buyer, Tender Reference, Outcome, Decision Date, Notes, and four records, two bids to ABC Government Health Department lost on price in 2024 and 2025, one won in 2023, and one disqualified in 2024 for a certificate that had expired before contract start.
+
+Tender Decisions, carrying Name as the title property plus Tender Reference, Buyer, Decision as a select with the options Bid, Conditional Bid and No Bid, Authoritative Deadline as a date and Decision Date as a date. Leave this database completely empty. The master run creates the page inside it, and a page seeded here would be updated instead of created and the test would prove nothing.
+
+
+JIRA
+
+Create or verify two projects.
+
+Project name Bid Management, project key BID, with four components named exactly Tender Pipeline, Active Bids, Bid Compliance and Bid Production.
+
+Project name Delivery, project key DEL, with one component named exactly Active Projects.
+
+In BID, on the component Tender Pipeline, create three issues of type Task, summaries reading Tender pipeline entry ABC-HMS-2026-001 Hospital Management System, Tender pipeline entry PMU-WBP-2026-003 Municipal Water Billing Platform and Tender pipeline entry SHM-TMR-2027-001 Statewide Telemedicine Rollout, each carrying the buyer and the submission deadline in the description, each left in status To Do.
+
+In BID, on the component Active Bids, create two issues of type Task for two other tenders of your own invention, both in progress.
+
+Leave the components Bid Compliance and Bid Production completely empty.
+
+Do not put the tender reference in the Labels field of any issue you seed. The reference goes in the summary and the description only. The master run uses the label ABC-HMS-2026-001 as its own marker for work it created, and searches on it before writing anything, so a seeded issue carrying that label would read as work already done and the master run would update the seed instead of creating its issues.
+
+In DEL, on the component Active Projects, create these 17 issues of type Task, one per committed person, every one in status In Progress, every summary written as the role, then the person, then the project, so Senior Developer, Rahul Deshpande, Meridian Health Portal, and every Due date set as given because the master run reads those dates to work out when each role frees up.
+
+Senior Developer, Rahul Deshpande, Meridian Health Portal, due 2027-03-31.
+Senior Developer, Anita Sharma, Coastal Claims Platform, due 2026-12-18.
+Senior Developer, Vikram Patel, Meridian Health Portal, due 2027-01-29.
+Senior Developer, Farid Khan, Retail Inventory Suite, due 2027-05-14.
+Developer, Neha Joshi, Coastal Claims Platform, due 2026-11-20.
+Developer, Sameer Gupta, Retail Inventory Suite, due 2027-02-26.
+Developer, Tanvi Rao, Meridian Health Portal, due 2026-12-31.
+Developer, Karan Mehta, Transport ERP Support, due 2027-04-30.
+Developer, Divya Nair, Transport ERP Support, due 2027-06-30.
+QA Engineer, Ritu Bansal, Coastal Claims Platform, due 2026-11-27.
+QA Engineer, Manish Verma, Meridian Health Portal, due 2027-03-12.
+Business Analyst, Pooja Iyer, Transport ERP Support, due 2027-01-15.
+Business Analyst, Aakash Singh, Retail Inventory Suite, due 2026-12-04.
+Project Manager, Meera Iyer, Meridian Health Portal, due 2027-02-12.
+Database Administrator, Suresh Menon, Transport ERP Support, due 2027-07-31.
+DevOps Engineer, Nikhil Bose, Coastal Claims Platform, due 2026-11-13.
+Solution Architect, Kavita Rao, Retail Inventory Suite, due 2027-05-29.
+
+Those numbers are set against the headcount record in Notion on purpose, so several roles come up short at the contract start date of 2026-11-01 and one or two do not. Do not add people, do not move a Due date earlier and do not close any of these issues.
+
+Assign every one of these issues to the signed in Jira user where that user is the only member of the site, and put the person's name in the summary as written above so the role and the person are readable whatever the Assignee field says. Where the site has other members, spread the assignees across them and keep the summaries as written. Say in the report which of those two you did.
+
+
+GOOGLE CALENDAR
+
+Create or verify a calendar named exactly Bid Management on the signed in Google account, set to Asia/Kolkata. Leave it empty. The master run puts six events on it, and a seeded event carrying the same square bracket prefix would be updated rather than created.
+
+
+GMAIL
+
+Nothing gets seeded here. Confirm one Gmail account is signed in, note its address, confirm the Drafts folder holds no draft whose subject opens with [ABC-HMS-2026-001], and say so in the report. Do not create a draft and do not send anything.
+
+
+WHAT THIS RUN MUST NOT CREATE
+
+No issues on the components Bid Compliance or Bid Production. No page inside the Notion database Tender Decisions. No events on the Bid Management calendar. No Gmail draft. No value in the Decision or Decision Date cells of row 2. No Jira issue carrying the label ABC-HMS-2026-001. Every one of those belongs to the master run, and seeding any of them turns its create path into an update path and hides whatever it would have got wrong.
+
+
+RUNNING THIS TWICE
+
+Run this setup twice and nothing gets duplicated. Look for the folder, the sheet, the tab, each Notion database, each Jira project and component, each seeded issue and the calendar before creating it, match on the exact names above, and update what is already there in place rather than making a second copy. Where you find a seeded item holding different content from what is written here, correct it to what is written here and list the correction in the report. Where you find work the master run left behind, a compliance issue, a decision page, a calendar event or a draft carrying the [ABC-HMS-2026-001] prefix or the ABC-HMS-2026-001 label, do not delete it on your own initiative. List it in the report as left over from a previous master run and say it needs clearing before the next test.
+
+
+THE REPORT AT THE END
+
+Finish with a report that names the Drive folder paths created, the Google Sheet with a link and the row count on Pending Tenders, every document created with its filename and page count, the Notion databases with the record count in each, the Jira projects with their keys and the issue count on each component, the calendar, the Gmail address that went into Bid Owner Email, the portal URL you used and the confirmation it opens without a login, every piece done through the Chrome browser plugin with the error that sent it there, every piece still blocked with the error from both routes, and a plain statement that Bid Compliance, Bid Production, Tender Decisions, the Bid Management calendar and Gmail Drafts were all left empty of anything carrying the tender reference. Never report something as created where it was not.

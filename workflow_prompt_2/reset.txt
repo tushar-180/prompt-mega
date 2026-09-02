@@ -1,0 +1,107 @@
+RESET WORKFLOW, TENDER BID DECISION SYSTEM
+
+Put the workspace back to the state dummy_setup.txt left it in, so the Tender Bid Decision master workflow can be run again from the top against the same seed and judged on what it creates rather than on what it updates.
+
+This run clears what the master run wrote and nothing else. The seed stays exactly where it is. All dates below are Asia/Kolkata.
+
+This is a CLEARING RUN ONLY.
+
+Do not evaluate the tender.
+Do not create a compliance issue, a decision page, a calendar event or an email draft.
+Do not reseed anything, and do not repair the seed beyond what the verification section at the end asks for.
+Do not send any email.
+
+Reach each app through its connected integration where that works, and through the Chrome browser plugin wherever the integration is missing, errors, times out, refuses the call, reports a tool it does not recognise, hands back nothing the screen is clearly showing, or hands back something that does not match what the screen shows. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so a report saying an integration would not connect is not a finished reset. Retry once where a failure looks transient and wait out a rate limit rather than falling back for it, and where the integration and the screen disagree about what is still sitting there, the screen is what the workspace actually holds.
+
+Through Chrome that means clearing the two cells in the sheet on screen, opening a Jira issue and deleting it from its own menu or running the label search in the JQL box on the issue search screen, opening the Notion page and moving it to trash from the page menu, opening a calendar event and deleting it, and discarding a draft from the Gmail Drafts list. Where both routes fail on a piece, leave that piece alone, say so in the report, and carry on with the rest. A half cleared workspace that is honestly reported is fine. A workspace reported as clear when something is still sitting in it is not, because the next master run will silently update it and the test will prove nothing.
+
+
+WHAT THE MASTER RUN WROTE, AND WHERE
+
+Six places, and only these six.
+
+The Decision cell and the Decision Date cell of row 2 on the Pending Tenders tab of the Google Sheet Tender Tracker 2026, in My Drive under Tender Management, subfolder 2026.
+
+Issues in the Jira project Bid Management, project key BID, on the components Bid Compliance and Bid Production, every one of them carrying ABC-HMS-2026-001 in the Labels field.
+
+One page in the Notion database Tender Decisions, in the teamspace Bid Management, titled ABC-HMS-2026-001 Hospital Management System.
+
+Up to six events on the Google Calendar named Bid Management, every one with a name opening [ABC-HMS-2026-001].
+
+One draft in the Gmail Drafts folder of the signed in account, subject opening [ABC-HMS-2026-001].
+
+Nothing else. If you find something that looks like master run output somewhere else, report it and leave it where it is.
+
+
+THE GOOGLE SHEET
+
+On the Pending Tenders tab, on row 2 only, the row whose Tender Reference reads ABC-HMS-2026-001, empty the Decision cell and empty the Decision Date cell. Emptying those two is what puts the row back in play, since the master run selects on Decision being empty.
+
+Row 2 should still read Pending Review in its Status cell, because the master run never writes there. Where it reads anything else, set it back to Pending Review and say in the report what it read before, since that is the master run touching a cell it was told not to touch. Same for the Submission Deadline cell on that row, which should still read 2026-09-20 whatever the corrigendum said. Set it back to 2026-09-20 where it reads anything else and report what it held.
+
+Row 6, Tender Reference SHM-BBN-2026-002, carries a Decision of No Bid and a Decision Date of 2026-08-27. That is seeded data, not master run output. Leave both cells exactly as they are. Clearing them would break the next run's selection test, because that row exists to be ruled out on Decision already being filled.
+
+Touch no other cell on the tab, and do not sort or reorder the rows.
+
+
+JIRA
+
+In the project Bid Management, project key BID, find every issue whose Labels field holds ABC-HMS-2026-001 and delete those issues. That is the compliance issues on the component Bid Compliance, the clarification question issues alongside them, and the six production issues on the component Bid Production. Expect somewhere between one and twenty one of them depending on how far the master run got, since the cap is 12 compliance issues plus up to 3 clarification question issues plus the 6 production issues.
+
+Key that search on the Labels field, not on a text search. The seeded issue on the component Tender Pipeline whose summary reads Tender pipeline entry ABC-HMS-2026-001 Hospital Management System carries no label, and it is seed data that has to survive this run. A text search on the reference finds it and a label search does not, which is exactly why the setup keeps the label clear on everything it seeds. Delete nothing on Tender Pipeline, nothing on Active Bids and nothing in the project Delivery, project key DEL.
+
+Where an issue on Bid Compliance or Bid Production carries no label but its summary opens [ABC-HMS-2026-001], it is master run output from a run that skipped the labelling step. Delete it too and note in the report that it was found by summary rather than by label.
+
+Where an issue sits on Bid Compliance or Bid Production carrying neither the label nor the prefix, leave it alone and list it in the report. It is not this test's, and something else put it there.
+
+The components Bid Compliance and Bid Production both end this run empty.
+
+
+NOTION
+
+In the teamspace Bid Management, open the database Tender Decisions and move to trash every page titled ABC-HMS-2026-001 Hospital Management System, including any second copy of it. The database ends this run empty. Notion keeps the page in trash, which is fine, it just has to be out of the database.
+
+Leave the database Historical Bid Outcomes alone, all four records. Leave the whole teamspace Company Knowledge Base alone, all four databases and every record in them, the certifications, the projects, the client references and the capability records including the support desk expansion plan, the headcount record and the ramp up plan. The master run reads all of that and writes none of it.
+
+
+GOOGLE CALENDAR
+
+On the calendar named Bid Management, delete every event whose name opens [ABC-HMS-2026-001], across the whole of 2026. There should be six, named Proposal Preparation, Compliance Review, Technical Review, Commercial Review, Management Approval and Final Tender Submission after the prefix. Delete however many you find, including duplicates.
+
+Where an event opens with that prefix but carries none of those six names, delete it as well and name it in the report, since only the master run writes that prefix.
+
+Leave every event carrying a different prefix or no prefix alone, and leave the calendar itself in place. The calendar ends this run holding nothing for ABC-HMS-2026-001.
+
+
+GMAIL
+
+In the Drafts folder of the signed in account, delete every draft whose subject opens [ABC-HMS-2026-001]. There should be one. Delete duplicates too.
+
+Send nothing. Open nothing in the Sent folder. Touch no other draft. Where a draft with that prefix has somehow been sent, do not try to recall it, just report that it was found in Sent, because that is a serious master run failure and the person needs to know rather than have it tidied away.
+
+
+VERIFY THE SEED IS STILL WHOLE BEFORE YOU FINISH
+
+The point of this run is that the next master run starts from the same place as the last one, so check these and report anything that has moved. Do not repair anything beyond the two sheet cells named earlier, just report it.
+
+Row 2 on Pending Tenders reads Hospital Management System, ABC Government Health Department, ABC-HMS-2026-001, Pending Review, 2026-09-20, 2026-11-01, 36 months, with the Drive Folder cell holding the path to the tender pack, the Portal URL cell holding a URL, the Bid Owner Email cell holding the signed in address, and Decision and Decision Date now empty.
+
+Rows 3 to 6 are all still there, so five data rows sit under the header row counting row 2, with row 6 still carrying No Bid and 2026-08-27.
+
+The Google Drive folder Tenders/2026/ABC Government Health Department/ABC-HMS-2026-001 Hospital Management System still holds its 11 documents, 01_RFP_Main_Document.pdf through 11_Clarification_Responses.pdf. Open 10_Corrigendum_01.pdf far enough to confirm it still carries the date 2026-08-25 and the deadline 2026-09-24, and 09_Addendum_01.pdf far enough to confirm 2026-08-18 and 2026-09-28, because those two dates are what the whole supersession test turns on.
+
+The decoy folder ABC-HMS-2025-014 Legacy Records Migration still holds its two documents.
+
+The Notion database Tender Decisions is empty, and Certifications, Project Experience, Client References, Technical Capabilities and Historical Bid Outcomes still hold 5, 5, 3, 7 and 4 records.
+
+The Jira project DEL, component Active Projects, still holds its 17 issues with their Due dates unchanged, and BID still holds three issues on Tender Pipeline and two on Active Bids.
+
+
+RUNNING THIS TWICE
+
+Run this reset on an already reset workspace and it changes nothing. Every step above is a search followed by a delete of what the search found, so an empty search result is a normal outcome, not a failure. Say in the report that there was nothing to clear rather than hunting for something to delete.
+
+
+THE REPORT AT THE END
+
+Say what you cleared and what you found already clear, counted item by item: the two sheet cells, the number of Jira issues deleted with their keys and summaries, the Notion page, the number of calendar events deleted with their names, the draft. Then say what the verification section found, naming anything that had moved from the seeded values and anything you set back. Then say whether the workspace is ready for another master run, and where it is not, name the piece and the error from both routes. Never report something as cleared where it was not.

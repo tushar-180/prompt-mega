@@ -52,7 +52,7 @@ Move back to Pending every issue that reads Research Complete and carries a comm
 
 Leave alone the seeded issue that was created as Research Complete with the description saying the research was done on 2026-08-27. That one was never Pending, and its Research Complete status is part of the baseline. Tell the two apart by the comment, not by the status.
 
-Delete every comment the master run added to any issue. A comment counts as the master run's if it carries a priority score, a priority band, a recommended service, a competitor comparison, a Gmail history line or a link to a document named Prospect_Analysis_ something _2026-09-01. Leave every description untouched, since the descriptions are seeded text.
+Delete every comment the master run added to any issue. A comment counts as the master run's if it carries a priority score, a priority band, a recommended service, a competitor comparison, a Gmail history line, a next action dated 2026-09-03, 2026-09-04 or 2026-09-07, or a link to a document named Prospect_Analysis_ something _2026-09-01. Leave every description untouched, since the descriptions are seeded text.
 
 Confirm afterwards that the board holds four issues reading Pending exactly as seeded, one issue reading Research Complete, and no comments anywhere.
 
@@ -80,7 +80,7 @@ Put the three seeded rows back exactly as they were. Restore the cells named her
 
 Row 2. Column A the first seeded company name, column B its website address, column C its Jira issue key, column D reads Pending, column O reads Not Started, column P reads Research this one, column Q reads 2026-08-18. Columns E to N empty.
 
-Row 3. Column A the already researched company name, column B its website address, column C its Jira issue key, column D reads Research Complete, column E reads No local listings and thin service pages, column F reads SEO, column G reads Website Optimization, column H reads Two competitors hold the map pack, column I reads 71, column J reads High, column K reads Not Verified, column L reads One source only, column M reads No Previous Contact, column N holds the link to the decoy report document, column O reads Draft Ready Not Sent, column P reads Follow up by 2026-09-03, column Q reads 2026-08-27.
+Row 3. Column A the already researched company name, column B its website address, column C its Jira issue key, column D reads Research Complete, column E reads No local listings and thin service pages, column F reads SEO, column G reads Website Optimization, column H reads Two competitors hold the map pack, column I reads 68, column J reads Medium, column K reads Not Verified, column L reads One source only, column M reads No Previous Contact, column N holds the link to the decoy report document, column O reads Draft Ready Not Sent, column P reads Send the draft by 2026-08-31, column Q reads 2026-08-27.
 
 Row 4. Column A the near miss company name, meaning the one that sits one word away from a seeded company, column B its website address, column C empty, column D reads Research Complete, column F reads Paid Advertising, column I reads 48, column J reads Medium, column O reads Draft Ready Not Sent, column Q reads 2026-08-11. Columns E, G, H, K, L, M, N and P empty.
 

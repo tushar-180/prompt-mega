@@ -1,255 +1,308 @@
-SETUP WORKFLOW, SALES PROSPECT RESEARCH SYSTEM
+SETUP WORKFLOW, ABC RETAIL PROJECT CLOSURE AND SALES HANDOFF SYSTEM
 
-I am setting up the workspace that my master workflow, prospect research and outreach drafting, reads and writes. Everything that master run opens has to exist first and be named exactly as written here, otherwise the run stops partway through.
+I am building the workspace that my master workflow, project closure and sales handoff, reads and writes. Everything that master run opens has to exist first and be named exactly as written here, otherwise the run stops partway through.
+
+This is deliberately small. 7 numbered scope items, 6 module rows, 15 Jira issues, 8 pull requests, 12 Slack channel messages with 3 thread replies, 3 emails. Do not pad it out, do not add extra rows to make it look fuller, and do not invent items that are not listed below. Every single item here is carrying something specific, so build exactly what is written and nothing more.
 
 This is a SETUP RUN ONLY.
 
-Do not research any prospect.
-Do not score any prospect.
-Do not write any research report.
-Do not create any prospect outreach draft.
-Do not send mail to anyone outside the signed in account.
-Do not invent a company, a website, a person or a score.
+Do not classify any scope item.
+Do not calculate any variance figure.
+Do not rank or qualify any expansion opportunity.
+Do not write any of the 5 closure documents.
+Do not create the Variance Summary tab.
+Do not create any carryover Jira issue and do not use the label carryover-2026-09-02.
+Do not comment on ABCR-150 and do not move it to Closed.
+Do not create a HubSpot deal named ABC Retail Mobile Application Expansion and do not write a HubSpot note dated 2026-09-02.
+Do not create any Gmail draft.
+Do not send mail to anybody outside the signed in account.
+Do not invent a scope item, an hour figure, a person, a company or an error message.
 Do not report anything as created when it was not.
 
-All dates in this system use the Asia/Kolkata time zone. The master workflow runs against a fixed scenario date of 2026-09-01 in Asia/Kolkata. Every date this setup writes into a sheet cell or a document is a date I control and is written exactly as given below in YYYY-MM-DD form.
+Everything below is invented test data. No web search is needed and no real client, real person or real credential goes anywhere in this run. ABC Retail is a made up company. Every email address written anywhere is the signed in Gmail account's own address, so nothing a later run drafts can reach a real person by accident.
+
+All dates use Asia/Kolkata. The master run works to a fixed scenario date of 2026-09-02 and reads a scenario window of 2026-01-05 through 2026-09-01.
+
+
+THE ONE THING THAT CANNOT BE FAKED, READ THIS FIRST
+
+Slack, Gmail, Jira and GitHub stamp their own timestamps and none of them can be backdated. Everything seeded today will carry today's real date, not the scenario date.
+
+So every seeded Slack message, every seeded email body and every pull request title opens with its scenario date in square brackets, like [2026-07-02], and that bracketed date is the real date for the purposes of this scenario. Write it exactly that way every time. Jira descriptions carry a line reading Scenario date: YYYY-MM-DD instead.
+
+Do not skip these date prefixes. Without them the master run has no dates to reason about and half the scenario collapses.
 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can actually reach Jira Cloud, Google Drive, Google Docs, Google Sheets, Gmail, public Google Search at google.com, PageSpeed Insights at pagespeed.web.dev, and the Chrome browser plugin.
+Confirm you can reach Google Drive, Google Docs, Google Sheets, Gmail, Google Calendar, Jira Cloud, GitHub, Slack, Notion, HubSpot, and the Chrome browser plugin.
 
 I stay signed in to all of those in Chrome, so the browser route is open for every one of them.
 
-Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
 
-A connector that was never set up, a permission refusal, a message saying there is no tool for that job, or a page that will not load are all reasons to open the app in Chrome and keep building, never reasons to stop. Do not finish this run telling me an app is unavailable or not connected unless the report also carries what happened when you opened that app in Chrome. Do not ask me to connect an integration mid run either, since the browser route is already there.
+This applies to creating and updating, not just reading. If the Jira connector will not create an issue, create it in Chrome. If the Notion connector will not write a block, write it in Chrome. If the HubSpot connector will not save a property, save it in Chrome. If the Slack connector will not post, post it in Chrome. If the GitHub connector will not open a pull request, open it in Chrome.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep building, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there. Do not finish this run telling me an app is unavailable or a plugin is not working unless the report also carries what happened when you opened that same app in Chrome.
 
 If something genuinely cannot be built on either route, mark that piece blocked, quote the exact error text from both routes, and carry on with everything that does not depend on it.
 
 
-SAFETY RULES THAT HOLD FOR THE WHOLE RUN
+PART 1, GOOGLE DRIVE FOLDER AND THE 4 SOURCE DOCUMENTS
 
-The businesses seeded below are real companies, used here only as public research subjects for a later test run. Never contact them. Never send them mail. Never put a real company email address, a real personal name, a real phone number or any real customer detail into a Jira issue, a sheet cell, a document or a Gmail message.
+Create a folder in My Drive named exactly ABC Retail Ecommerce Platform.
 
-Every Contact Email field seeded below holds the signed in Gmail account's own address and nothing else, so a draft written by the later master run cannot reach a real business by accident.
+Four documents go inside it, and the file extensions matter because the master run names them. Build each one as a Google Doc or Google Sheet, then use File, Download to get the right format, then upload that file into the folder under the exact name, then delete the intermediate native file so the folder holds only the 4 finished files plus the tracker sheet.
 
-The only mail this run sends is two test messages, both from the signed in account to that same account.
+DOCUMENT 1, name it exactly ABC Retail Final SOW.pdf
 
+Header text: Statement of Work, ABC Retail Ecommerce Platform. Signed 2026-01-05. Client sponsor role, Head of Retail Operations.
 
-TIMESTAMPS, READ THIS BEFORE SEEDING
+Then these 7 numbered scope items, each with its acceptance wording:
 
-Jira stamps Created itself and it cannot be backdated through the interface or the API. The master run picks its two prospects on the oldest Created date, so create the five issues one at a time in the exact order given below and let Jira stamp them in that order. All five will land within a few minutes of each other, which is expected and correct, and the master run reads Created at full timestamp precision rather than the date shown on a card.
+1. Product Catalog and Search. Accepted when a shopper can browse categories, filter by brand and price, and search products by name and SKU.
+2. Shopping Cart and Checkout. Accepted when a shopper can add, edit and remove items and complete a card payment in under 5 steps.
+3. Payment Gateway Integration. Accepted when card, netbanking and UPI all complete a live transaction.
+4. Admin Dashboard with Sales Reports. Accepted when sales reports export to both CSV and PDF.
+5. Content Pages and Blog. Accepted when marketing can publish and edit pages and blog posts without a developer.
+6. Data Migration from the old store. Accepted when products, customers and 24 months of order history land in the new store.
+7. Training and Handover Documentation. Accepted when staff training is delivered and the handover pack is signed off.
 
-A genuine tie on Created cannot be seeded for the same reason, so the Priority tie break in the master brief stays untested by this data. Do not try to backdate anything, do not write a fake created date into a field, and do not hold off on seeding because the timestamps sit close together.
+Then an unnumbered section, heading exactly Accessibility Baseline, with body text: the storefront meets WCAG 2.1 AA on the catalog, cart and checkout journeys. Leave this section without a number. That is deliberate.
 
+DOCUMENT 2, name it exactly ABC Retail Project Estimate.xlsx
 
-CHOOSING THE COMPANIES
+One sheet, headers in row 1: Module, Estimated Hours, Notes. Rows:
 
-Use public Google Search to pick five real, small, independent local businesses, most of them in Ahmedabad, none of them a national brand, a listed company or a company this agency already works with. Open each site once to confirm it loads. Record every company name and website address in the setup report.
+Catalog, 160, product listing, facets and search indexing
+Checkout, 120, cart, coupons and the checkout flow
+Payments, 90, gateway integration and reconciliation
+Search, 80, search service and relevance tuning
+Admin Dashboard, 0, added mid project, never estimated
+Reporting, 70, sales reports and exports
 
-Two of them carry traits the later run depends on, so check these two before seeding them.
+The 0 against Admin Dashboard is deliberate. Leave it as 0.
 
-Company A. A local service business whose site is visibly weak: a PageSpeed Insights mobile performance score below 50 on its home page, or no working contact form or phone link anywhere on the site. Run pagespeed.web.dev on the home page once to confirm before using it.
+DOCUMENT 3, name it exactly ABC Retail Approved Change Requests.docx
 
-Company B. A local service business whose site is workable, meaning a PageSpeed Insights mobile performance score of 50 or better, that does not appear anywhere on the first two pages of Google results for its main commercial search, and whose newest public social media post is dated before 2026-06-03. Check the search and the public social page once each to confirm before using it.
+Two change requests, each with its number, title, approval date, approver role and what it adds:
 
-Companies C, D and E. Ordinary local businesses with live websites. No trait check needed.
+CR-01, Multi Currency Display, approved 2026-05-04 by the Head of Retail Operations, adds currency switching to scope item 1.
+CR-02, Abandoned Cart Email, approved 2026-07-21 by the Head of Retail Operations, adds an abandoned cart reminder to scope item 2.
 
-If a company that met a trait stops meeting it while you are working, pick another one and say so in the setup report. Do not seed a company whose site will not open.
+DOCUMENT 4, name it exactly ABC Retail Project Plan.docx
 
+Planned milestone dates:
 
-JIRA SETUP
+Discovery complete, 2026-01-30
+Catalog and search live on staging, 2026-03-20
+Checkout and payments live on staging, 2026-05-15
+Admin and reporting live on staging, 2026-06-30
+Content and blog live on staging, 2026-07-25
+Production launch, 2026-08-14
+Handover and closure, 2026-08-29
 
-Create or verify a team managed project named Sales Prospecting with the project key SP. If a project with that key already exists and serves this purpose, reuse it rather than making a second one.
 
-Rename the project board to Prospect Pipeline.
+PART 2, THE EFFORT TRACKER
 
-Set the board statuses to exactly three, in this order: Pending, In Progress, Research Complete. Pending is the leftmost column. Do not add any other status, and do not create a status meaning contacted or sent.
+In the same folder create a native Google Sheet named exactly ABC Retail Development Effort Tracker with a single tab renamed to exactly Effort Log. No second tab. The master run creates the Variance Summary tab itself, so leave it out.
 
-Issue type: Task, which is the only type this project needs.
+Row 1 headers, exactly: Module, Estimated Hours, Actual Hours, Billable Hours, Non Billable Hours, Overtime Hours, Rework Hours, Defect Reference, Developer
 
-Add these fields to the Task issue type, all of them short text: Company Name, Company Website, Industry, Location, Contact Email, Assigned BDE. Priority uses the standard Jira priority field with High, Medium and Low. Description is the built in description field.
+Rows 2 down, exactly these 6 rows:
 
-If this account cannot create custom fields, put those six as labelled lines at the very top of the description instead, one per line, in exactly this shape and order, and say in the setup report that the description route was used.
+Catalog, 160, 172, 154, 18, 6, 8, ABCR-40, Dev A
+Checkout, 120, 168, 136, 32, 14, 22, ABCR-38, Dev B
+Payments, 90, 126, 102, 24, 10, 18, ABCR-40, Dev B
+Search, 80, 88, 84, 4, 0, 4, ABCR-40, Dev C
+Admin Dashboard, 0, 46, 40, 6, 0, 0, , Dev C
+Reporting, 70, 70, 70, 0, 0, 0, , Dev D
 
-Company Name:
-Company Website:
-Industry:
-Location:
-Contact Email:
-Assigned BDE:
+Leave the Defect Reference cell empty on the last 2 rows. Do not add a totals row, do not add a variance column, do not sort the rows and do not colour anything.
 
-The issue summary is the company name in every case.
 
-Create the five issues one at a time, in this order. The order is the whole point, so do not batch them and do not reorder them.
+PART 3, JIRA
 
-SEED 1, created first, and the trap that sits ahead of everything else.
-Summary and Company Name: Company D
-Issue type: Task
-Status: Pending
-Priority: High
-Company Website: leave this empty
-Industry: as found
-Location: Ahmedabad
-Contact Email: the signed in Gmail address
-Assigned BDE: Rahul
-Description: Walked in through the website form last month, no site link captured yet, needs the URL before anyone researches it.
-What it tests: the oldest Pending issue is disqualified by an empty Company Website, so the master run must skip it and say why.
+Use the signed in Jira Cloud site. Create a project named exactly ABC Retail Ecommerce with key exactly ABCR. It needs the statuses To Do, In Progress, Done and Closed on its workflow.
 
-SEED 2, created second. This is the first prospect the master run should pick.
-Summary and Company Name: Company A
-Issue type: Task
-Status: Pending
-Priority: Medium
-Company Website: Company A website address
-Industry: as found
-Location: Ahmedabad
-Contact Email: the signed in Gmail address
-Assigned BDE: Rahul
-Description: Owner asked what we would change on the site. Slow on a phone and hard to find a way to get in touch.
-What it tests: the weak site fires Website Optimization, a live Gmail thread blocks the draft, and an existing tracker row forces an update in place.
+Issue keys have to land exactly as written below, so create issues in key order and use throwaway placeholder issues to burn any gaps in the numbering, then delete the placeholders once the real keys are taken. If the site will not let you control keys, create every issue anyway, then tell me in the report which real key each one got, because I will need that mapping.
 
-SEED 3, created third. This is the second prospect the master run should pick.
-Summary and Company Name: Company B
-Issue type: Task
-Status: Pending
-Priority: Low
-Company Website: Company B website address
-Industry: as found
-Location: Ahmedabad
-Contact Email: the signed in Gmail address
-Assigned BDE: Priya
-Description: Site looks fine, nobody can find them on search though. Social pages have gone quiet.
-What it tests: SEO and Social Media Marketing both fire so the precedence order decides, no Gmail history means a draft gets written, and no tracker row means a row gets appended.
+Every issue description carries a line reading Scenario date: YYYY-MM-DD using the date given, and a line reading Scope item: followed by the SOW number, the CR number or the heading. Every Bug also carries a line reading Module: followed by the module name.
 
-SEED 4, created fourth.
-Summary and Company Name: Company E
-Issue type: Task
-Status: Pending
-Priority: High
-Company Website: Company E website address
-Industry: as found
-Location: Ahmedabad
-Contact Email: the signed in Gmail address
-Assigned BDE: Karan
-Description: Came off a directory list, nothing looked at yet.
-What it tests: the batch limit. This one qualifies on every rule and is only third in the queue, so a master run that processes it has taken a third prospect and failed.
+2 epics:
+ABCR-1, Epic, Storefront and Checkout, Done, 2026-01-12
+ABCR-2, Epic, Content and Launch, In Progress, 2026-01-12
 
-SEED 5, created fifth.
-Summary and Company Name: Company C
-Issue type: Task
-Status: Research Complete
-Priority: Medium
-Company Website: Company C website address
-Industry: as found
-Location: Ahmedabad
-Contact Email: the signed in Gmail address
-Assigned BDE: Priya
-Description: Researched on 2026-08-27, report is in the Drive folder, waiting on the owner to reply.
-What it tests: work that is already finished, which the master run must not touch or count.
+10 stories and tasks:
+ABCR-10, Story, Product catalog and search, Done, resolution Done, epic ABCR-1, scope item 1, 2026-03-18
+ABCR-12, Story, Shopping cart and checkout, Done, resolution Done, epic ABCR-1, scope item 2, 2026-05-10
+ABCR-14, Story, Payment gateway integration, Done, resolution Done, epic ABCR-1, scope item 3, 2026-05-14
+ABCR-16, Story, Admin dashboard with sales reports, Done, resolution Done, epic ABCR-1, scope item 4, 2026-06-30
+ABCR-20, Story, Content pages and blog, Done, resolution Done, epic ABCR-2, scope item 5, 2026-07-24
+ABCR-22, Task, Data migration from the old store, To Do, no resolution, epic ABCR-2, scope item 6, 2026-06-18
+ABCR-24, Story, Accessibility baseline, To Do, no resolution, epic ABCR-2, scope item Accessibility Baseline, 2026-05-08
+ABCR-26, Story, Multi currency display, In Progress, no resolution, epic ABCR-2, scope item CR-01, 2026-08-10
+ABCR-28, Story, Abandoned cart email, Done, resolution Done, epic ABCR-2, scope item CR-02, 2026-08-18
+ABCR-30, Task, Training and handover documentation, Done, resolution Done, epic ABCR-2, scope item 7, 2026-08-26
 
+2 bugs, each carrying its Module line, because the module named on the bug is what the master run needs:
 
-GOOGLE DRIVE SETUP
+ABCR-38, Bug, Checkout totals wrong when a coupon is removed, Done, resolution Done, Module: Checkout, reported by the Checkout team, 2026-05-14
+ABCR-40, Bug, Catalog facets return stale counts after a price update, Done, resolution Done, Module: Catalog, reported by the Payments team, 2026-06-05
 
-In My Drive of the signed in Google account, create or verify one folder named Sales Prospect Research. Reuse the folder if it is already there and do not create a second folder with a similar name. Leave the folder's sharing as it is.
+The closure issue:
+ABCR-150, Task, Project closure and handover, In Progress, no resolution, epic ABCR-2, 2026-08-29
 
+Description on ABCR-150: closure and handover for the ABC Retail Ecommerce Platform build. Production runs on AWS Mumbai, staging runs on AWS Singapore. Known debt at closure, search relevance tuning is half done and the notification retry logic has no backoff. Awaiting the closure pack.
 
-GOOGLE DOC: AGENCY SERVICES AND IDEAL CUSTOMER
+ABCR-150 stays In Progress with no comments on it. The master run is what closes it.
 
-Inside Sales Prospect Research, create a Google Doc named exactly Agency Services and Ideal Customer, holding the text between the two marker lines below and nothing else. Do not reword it, and do not add headings or formatting beyond plain paragraphs.
 
-BEGIN DOCUMENT TEXT
+PART 4, GITHUB
 
-What we sell. Four services and nothing outside them.
+Create 2 repositories on the signed in GitHub account, named exactly abc-retail-web and abc-retail-api. Both with main as the default branch. Private is fine. Put a one line README in each so the default branch exists.
 
-SEO. Local and organic search work, on page fixes, content, listings and citations, for businesses that want to be found on the searches their buyers actually type.
+Keep the pull requests trivial, a one line change to a text file is plenty. Nobody reads the code, only the titles, the branch and the merge state.
 
-Paid Advertising. Google Ads and Meta Ads, built and managed, for businesses that need enquiries sooner than search work can deliver them.
+Real merge timestamps cannot be backdated, so every pull request title opens with its scenario date in square brackets and carries its ABCR key.
 
-Social Media Marketing. Content planning, posting and community replies, for businesses whose competitors are visibly more active than they are.
+In abc-retail-web, create and MERGE into main:
+[2026-03-18] ABCR-10 product catalog and search
+[2026-06-30] ABCR-16 admin dashboard sales reports, CSV export
+[2026-07-24] ABCR-20 content pages and blog
 
-Website Optimization. Speed, mobile experience, contact routes, forms and conversion work on a site that already exists. We do not rebuild sites from scratch.
+In abc-retail-api, create and MERGE into main:
+[2026-05-10] ABCR-12 cart and checkout service
+[2026-05-14] ABCR-14 payment gateway, card and UPI
 
-Who we sell to. Service businesses in Gujarat, mostly Ahmedabad, Gandhinagar and Surat. Five to a hundred staff. Owner led, with nobody in house running marketing full time. Monthly budget from twenty five thousand rupees. We do our best work in home services, healthcare clinics, education, small manufacturing and professional services.
+Then 3 pull requests that must NOT end up merged into main. These 3 are the whole point of this part, so get them right:
 
-Who we do not sell to. Companies already on a retainer with another agency. National brands and listed companies. Businesses with an in house marketing team of three or more people. Anyone whose website we cannot open.
+In abc-retail-web, open a pull request titled [2026-08-12] ABCR-24 accessibility baseline pass and CLOSE IT WITHOUT MERGING.
+In abc-retail-api, open a pull request titled [2026-09-02] ABCR-26 multi currency display and LEAVE IT OPEN.
+In abc-retail-api, create a branch named release-candidate, then open and merge a pull request titled [2026-08-30] ABCR-28 abandoned cart email job INTO release-candidate, never into main.
 
-How we win the work. We lead with one problem the owner can see on their own screen in under a minute, we show what a competitor is doing about it, and we name the one service that fixes it. We never promise a ranking, a traffic number or a revenue figure.
+There is deliberately no pull request anywhere for ABCR-30, the training and handover documentation. Do not create one.
 
-END DOCUMENT TEXT
+One release per repository, cut on main, with the ABCR keys it covers in the release notes:
+abc-retail-web, v1.0.0, titled Storefront and content
+abc-retail-api, v1.0.0, titled Core services
 
+Tag each release v1.0.0 on main and write the tag name into the release notes as well, so the tag reads straight off the release page. The master run is not allowed to pull a bare tag listing, so a tag that only exists on the tags endpoint is a tag it never sees.
 
-GOOGLE SHEET: SALES PROSPECT RESEARCH TRACKER
 
-Inside Sales Prospect Research, create a Google Sheet named exactly Sales Prospect Research Tracker. Rename its first tab to Prospects. If the workbook already exists, open it and bring it into line with what follows rather than building a second one.
+PART 5, SLACK
 
-Row 1 holds these headers, in these columns, spelled exactly like this.
+Use the signed in Slack workspace. Create a public channel named exactly abc-retail-project.
 
-A Company Name
-B Company Website
-C Jira Issue Key
-D Research Status
-E Main Gap
-F Recommended Service
-G Secondary Services
-H Competitor Gap
-I Priority Score
-J Priority Band
-K Decision Maker
-L Decision Maker Status
-M Gmail History
-N Report Link
-O Outreach Status
-P Next Action
-Q Last Updated
+Post these as separate messages, in this order, oldest to newest. Every one opens with its bracketed scenario date. Where it says thread reply, post it as a reply inside the thread of the message above it, not as a new channel message.
 
-Seed three rows and no more. Dates go in as text in YYYY-MM-DD form. Leave every cell not named below empty.
+[2026-03-02] Client on the call again about checkout feeling slow on mobile. Third time they have raised it.
+[2026-04-09] Idea from our side, we should pitch them a performance tuning retainer after launch. Nobody on their side has asked for this, just us thinking ahead.
+[2026-04-15] Netbanking is not going to make it for launch. Their bank integration is a mess. Card and UPI only, agreed with the sponsor on the call today, netbanking parked for a later phase.
+[2026-05-08] Accessibility baseline is parked. We committed to finishing it at no charge in a later sprint, so nobody bill it.
+[2026-05-14] Payments has gone well past the estimate and it is not defect rework. Their gateway sandbox was down for most of a week and we built the UPI callback handling twice because the bank changed the spec on us halfway through. Roughly 18 hours went on that and none of it sits against a bug.
+[2026-05-20] Their ops lead asked whether we could sync stock levels with their ERP.
+[2026-05-20] thread reply: they use SAP apparently
+[2026-05-20] thread reply: ops lead asked again this afternoon, keen on it
+[2026-05-20] thread reply: parking this until after closure
+[2026-06-11] Sponsor asked on the call whether we build loyalty and rewards programmes.
+[2026-06-30] Sales reports export to CSV. PDF export did not make the cut, we told them it needs a rendering service we did not budget.
+[2026-07-02] Their marketing head asked about a mobile app for the storefront, iOS and Android.
+[2026-08-05] Marketing head asked if we can push their catalog to Amazon and Flipkart listings.
+[2026-08-10] Multi currency is not going to be ready. It is on us, we are finishing it at no charge after closure.
+[2026-08-20] Client says the blog section is still not live for them. Our board says that story is done. Somebody needs to look.
 
-Row 2. Company A, its website address, the Jira key of SEED 2, Research Status reads Pending, Outreach Status reads Not Started, Next Action reads Research this one, Last Updated reads 2026-08-18. Every other cell empty. This row is what forces the master run to update in place rather than append.
+That is 12 channel messages and 3 thread replies. The 3 replies all belong to the 2026-05-20 message and must sit inside its thread.
 
-Row 3. Company C, its website address, the Jira key of SEED 5, Research Status reads Research Complete, Main Gap reads No local listings and thin service pages, Recommended Service reads SEO, Secondary Services reads Website Optimization, Competitor Gap reads Two competitors hold the map pack, Priority Score reads 71, Priority Band reads High, Decision Maker reads Not Verified, Decision Maker Status reads One source only, Gmail History reads No Previous Contact, Report Link reads the link to the decoy report document created below, Outreach Status reads Draft Ready Not Sent, Next Action reads Follow up by 2026-09-03, Last Updated reads 2026-08-27. This row is finished work that the master run must leave exactly as it is.
 
-Row 4. A company name one word different from Company B, for example Company B's name with the word Solutions added to the end, a website address that is not Company B's, no Jira key, Research Status reads Research Complete, Recommended Service reads Paid Advertising, Priority Score reads 48, Priority Band reads Medium, Outreach Status reads Draft Ready Not Sent, Last Updated reads 2026-08-11. This row is the near miss that the master run must not mistake for Company B.
+PART 6, GMAIL
 
+Use the signed in Gmail account. Every message goes from that account to that same account, so nothing leaves the workspace.
 
-DECOY REPORT DOCUMENT
+Build a thread with the exact subject ABC Retail Project Closure, 3 messages, each body opening with its bracketed scenario date. Send each reply into the same thread so it reads as one conversation.
 
-Inside Sales Prospect Research, create one Google Doc named Prospect_Analysis_ plus Company C's name with spaces replaced by underscores plus _2026-08-27. It holds three plain lines: the company name, the line Research completed 2026-08-27, and the line Recommended service SEO. This is last week's report, and it is there so the folder is not empty and so the master run has something it must not overwrite.
+Message 1, body opens [2026-06-18]: from the client sponsor. We have decided to handle the data migration from the old store in house, our own team will run it. Please drop it from your scope, we are not asking you to do it and we will not be paying for it.
 
+Message 2, body opens [2026-08-24]: from the client sponsor. Ahead of the closure meeting, a few things. The blog section still is not live for us, marketing cannot publish anything, and I understood that was finished. Separately, looking at next year, we want a mobile app for the storefront on iOS and Android and we would want it live before next Diwali. We are also interested in a loyalty and rewards programme, and in listing our catalog on Amazon and Flipkart.
 
-GMAIL SETUP
+Message 3, body opens [2026-08-31]: from the client sponsor. Good meeting on the 28th. Please send the closure pack when it is ready.
 
-Two things happen in the signed in Gmail account and nothing else.
+Then a separate decoy thread, subject exactly ABC Retail Invoice Query, single message, body opens [2026-07-15] and asks which purchase order number to quote on the next invoice. It carries the client name and nothing about scope. It exists to be noise.
 
-First, seed one live thread for Company A. Send a message from the signed in account to that same account, subject reading Website enquiry Company A, with a body that names Company A, quotes its website domain in full, and carries the line This is test data for a prospect research setup, not real correspondence. Then reply once on that same thread so the thread holds two messages and its newest message carries today's date. Confirm the thread comes back when you search the account for Company A's domain across all mail. That newest message dated inside the last ninety days is what should stop the master run drafting an email for Company A.
+Leave Gmail Drafts empty of anything with ABC Retail in the subject.
 
-Second, clear the decks. Search Drafts for the subject text Prospect Outreach and delete any draft left over from an earlier run of the master workflow. Delete nothing else, anywhere.
 
-Do not create a prospect outreach draft for any company. That is the master run's job, not this one's.
+PART 7, GOOGLE CALENDAR
 
+In the primary calendar of that same account, create an event titled exactly ABC Retail Project Closure Meeting on 2026-08-28, 1 hour, with the signed in account as the only attendee. Do not invite anybody else and do not try to add a guest. There is nobody real to invite, the guest list is not what the master run reads, and an empty guest list here is the correct result rather than a gap. Who was in the room goes in the description instead, and that is deliberate.
 
-VERIFY BY READING EVERYTHING BACK
+Put these notes in the event description:
 
-Do not trust the call that created a thing. Open each one and read it.
+Participants, written here because nobody was invited through the calendar and this description is the only record of who attended. Client side: Head of Retail Operations as sponsor, marketing head, ops lead. Our side: delivery lead, tech lead.
+Netbanking confirmed out of scope for this phase, client accepted card and UPI only.
+PDF export of sales reports confirmed not delivered, CSV only, client accepted for now.
+Blog publishing raised again, client says marketing still cannot publish, we said we would check it against the board.
+Data migration confirmed as handled in house by the client, closed off.
+Client raised for next year: a mobile app on iOS and Android, and listing on Amazon and Flipkart.
+Accessibility and multi currency acknowledged as ours to finish at no charge.
 
-Count the issues on the Prospect Pipeline board and confirm five, with the statuses, priorities and field values as seeded, and note the actual issue key given to each seed since a fresh project starts at SP-1.
-Open the Sales Prospect Research folder and confirm it holds the services document, the tracker sheet and the decoy report, and nothing else.
-Open the tracker and read the tab strip at the bottom to confirm the tab is named Prospects, then read row 1 across to column Q and the three seeded rows.
-Open the services document and confirm the text came through as plain paragraphs.
-Search Gmail for Company A's domain and confirm the two message thread comes back, then search Drafts for Prospect Outreach and confirm nothing comes back.
+
+PART 8, NOTION
+
+Use the signed in Notion workspace. Create a database named exactly Client Projects, and inside it a page named exactly ABC Retail Ecommerce Platform.
+
+The database title matters as much as the page name, because the master run looks the database up by name. A database created through a connector or an API call usually lands with no title at all and then shows on screen as New database or as Untitled, which fails this setup. After creating it, open it and read the title back off the screen. Where it does not read Client Projects, rename it in Chrome, reload the page and read it back a second time. Do not finish this part until the title on screen reads Client Projects, and quote that title exactly as it reads in the setup report.
+
+Seed the page with these 4 sections and nothing more, because the master run is what fills in the rest:
+
+Delivery status: In delivery, production launched 2026-08-14, closure pending.
+Technical decisions: Postgres chosen over MySQL for the order tables, 2026-02-10. Search runs on a separate service rather than in the main app, 2026-03-05.
+Client notes: their marketing head keeps coming back to a mobile app, has raised it more than once.
+Team roster: delivery lead, tech lead, 4 developers, 1 QA.
+
+Do not add a lessons learned section, a deferred work section, a pain points section or an opportunities section. The master run adds those. Leave Team roster on the page, it is there to check the master run leaves alone what it was not asked to touch.
+
+
+PART 9, HUBSPOT
+
+Use the signed in HubSpot account.
+
+Create a company record named exactly ABC Retail. Set its Company owner property to the signed in user. Fill in a plausible industry and country, nothing else.
+
+Confirm a deal pipeline named exactly Sales Pipeline exists with a stage named exactly Appointment Scheduled. That is the HubSpot default pair, so it should already be there. If either name differs on this account, rename to match, and tell me in the report that you renamed it.
+
+Create one deal named exactly ABC Retail Ecommerce Platform Build, associated to the ABC Retail company, in Sales Pipeline at stage Closed Won. It is there as a decoy, so the master run has something it must leave alone.
+
+Do not create a deal named ABC Retail Mobile Application Expansion. Do not put a note dated 2026-09-02 on the company. The master run does both.
+
+
+PART 10, CHECK YOUR OWN WORK
+
+Open each of these and confirm what you see, do not assume:
+
+The Drive folder holds exactly 5 items, the 4 source files with their pdf, xlsx and docx extensions intact, plus the tracker sheet.
+The tracker sheet has exactly 1 tab, named Effort Log, with 6 data rows and Admin Dashboard showing 0 in Estimated Hours.
+Jira ABCR holds 15 issues, ABCR-150 reads In Progress with no comments, each Bug carries its Module line, and no pull request exists anywhere for ABCR-30.
+In abc-retail-web, the accessibility pull request reads closed and not merged. In abc-retail-api, the multi currency pull request reads open, and the abandoned cart pull request shows as merged into release-candidate with main untouched by it.
+The Slack channel holds 12 channel messages and the 3 ERP replies sit inside 1 thread, not as separate channel messages.
+The Gmail thread ABC Retail Project Closure holds 3 messages and Drafts holds nothing with ABC Retail in the subject.
+The calendar event sits on 2026-08-28 with the notes in its description.
+The Notion database title reads Client Projects on screen, not New database and not Untitled, and the page inside it carries 4 sections and no opportunities section.
+HubSpot holds the ABC Retail company with a Company owner set, the decoy Closed Won deal, and no deal named ABC Retail Mobile Application Expansion.
 
 
 SETUP REPORT
 
-Finish by reporting, in plain text:
+Finish by telling me, in plain text:
 
-The Jira project name, key, board name and the three statuses, plus whether the six fields went in as custom fields or as labelled description lines.
-The five companies with their website addresses, which seed each one became, and the actual Jira issue key each seed received.
-For Company A, the PageSpeed mobile score you saw or the missing contact route you found. For Company B, the commercial search you checked, the fact it was absent from two pages of results, and the date of its newest public social post.
-Links to the Sales Prospect Research folder, the Agency Services and Ideal Customer document, the Sales Prospect Research Tracker sheet and the decoy report document.
-The Gmail thread subject and the date on its newest message.
-The planted edge cases in a short list, each with the one thing it tests, so I can check the master run against them afterwards.
+Links to the Drive folder, the 4 source files and the tracker sheet.
+The Jira project name and key, and the real issue key each seeded issue actually received if the keys did not land as written.
+The 2 repository URLs, and for each of the 3 unmerged pull requests, its state and its target branch as GitHub shows it. The release name and the tag on each repository as the releases page shows them.
+The Slack channel name, the channel message count and the thread reply count.
+The Gmail thread subject with its message count, and confirmation that Drafts is clean.
+The calendar event link.
+The Notion page link, the parent database title exactly as the screen shows it, and the section names on the page.
+The HubSpot company link, the pipeline and stage names as they actually read on this account, and whether you renamed either.
 Every step that fell back to the Chrome browser plugin, with the error that sent it there.
 Every step still blocked, with the exact error text from both routes.
 Every deviation from this brief, with the reason.

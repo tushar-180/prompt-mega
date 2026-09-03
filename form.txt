@@ -1,7 +1,7 @@
 1. Your workflow prompt *
  
  
-2. Workflow type (examples: prospecting, qualification, onboarding, account management, or renewal preparation) *
+2. Workflow type (examples: prospecting, qualification, onboarding, account management, or renewal preparation) * (any one)
  
  
 3. Is this a pre-sales or post-sales workflow? *
@@ -10,4 +10,6 @@
 4. Typical frequency of this task *
  
  
-5. What systems, applications, or files are typically involved? *
+5. What systems, applications, or files are typically involved? * (only apps names , files folder names) 
+Apps :
+Folder Files :

@@ -1,122 +1,164 @@
-RESET WORKFLOW, SALES PROSPECT RESEARCH SYSTEM
+RESET WORKFLOW, ABC RETAIL PROJECT CLOSURE AND SALES HANDOFF SYSTEM
 
-I run this after a master run of my prospect research and outreach workflow, so the workspace goes back to the exact state my setup run left it in and I can test the master prompt again against the same starting conditions.
+I run this after a master run of my project closure and sales handoff workflow, so the workspace goes back to the exact state my setup run left it in and I can test the master prompt again against the same starting conditions.
 
 This is a RESET RUN ONLY.
 
-Do not research any prospect.
-Do not score any prospect.
-Do not write any research report.
-Do not create any outreach draft.
+Do not classify any scope item.
+Do not calculate any variance figure.
+Do not rank or qualify any expansion opportunity.
+Do not write any closure document.
+Do not create any Jira issue, any HubSpot deal or any Gmail draft.
 Do not send any mail.
-Do not rebuild the project, the folder, the sheet, the services document or the seeded issues. That is the setup run's job, and this run only undoes what the master run wrote.
+Do not rebuild the Drive folder, the 4 source files, the effort tracker, the seeded Jira issues, the repositories, the Slack channel, the seeded Gmail threads, the calendar event, the Notion database or the HubSpot company. That is the setup run's job, and this run only undoes what the master run wrote.
 Do not delete anything that is not named in this brief.
 
-All dates here use the Asia/Kolkata time zone and are written as YYYY-MM-DD.
+All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
 
 
-WHY PUTTING THE STATUS BACK TO PENDING IS NOT ENOUGH ON ITS OWN
+WHY MOVING ABCR-150 BACK TO IN PROGRESS IS NOT ENOUGH ON ITS OWN
 
-The master workflow checks for its own earlier output before it writes anything, so it will update whatever it finds instead of creating it fresh. Leave the report documents, the tracker rows, the Gmail drafts and the Jira comments in place and the second test run takes the update path rather than the create path, which is a different test. Moving the status back to Pending only decides which issues get picked. Everything below is what makes the second run a genuine repeat of the first.
+The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the 5 documents, the Variance Summary tab, the carryover issues, the closure comment, the HubSpot note and deal, the Notion sections and the Gmail draft in place, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
+
+Putting ABCR-150 back to In Progress only fixes the status. Everything below is what makes the second run a genuine repeat of the first.
 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can reach Jira Cloud, Google Drive, Google Docs, Google Sheets and Gmail. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
+Confirm you can reach Google Drive, Google Sheets, Jira Cloud, Notion, HubSpot and Gmail. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
 
-Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the report which pieces went that way and what the error was.
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the reset report which pieces went that way and what the error was.
 
-A connector that was never set up, a permission refusal, a message saying there is no tool for that job, or a page that will not load are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not finish this run telling me an app is unavailable or not connected unless the report also carries what happened when you opened that app in Chrome, and do not ask me to connect an integration mid run. Anything that cannot be undone on either route gets marked blocked with the exact error text from both routes, and the rest of the reset still runs.
+This applies to deleting and editing, not just reading. If the Jira connector will not delete an issue, delete it in Chrome. If the Notion connector will not remove a block, remove it in Chrome. If the HubSpot connector will not delete a deal, delete it in Chrome. If the Sheets connector will not drop a tab, drop it in Chrome. If the Gmail connector will not delete a draft, delete it in Chrome.
 
-Nothing here is a failure worth stopping over if the thing you were told to remove is already gone. A master run that stopped partway leaves some of this missing, so treat every removal below as remove it if it is there, skip it quietly if it is not, and say which was which in the report.
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there. Do not finish this run telling me an app is unavailable or a plugin is not working unless the report also carries what happened when you opened that same app in Chrome.
 
+If something genuinely cannot be undone on either route, mark that piece blocked, quote the exact error text from both routes, and carry on with everything else.
 
-WHAT MUST SURVIVE THIS RUN UNTOUCHED
-
-The Jira project Sales Prospecting, key SP, the board Prospect Pipeline and the three statuses Pending, In Progress and Research Complete.
-All five seeded issues, their summaries, their priorities and their six field values.
-The Google Drive folder Sales Prospect Research.
-The Google Doc Agency Services and Ideal Customer.
-The Google Sheet Sales Prospect Research Tracker, its Prospects tab and the headers on row 1.
-The decoy report document whose name ends _2026-08-27.
-The Gmail thread whose subject opens Website enquiry, including both of its messages.
-
-If any of those is missing or altered, do not rebuild it here. Name it in the report and I will re run the setup prompt for that piece.
+Run this twice and the second run should find nothing left to undo and say so. An item that is already gone is not an error, it is the expected result. Report it as already clean and move on.
 
 
-JIRA RESET
+PART 1, GOOGLE DRIVE
 
-Open the project Sales Prospecting on the board Prospect Pipeline.
+Open the folder ABC Retail Ecommerce Platform in My Drive.
 
-Move back to Pending every issue that reads Research Complete and carries a comment written by the master run, meaning a comment holding a priority score, a recommended service or a link to a document named Prospect_Analysis_ something _2026-09-01.
+Exactly 5 things belong in that folder and nothing else:
 
-Leave alone the seeded issue that was created as Research Complete with the description saying the research was done on 2026-08-27. That one was never Pending, and its Research Complete status is part of the baseline. Tell the two apart by the comment, not by the status.
+ABC Retail Final SOW.pdf
+ABC Retail Project Estimate.xlsx
+ABC Retail Approved Change Requests.docx
+ABC Retail Project Plan.docx
+ABC Retail Development Effort Tracker
 
-Delete every comment the master run added to any issue. A comment counts as the master run's if it carries a priority score, a priority band, a recommended service, a competitor comparison, a Gmail history line or a link to a document named Prospect_Analysis_ something _2026-09-01. Leave every description untouched, since the descriptions are seeded text.
+Delete everything else in that folder, then empty those items out of Drive Trash so a later search cannot find them. The master run should have left 5 Google Docs behind, named ABC Retail Ecommerce Platform Technical Closure 2026-09-02, ABC Retail Ecommerce Platform Project Closure 2026-09-02, ABC Retail Ecommerce Platform Delivery Variance and Lessons Learned 2026-09-02, ABC Retail Ecommerce Platform Sales Expansion Opportunity Brief 2026-09-02 and ABC Retail Ecommerce Platform Technical Estimation Plan 2026-09-02.
 
-Confirm afterwards that the board holds four issues reading Pending exactly as seeded, one issue reading Research Complete, and no comments anywhere.
+Do not rely on those exact names. If the master run named something differently, it is still not on the keep list of 5, so it still goes. Work off the keep list, not off the expected names, and tell me in the report every filename you actually deleted.
 
-
-GOOGLE DRIVE RESET
-
-Open the folder Sales Prospect Research in My Drive.
-
-Move to the trash every document whose name opens Prospect_Analysis_ and ends _2026-09-01. Those are the master run's reports and there will normally be one or two of them.
-
-Do not touch the document ending _2026-08-27. That is the decoy report and it is part of the baseline.
-
-If the folder holds a document the master run created under some other name, do not delete it. List it in the report with its name and I will decide.
-
-Confirm the folder ends this run holding the services document, the tracker sheet and the one decoy report, and nothing else.
+Leave the 4 source files completely alone. Do not open them for editing, do not rename them, do not re-export them.
 
 
-GOOGLE SHEET RESET
+PART 2, THE EFFORT TRACKER
 
-Open the Google Sheet Sales Prospect Research Tracker, tab Prospects.
+Open the Google Sheet ABC Retail Development Effort Tracker in that same folder.
 
-Delete any row the master run appended, meaning a row below the three seeded rows. Delete the whole row so nothing is left behind, and do not clear the cells and leave an empty row sitting in the middle of the data.
+Delete the tab named Variance Summary. If the master run named its output tab something else, delete that too. Exactly 1 tab called Effort Log should remain when you are done.
 
-Put the three seeded rows back exactly as they were. Restore the cells named here, clear every other cell on those rows, and write dates as text in YYYY-MM-DD form.
-
-Row 2. Column A the first seeded company name, column B its website address, column C its Jira issue key, column D reads Pending, column O reads Not Started, column P reads Research this one, column Q reads 2026-08-18. Columns E to N empty.
-
-Row 3. Column A the already researched company name, column B its website address, column C its Jira issue key, column D reads Research Complete, column E reads No local listings and thin service pages, column F reads SEO, column G reads Website Optimization, column H reads Two competitors hold the map pack, column I reads 71, column J reads High, column K reads Not Verified, column L reads One source only, column M reads No Previous Contact, column N holds the link to the decoy report document, column O reads Draft Ready Not Sent, column P reads Follow up by 2026-09-03, column Q reads 2026-08-27.
-
-Row 4. Column A the near miss company name, meaning the one that sits one word away from a seeded company, column B its website address, column C empty, column D reads Research Complete, column F reads Paid Advertising, column I reads 48, column J reads Medium, column O reads Draft Ready Not Sent, column Q reads 2026-08-11. Columns E, G, H, K, L, M, N and P empty.
-
-Confirm the tab ends this run with headers on row 1, those three rows on rows 2 to 4, and nothing on row 5 or below.
+The Effort Log tab does not get touched at all. Confirm before you finish that it still holds row 1 headers reading Module, Estimated Hours, Actual Hours, Billable Hours, Non Billable Hours, Overtime Hours, Rework Hours, Defect Reference, Developer, and 6 data rows from row 2 down, with Admin Dashboard still showing 0 in Estimated Hours. If any of that has been altered, do not repair it yourself, tell me in the report exactly what changed so I can rebuild the sheet from the setup run.
 
 
-GMAIL RESET
+PART 3, JIRA
 
-Search Drafts for the subject text Prospect Outreach and delete every draft that comes back. Those are the master run's outreach drafts.
+Open the project ABC Retail Ecommerce, key ABCR.
 
-Delete nothing else in the account. The thread whose subject opens Website enquiry stays exactly where it is, with both of its messages, because that thread is what makes the master run suppress a draft for the first prospect. Nothing gets sent, replied to or forwarded during this run.
+Delete every issue carrying the label carryover-2026-09-02. There should be around 4 of them, raised against the deferred and disputed scope items.
 
-Confirm afterwards that a search of Drafts for Prospect Outreach comes back empty and that a search across all mail for the seeded company's domain still returns the two message thread.
+Then check for strays. These 15 keys are the only issues the setup run created: ABCR-1, ABCR-2, ABCR-10, ABCR-12, ABCR-14, ABCR-16, ABCR-20, ABCR-22, ABCR-24, ABCR-26, ABCR-28, ABCR-30, ABCR-38, ABCR-40, ABCR-150. Any other issue in ABCR came from the master run, whether or not it got the label, so delete it as well. If the setup run reported different real keys because the site would not let it control numbering, use that mapping instead of this list and say so in the report.
+
+On ABCR-150:
+
+Delete every comment on it. The setup run left it with no comments at all, so anything there now came from the master run.
+Move its status from Closed back to In Progress.
+Clear its resolution if one got set.
+Remove any link the master run added to a carryover issue, if deleting those issues did not already clear the links.
+Leave its summary, description and epic exactly as they are.
+
+Do not change the status or resolution of any other issue. ABCR-22, ABCR-24 and ABCR-26 stay as they are, To Do, To Do and In Progress. Everything else that reads Done stays Done.
 
 
-VERIFY BY READING EVERYTHING BACK
+PART 4, NOTION
 
-Do not trust the call that deleted or wrote a thing. Open each one and read it.
+Open the page ABC Retail Ecommerce Platform inside the database Client Projects.
 
-Read the board and count the issues by status.
-Open each issue that was moved back to Pending and confirm the comment is gone and the six field values still match the seeded ones.
-Open the Drive folder and read the file list.
-Open the tracker, read the tab strip to confirm the tab is still named Prospects, then read row 1 across to column Q and rows 2 to 4 across to column Q.
-Search Gmail Drafts for Prospect Outreach, then search all mail for the seeded domain.
+The setup run left exactly 4 sections on that page. Put it back to precisely this and nothing more:
+
+Delivery status: In delivery, production launched 2026-08-14, closure pending.
+Technical decisions: Postgres chosen over MySQL for the order tables, 2026-02-10. Search runs on a separate service rather than in the main app, 2026-03-05.
+Client notes: their marketing head keeps coming back to a mobile app, has raised it more than once.
+Team roster: delivery lead, tech lead, 4 developers, 1 QA.
+
+So delete any lessons learned section, any deferred or disputed work section, any pain points section, any opportunities section, any technical decisions the master run appended beyond the 2 above, and anything else it added. Set Delivery status back to the wording above if the master run changed it to closed.
+
+Update the page in place. Do not delete the page and rebuild it, because the master run matches on the page and a fresh page with the same name is not the same test.
+
+While you are on the page, read the title of the database holding it. It has to read Client Projects, because the master run looks that database up by name and an untitled database sends it hunting. Where it reads New database, Untitled or anything else, rename it to Client Projects, reload and read it back, and say in the report what it read before and what it reads now. That is the only change this run makes to the database itself.
+
+
+PART 5, HUBSPOT
+
+Open the company record ABC Retail.
+
+Delete the deal named ABC Retail Mobile Application Expansion, and delete any other deal on this company except ABC Retail Ecommerce Platform Build, which is the decoy the setup run created and which stays exactly where it is at Closed Won.
+
+Delete every Note on the company's activity timeline dated 2026-09-02, and any note the master run left carrying a different date. The setup run created no notes at all, so any note on that company came from the master run.
+
+Leave the company record itself in place with its Company owner property still set. Leave the pipeline Sales Pipeline and the stage Appointment Scheduled alone.
+
+
+PART 6, GMAIL
+
+Delete the draft with the subject ABC Retail Ecommerce Platform Sales Handoff, and any other draft carrying ABC Retail in its subject. Empty them out of Trash as well, because the master run searches Drafts by subject before it writes.
+
+Leave the 2 seeded threads exactly as they are. The thread ABC Retail Project Closure keeps its 3 messages and the thread ABC Retail Invoice Query keeps its single message. Do not delete, archive, mark or reply to either of them.
+
+
+PART 7, WHAT DOES NOT GET TOUCHED AT ALL
+
+Nothing in this run goes near any of these, and none of them should show a change when you are finished:
+
+The 4 source documents in the Drive folder.
+The Effort Log tab.
+The 15 seeded Jira issues, other than the status, resolution, comments and links on ABCR-150.
+The repositories abc-retail-web and abc-retail-api, including the merged pull requests, the 3 unmerged ones and the releases.
+The Slack channel abc-retail-project and every message and thread reply in it.
+The 2 seeded Gmail threads.
+The calendar event ABC Retail Project Closure Meeting on 2026-08-28.
+The Notion database Client Projects itself, past reading its title back and correcting it to Client Projects where it reads otherwise, and the 4 sections listed in Part 4.
+The HubSpot company ABC Retail and the decoy deal ABC Retail Ecommerce Platform Build.
+
+
+PART 8, CHECK YOUR OWN WORK
+
+Open each of these and confirm what you see, do not assume:
+
+The Drive folder holds exactly the 5 keep list items and Drive Trash holds none of the deleted documents.
+The tracker sheet shows 1 tab named Effort Log with its 6 data rows intact.
+A search of ABCR for the label carryover-2026-09-02 comes back empty, ABCR-150 reads In Progress with no comments and no resolution, and the issue count in ABCR matches the 15 seeded keys.
+The Notion page shows 4 sections, it sits in a database whose title reads Client Projects, and Delivery status reads In delivery, production launched 2026-08-14, closure pending.
+The ABC Retail company in HubSpot shows 1 deal, ABC Retail Ecommerce Platform Build at Closed Won, and no notes.
+A Gmail search for ABC Retail in Drafts comes back empty, and both seeded threads still open normally.
 
 
 RESET REPORT
 
-Finish by reporting, in plain text:
+Finish by telling me, in plain text:
 
-Every issue moved back to Pending, by key, and every comment deleted, by issue key.
-Every document moved to the trash, by name, and confirmation that the document ending _2026-08-27 is still in the folder.
-Every sheet row deleted, and the three seeded rows read back cell by cell so I can see they match.
-Every Gmail draft deleted, by subject, and confirmation that the Website enquiry thread is still there.
-Anything named in this brief that was already gone before you started, so I can see how far the master run actually got.
-Anything the master run created that this brief does not cover, by name and location, left in place for me to decide on.
-Anything from the baseline list that is missing or altered, so I know to re run the setup prompt for that piece.
-Every step that fell back to the Chrome browser plugin, with the error that sent it there, and every step still blocked, with the exact error text from both routes.
-The one line I am looking for at the end: whether the workspace is ready for another master run, or what is standing in the way.
+Every filename deleted from the Drive folder, and whether Trash was emptied.
+Whether the Variance Summary tab existed and was removed, and confirmation that Effort Log is unchanged, or exactly what changed on it if something did.
+Every Jira issue key deleted, the number of comments removed from ABCR-150, and the status and resolution ABCR-150 now reads.
+Every Notion section removed, what Delivery status now reads, and the parent database title with whether you had to rename it.
+Every HubSpot deal and note deleted.
+Every Gmail draft deleted.
+Anything the master run left behind that this brief does not cover, described but not deleted, so I can decide what to do with it.
+Anything that was already clean before you started, so I know the master run never got that far.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every step still blocked, with the exact error text from both routes.

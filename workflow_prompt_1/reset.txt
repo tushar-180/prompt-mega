@@ -1,0 +1,122 @@
+RESET WORKFLOW, SALES PROSPECT RESEARCH SYSTEM
+
+I run this after a master run of my prospect research and outreach workflow, so the workspace goes back to the exact state my setup run left it in and I can test the master prompt again against the same starting conditions.
+
+This is a RESET RUN ONLY.
+
+Do not research any prospect.
+Do not score any prospect.
+Do not write any research report.
+Do not create any outreach draft.
+Do not send any mail.
+Do not rebuild the project, the folder, the sheet, the services document or the seeded issues. That is the setup run's job, and this run only undoes what the master run wrote.
+Do not delete anything that is not named in this brief.
+
+All dates here use the Asia/Kolkata time zone and are written as YYYY-MM-DD.
+
+
+WHY PUTTING THE STATUS BACK TO PENDING IS NOT ENOUGH ON ITS OWN
+
+The master workflow checks for its own earlier output before it writes anything, so it will update whatever it finds instead of creating it fresh. Leave the report documents, the tracker rows, the Gmail drafts and the Jira comments in place and the second test run takes the update path rather than the create path, which is a different test. Moving the status back to Pending only decides which issues get picked. Everything below is what makes the second run a genuine repeat of the first.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can reach Jira Cloud, Google Drive, Google Docs, Google Sheets and Gmail. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the report which pieces went that way and what the error was.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, or a page that will not load are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not finish this run telling me an app is unavailable or not connected unless the report also carries what happened when you opened that app in Chrome, and do not ask me to connect an integration mid run. Anything that cannot be undone on either route gets marked blocked with the exact error text from both routes, and the rest of the reset still runs.
+
+Nothing here is a failure worth stopping over if the thing you were told to remove is already gone. A master run that stopped partway leaves some of this missing, so treat every removal below as remove it if it is there, skip it quietly if it is not, and say which was which in the report.
+
+
+WHAT MUST SURVIVE THIS RUN UNTOUCHED
+
+The Jira project Sales Prospecting, key SP, the board Prospect Pipeline and the three statuses Pending, In Progress and Research Complete.
+All five seeded issues, their summaries, their priorities and their six field values.
+The Google Drive folder Sales Prospect Research.
+The Google Doc Agency Services and Ideal Customer.
+The Google Sheet Sales Prospect Research Tracker, its Prospects tab and the headers on row 1.
+The decoy report document whose name ends _2026-08-27.
+The Gmail thread whose subject opens Website enquiry, including both of its messages.
+
+If any of those is missing or altered, do not rebuild it here. Name it in the report and I will re run the setup prompt for that piece.
+
+
+JIRA RESET
+
+Open the project Sales Prospecting on the board Prospect Pipeline.
+
+Move back to Pending every issue that reads Research Complete and carries a comment written by the master run, meaning a comment holding a priority score, a recommended service or a link to a document named Prospect_Analysis_ something _2026-09-01.
+
+Leave alone the seeded issue that was created as Research Complete with the description saying the research was done on 2026-08-27. That one was never Pending, and its Research Complete status is part of the baseline. Tell the two apart by the comment, not by the status.
+
+Delete every comment the master run added to any issue. A comment counts as the master run's if it carries a priority score, a priority band, a recommended service, a competitor comparison, a Gmail history line or a link to a document named Prospect_Analysis_ something _2026-09-01. Leave every description untouched, since the descriptions are seeded text.
+
+Confirm afterwards that the board holds four issues reading Pending exactly as seeded, one issue reading Research Complete, and no comments anywhere.
+
+
+GOOGLE DRIVE RESET
+
+Open the folder Sales Prospect Research in My Drive.
+
+Move to the trash every document whose name opens Prospect_Analysis_ and ends _2026-09-01. Those are the master run's reports and there will normally be one or two of them.
+
+Do not touch the document ending _2026-08-27. That is the decoy report and it is part of the baseline.
+
+If the folder holds a document the master run created under some other name, do not delete it. List it in the report with its name and I will decide.
+
+Confirm the folder ends this run holding the services document, the tracker sheet and the one decoy report, and nothing else.
+
+
+GOOGLE SHEET RESET
+
+Open the Google Sheet Sales Prospect Research Tracker, tab Prospects.
+
+Delete any row the master run appended, meaning a row below the three seeded rows. Delete the whole row so nothing is left behind, and do not clear the cells and leave an empty row sitting in the middle of the data.
+
+Put the three seeded rows back exactly as they were. Restore the cells named here, clear every other cell on those rows, and write dates as text in YYYY-MM-DD form.
+
+Row 2. Column A the first seeded company name, column B its website address, column C its Jira issue key, column D reads Pending, column O reads Not Started, column P reads Research this one, column Q reads 2026-08-18. Columns E to N empty.
+
+Row 3. Column A the already researched company name, column B its website address, column C its Jira issue key, column D reads Research Complete, column E reads No local listings and thin service pages, column F reads SEO, column G reads Website Optimization, column H reads Two competitors hold the map pack, column I reads 71, column J reads High, column K reads Not Verified, column L reads One source only, column M reads No Previous Contact, column N holds the link to the decoy report document, column O reads Draft Ready Not Sent, column P reads Follow up by 2026-09-03, column Q reads 2026-08-27.
+
+Row 4. Column A the near miss company name, meaning the one that sits one word away from a seeded company, column B its website address, column C empty, column D reads Research Complete, column F reads Paid Advertising, column I reads 48, column J reads Medium, column O reads Draft Ready Not Sent, column Q reads 2026-08-11. Columns E, G, H, K, L, M, N and P empty.
+
+Confirm the tab ends this run with headers on row 1, those three rows on rows 2 to 4, and nothing on row 5 or below.
+
+
+GMAIL RESET
+
+Search Drafts for the subject text Prospect Outreach and delete every draft that comes back. Those are the master run's outreach drafts.
+
+Delete nothing else in the account. The thread whose subject opens Website enquiry stays exactly where it is, with both of its messages, because that thread is what makes the master run suppress a draft for the first prospect. Nothing gets sent, replied to or forwarded during this run.
+
+Confirm afterwards that a search of Drafts for Prospect Outreach comes back empty and that a search across all mail for the seeded company's domain still returns the two message thread.
+
+
+VERIFY BY READING EVERYTHING BACK
+
+Do not trust the call that deleted or wrote a thing. Open each one and read it.
+
+Read the board and count the issues by status.
+Open each issue that was moved back to Pending and confirm the comment is gone and the six field values still match the seeded ones.
+Open the Drive folder and read the file list.
+Open the tracker, read the tab strip to confirm the tab is still named Prospects, then read row 1 across to column Q and rows 2 to 4 across to column Q.
+Search Gmail Drafts for Prospect Outreach, then search all mail for the seeded domain.
+
+
+RESET REPORT
+
+Finish by reporting, in plain text:
+
+Every issue moved back to Pending, by key, and every comment deleted, by issue key.
+Every document moved to the trash, by name, and confirmation that the document ending _2026-08-27 is still in the folder.
+Every sheet row deleted, and the three seeded rows read back cell by cell so I can see they match.
+Every Gmail draft deleted, by subject, and confirmation that the Website enquiry thread is still there.
+Anything named in this brief that was already gone before you started, so I can see how far the master run actually got.
+Anything the master run created that this brief does not cover, by name and location, left in place for me to decide on.
+Anything from the baseline list that is missing or altered, so I know to re run the setup prompt for that piece.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there, and every step still blocked, with the exact error text from both routes.
+The one line I am looking for at the end: whether the workspace is ready for another master run, or what is standing in the way.

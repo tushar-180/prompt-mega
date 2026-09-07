@@ -1,0 +1,178 @@
+RESET WORKFLOW, EMERGENCY RECOVERY ROUTE READINESS SYSTEM
+
+I run this after a master run of my emergency recovery route readiness and release slot allocation workflow, so the workspace goes back to the exact state my setup run left it in and I can test the master prompt again against the same starting conditions.
+
+This is a RESET RUN ONLY.
+
+Do not classify any incident.
+Do not work out any recovery route or recovery readiness status.
+Do not calculate any Priority Score.
+Do not allocate any release window.
+Do not create any calendar event, any Notion record, any GitHub issue or any Gmail draft.
+Do not send any mail.
+Do not rebuild the Jira project, the 8 seeded issues, the PagerDuty service and its incidents, the 6 repositories with their branches, pull requests, releases and workflow runs, the Confluence page, the Drive folder, the tracker sheet with its Release Windows and Recovery Contacts rows, the calendar, or the Notion database and its properties. That is the setup run's job, and this run only undoes what the master run wrote.
+Do not delete anything that is not named in this brief.
+
+All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
+
+
+WHY PUTTING THE 6 RECORDS BACK TO PENDING RECOVERY REVIEW IS NOT ENOUGH ON ITS OWN
+
+The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the calendar holds, the Notion records and the Gmail drafts sitting there, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
+
+There is a second thing the status alone does not fix, and it matters more. Several of the seeded values are deliberately wrong, and the master run is supposed to catch them and write the correction back. Once it has, the trap is spent. If IRM-1 now reads blackpine-payments-api instead of blackpine-payments-legacy, the wrong repository trap is gone. If the Notion record now says the checkout flag is enabled, the feature flag trap is gone. Putting those values back is the real work of this run, so read the value lists below rather than skimming them.
+
+Run this twice and the second run should find nothing left to undo and say so. An item that is already gone is not an error, it is the expected result. Report it as already clean and move on.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can reach Jira Cloud, PagerDuty, GitHub, Confluence, Google Sheets, Google Calendar, Gmail, Notion and the Chrome browser plugin. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the reset report which pieces went that way and what the error was.
+
+This applies to deleting and editing, not just reading. If the Jira connector will not edit a description, edit it in Chrome. If Sheets will not drop a tab, drop it in Chrome. If Calendar will not delete an event, delete it in Chrome. If Notion will not clear a property, clear it in Chrome. If GitHub will not delete an issue, delete it in Chrome. If Gmail will not delete a draft, delete it in Chrome.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there.
+
+Do not finish this run telling me an app is unavailable or a plugin is not working unless the reset report also carries what happened when you opened that same app in Chrome. A piece reported as blocked without the browser route having been tried is a failed reset, and I will find out on the next master run rather than now.
+
+If something genuinely cannot be undone on either route, mark that piece blocked, quote the exact error text from both routes, and carry on with everything else.
+
+
+PART 1, JIRA
+
+Open the project Incident Recovery Management, key IRM.
+
+The setup run created 8 issues and no more, IRM-1 through IRM-8, or whatever real keys the setup report recorded if the site would not let it control numbering. Any other issue sitting in IRM came from the master run, so delete it.
+
+On each of the 6 in scope records, IRM-1 through IRM-6:
+
+Put the status back to Pending Recovery Review.
+Clear the resolution if one got set.
+Remove any label the master run added.
+The description has to end up carrying these 16 labelled lines and nothing else: Incident ID, Client ID, Affected Service, Incident Severity, Incident Start Timestamp, Affected User Count, Approved Root Cause Record, Confirmed Commercial Route, Current Workaround, Workaround Expiry, Production Repository, Production Release Tag, Target Recovery Version, Service Directory Path, Source Module or Symbol, Recovery Branch or Pull Request. Delete every other line, heading, table, panel or block the master run added, wherever it sits, including anything holding a recovery readiness status, a proposed recovery method, a Priority Score, a hold reason, evidence notes, a calendar allocation, a missing evidence note or a leadership review requirement.
+Delete every comment on the issue, with 1 exception. IRM-3 keeps the comment reading Testing complete, all green, ready to ship. QA signed off on 2026-09-01. That comment came from the setup run and it is the whole point of that record. Anything else on IRM-3, and everything on the other 5, came from the master run and goes.
+
+Now the values. The master run is meant to correct 4 of these, so check each one on the screen and put it back where it has moved:
+
+IRM-1, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v4.2.0, Incident Severity reads Sev1, Affected User Count reads 1800.
+IRM-2, Incident Severity reads Sev3, Affected User Count reads 180, Production Repository reads blackpine-billing-api, Production Release Tag reads v1.8.2.
+IRM-3, Incident Severity reads Sev2, Affected User Count reads 300, Production Repository reads blackpine-orders-api, Production Release Tag reads v3.0.1.
+IRM-4, Incident Severity reads Sev2, Affected User Count reads 120, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v2.9.4.
+IRM-5, Incident Severity reads Sev2, Affected User Count reads 500, Production Repository reads blackpine-web-portal, Production Release Tag reads v2.3.0.
+IRM-6, Incident Severity reads Sev3, Affected User Count reads 15, Production Repository reads blackpine-identity-api, Production Release Tag reads v1.2.0.
+
+The wrong repository on IRM-1 and the mismatched tag on IRM-1 are deliberate. Do not helpfully fix them. Every other one of the 16 lines keeps whatever the setup run wrote, so if any of them reads differently now, put it back and name it in the report.
+
+The 2 decoys do not move. IRM-7 stays issue type Incident Recovery Record at status Recovery Complete. IRM-8 stays a Task at status Pending Recovery Review. Do not change either, and do not delete them.
+
+
+PART 2, THE GOOGLE SHEET
+
+Open Emergency Release Capacity Tracker in the Drive folder Emergency Release Management.
+
+Release Windows and Recovery Contacts should still be the only 2 tabs on this sheet. The master run is not allowed to add one, so if a 3rd tab is sitting there, delete the tab itself rather than just its rows and name it in the report as a rule that run broke.
+
+On the Release Windows tab, clear the Existing Allocation cell on every row except W-04. W-04 keeps IRM-9, which the setup run put there. So after this run, column H holds IRM-9 on the W-04 row and is empty on all 7 others.
+
+Nothing else on Release Windows changes. The headers stay on row 1, all 8 rows W-00 through W-07 stay where they are, and the Window ID, Window Date, Window Start Time, Window End Time, Duration Minutes, Status and Blackout Reason columns keep exactly the values they hold. No row gets deleted, no row gets added, and the Status column does not move, so W-03 still reads Blocked and everything else still reads Available.
+
+The Recovery Contacts tab is read only for the master run, so it comes back untouched with headers on row 1 and 19 rows underneath. Read it back anyway and put right anything that has moved, because a master run editing it is a rule broken and I want it in the report. The Gopal Menon row still reads Inactive, the Manoj Iyer row still has an empty Email Address, the CL-199 rows are still sitting there, and every other Email Address cell still holds the signed in account's own address. No row gets deleted, no row gets added and no cell gets rewritten unless the master run moved it first.
+
+
+PART 3, GOOGLE CALENDAR
+
+Open the calendar Engineering Emergency Releases.
+
+Delete every event whose title starts with Emergency Release, and every event carrying an Incident ID or an IRM key anywhere on it, across 2026-09-03 through 2026-09-09 and outside it too in case the master run put a hold somewhere odd.
+
+Keep Platform Maintenance Window on 2026-09-09 from 13:00 to 15:00. That one is the setup run's and it is what makes window W-06 unavailable.
+
+The calendar ends this run holding exactly 1 event. Do not delete the calendar itself.
+
+
+PART 4, NOTION
+
+Open the database Emergency Recovery Readiness Register in the workspace Blackpine Engineering.
+
+Delete every record in it except the 1 with Incident ID INC-2045 and Target Recovery Version v2.3.1. The setup run seeded that single record and nothing else, so every other record came from the master run.
+
+Put that surviving record back to exactly this, updating it in place rather than deleting and rebuilding it, because the master run matches on the Incident ID and version pair and a fresh record is not the same test:
+
+Incident ID INC-2045. Target Recovery Version v2.3.1. Client ID CL-141. Affected Service Web Portal. Production Repository blackpine-web-portal. Production Release Tag v2.3.0. Feature Flag Option, checkout_recovery_v2 is unused in production. Last Reviewed Timestamp 2026-08-20.
+
+Every other property goes back to empty. That means Confirmed Root Cause Record, Confirmed Commercial Route, Proposed Recovery Method, Fix Branch or Pull Request, Database Migration Impact, Rollback Availability, Rollback Risk, Dependency Impact, Automated Test Result, Manual Verification Required, Open Jira Blockers, Runbook Status, Recovery Readiness Status, Priority Score, Allocated Calendar Slot, Hold Reason, Missing Evidence and Leadership Review Requirement all end up blank.
+
+The Feature Flag Option line is the one that matters most here. The master run is supposed to notice that production has checkout_recovery_v2 switched on and correct this record, so if it now reads enabled, or active, or anything other than unused, put the unused wording back. Get that wrong and the next master run has nothing to catch.
+
+Do not delete the database, do not rename it, and do not remove any of its 26 properties.
+
+
+PART 5, GITHUB
+
+GitHub is read only for the master run and the setup run opened nothing either, so all 6 repositories should still hold 0 issues. Search the open and closed issues in blackpine-payments-api, blackpine-payments-legacy, blackpine-billing-api, blackpine-orders-api, blackpine-identity-api and blackpine-web-portal for INC-2041 through INC-2046 and for the IRM keys anyway, and delete anything that comes back.
+
+Anything that turns up is a master run writing where it was told not to, so name it in the report with its repository and number. Delete it rather than closing it, and where GitHub will not let you delete an issue on either route, say so with the exact error and name what is left standing.
+
+Then check, and change nothing unless something is wrong. Pull requests 12, 9, 7, 5 and 4 should all still be open and unmerged, with no approval and no requested changes on them. The recovery branches should carry no commit the master run pushed, and no workflow run should have been started again. The Latest release badge should still read v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api, v2.3.0 on blackpine-web-portal and v1.2.0 on blackpine-identity-api, and v4.2.0 should still be sitting on blackpine-payments-api as a pre release without the badge.
+
+If a pull request got merged, or a branch got a new commit, or a workflow got re run, that is a master run that broke its own rules. Report it with what you found. Do not try to unpick it by reverting commits or closing what was merged, tell me instead and I will decide.
+
+Do not delete a repository, a branch, a pull request, a release, a tag or a workflow run.
+
+
+PART 6, GMAIL
+
+Search the Drafts folder for the subject Emergency Recovery Route Readiness and Release Slot Review 2026-09-03, for the subject Client Impact and Recovery Timeline Review 2026-09-03, and for any subject that starts Service Recovery Update and ends 2026-09-03, and delete every draft carrying any of those, however many there are.
+
+Then search Sent and All Mail for those same subjects. The master run is not allowed to send anything, and a client update leaving the building is the worst version of that, so if a sent copy turns up, do not try to recall it. Name it in the report with its subject, its date and its recipients so I know that run broke a rule.
+
+Drafts ends this run holding no draft carrying any of those subjects.
+
+
+PART 7, PAGERDUTY AND CONFLUENCE, CHECK ONLY
+
+The master run is read only in both of these, so this part is a check and nothing more.
+
+On PagerDuty, the service Production Applications should still show the 6 seeded incidents open on the Active Incidents view, with their affected user notes still on them. If any of them has been acknowledged, resolved, reassigned, escalated or snoozed, put it back to triggered and unacknowledged and name it in the report, because that is a master run that broke its own rules. Do not create an incident, do not delete one and do not add or edit a note.
+
+In Confluence, the page Production Emergency Release Runbook in the space Engineering Operations should read exactly as the setup run left it, carrying its 7 sections and both contact lines. If the master run edited it, put the changed wording back and say what it had become. Do not delete the page and do not rebuild it.
+
+
+PART 8, WHAT DOES NOT GET TOUCHED AT ALL
+
+The Jira project, its issue types and its statuses. The 8 seeded issues themselves, meaning they get edited and put back, never deleted. The PagerDuty service and its 6 incidents. All 6 repositories with every branch, pull request, release, tag, workflow file and workflow run on them. The Confluence space and its runbook page. The Drive folder, the tracker sheet, the Release Windows tab and all 8 of its rows, and the Recovery Contacts tab and all 19 of its rows. The calendar itself and the Platform Maintenance Window event. The Notion database, its 26 properties and the INC-2045 record. Every Gmail message that is not a draft carrying 1 of the master run's 3 subjects.
+
+If undoing something would mean deleting one of those, stop and tell me rather than doing it.
+
+
+PART 9, CHECK YOUR OWN WORK
+
+Before writing the report, read each of these back off the screen rather than from memory.
+
+IRM holds 8 issues and no more. 6 of them read Pending Recovery Review with 16 description lines each and no extras. IRM-7 reads Recovery Complete and IRM-8 is still a Task.
+IRM-1 says blackpine-payments-legacy and v4.2.0, and IRM-2 says Sev3 and 180.
+IRM-3 carries 1 comment and it is the testing complete one. No other issue carries any comment.
+The tracker sheet has 2 tabs, Release Windows and Recovery Contacts, column H on Release Windows is empty everywhere except the W-04 row, and Recovery Contacts still holds its 19 rows with the Gopal Menon row Inactive and the Manoj Iyer address empty.
+The calendar holds 1 event, the maintenance window.
+The Notion database holds 1 record, it reads INC-2045 with version v2.3.1, its Feature Flag Option says unused, and its Recovery Readiness Status and Priority Score are blank.
+All 6 repositories hold 0 issues, and the 5 pull requests are still open and unmerged with the Latest badges unchanged.
+Gmail Drafts holds no draft carrying any of the master run's 3 subjects.
+PagerDuty shows 6 open incidents on Production Applications.
+
+
+RESET REPORT
+
+Finish by telling me, in plain text:
+
+Every Jira issue deleted, by key, and every value you had to put back, naming the record, the label and what it read before you fixed it.
+Whether any tab other than Release Windows and Recovery Contacts was sitting there and got dropped, which Existing Allocation cells you cleared, and any cell on Recovery Contacts the master run had moved.
+Every calendar event deleted, by title and date.
+Every Notion record deleted, and which properties on the INC-2045 record you had to clear or rewrite, with what each read before.
+Every GitHub issue found and deleted, by repository and number, since the master run is not allowed to open any, and any that could not be deleted with the exact error from both routes.
+Anything that showed the master run broke its own rules, so a merged pull request, a pushed commit, a re run workflow, an acknowledged PagerDuty incident, an edited runbook page or a sent email.
+Every Gmail draft deleted, by subject.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every step still blocked, with the exact error text from both routes.
+Whether the workspace is now in a state where the master prompt can be run again as a genuine repeat, and if not, exactly what is still standing in the way.

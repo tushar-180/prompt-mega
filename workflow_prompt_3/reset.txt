@@ -10,7 +10,7 @@ Do not rank or qualify any expansion opportunity.
 Do not write any closure document.
 Do not create any Jira issue, any HubSpot deal or any Gmail draft.
 Do not send any mail.
-Do not rebuild the Drive folder, the 4 source files, the effort tracker, the seeded Jira issues, the repositories, the Slack channel, the seeded Gmail threads, the calendar event, the Notion database or the HubSpot company. That is the setup run's job, and this run only undoes what the master run wrote.
+Do not rebuild the Drive folder, the 4 source files, the effort tracker, the seeded Jira issues, the repositories, the Slack channel, the seeded Gmail threads, the calendar event or the HubSpot company. That is the setup run's job, and this run only undoes what the master run wrote.
 Do not delete anything that is not named in this brief.
 
 All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
@@ -18,18 +18,18 @@ All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
 
 WHY MOVING ABCR-150 BACK TO IN PROGRESS IS NOT ENOUGH ON ITS OWN
 
-The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the 5 documents, the Variance Summary tab, the carryover issues, the closure comment, the HubSpot note and deal, the Notion sections and the Gmail draft in place, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
+The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the 3 documents, the Variance Summary tab, the carryover issues, the closure comment, the HubSpot note and deal and the Gmail draft in place, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
 
 Putting ABCR-150 back to In Progress only fixes the status. Everything below is what makes the second run a genuine repeat of the first.
 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can reach Google Drive, Google Sheets, Jira Cloud, Notion, HubSpot and Gmail. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
+Confirm you can reach Google Drive, Google Sheets, Jira Cloud, HubSpot and Gmail. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
 
 Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the reset report which pieces went that way and what the error was.
 
-This applies to deleting and editing, not just reading. If the Jira connector will not delete an issue, delete it in Chrome. If the Notion connector will not remove a block, remove it in Chrome. If the HubSpot connector will not delete a deal, delete it in Chrome. If the Sheets connector will not drop a tab, drop it in Chrome. If the Gmail connector will not delete a draft, delete it in Chrome.
+This applies to deleting and editing, not just reading. If the Jira connector will not delete an issue, delete it in Chrome. If the HubSpot connector will not delete a deal, delete it in Chrome. If the Sheets connector will not drop a tab, drop it in Chrome. If the Gmail connector will not delete a draft, delete it in Chrome.
 
 A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there. Do not finish this run telling me an app is unavailable or a plugin is not working unless the report also carries what happened when you opened that same app in Chrome.
 
@@ -50,7 +50,7 @@ ABC Retail Approved Change Requests.docx
 ABC Retail Project Plan.docx
 ABC Retail Development Effort Tracker
 
-Delete everything else in that folder, then empty those items out of Drive Trash so a later search cannot find them. The master run should have left 5 Google Docs behind, named ABC Retail Ecommerce Platform Technical Closure 2026-09-02, ABC Retail Ecommerce Platform Project Closure 2026-09-02, ABC Retail Ecommerce Platform Delivery Variance and Lessons Learned 2026-09-02, ABC Retail Ecommerce Platform Sales Expansion Opportunity Brief 2026-09-02 and ABC Retail Ecommerce Platform Technical Estimation Plan 2026-09-02.
+Delete everything else in that folder, then empty those items out of Drive Trash so a later search cannot find them. The master run should have left 3 Google Docs behind, named ABC Retail Ecommerce Platform Project Closure 2026-09-02, ABC Retail Ecommerce Platform Delivery Variance and Lessons Learned 2026-09-02 and ABC Retail Ecommerce Platform Sales Expansion Opportunity Brief 2026-09-02.
 
 Do not rely on those exact names. If the master run named something differently, it is still not on the keep list of 5, so it still goes. Work off the keep list, not off the expected names, and tell me in the report every filename you actually deleted.
 
@@ -85,25 +85,7 @@ Leave its summary, description and epic exactly as they are.
 Do not change the status or resolution of any other issue. ABCR-22, ABCR-24 and ABCR-26 stay as they are, To Do, To Do and In Progress. Everything else that reads Done stays Done.
 
 
-PART 4, NOTION
-
-Open the page ABC Retail Ecommerce Platform inside the database Client Projects.
-
-The setup run left exactly 4 sections on that page. Put it back to precisely this and nothing more:
-
-Delivery status: In delivery, production launched 2026-08-14, closure pending.
-Technical decisions: Postgres chosen over MySQL for the order tables, 2026-02-10. Search runs on a separate service rather than in the main app, 2026-03-05.
-Client notes: their marketing head keeps coming back to a mobile app, has raised it more than once.
-Team roster: delivery lead, tech lead, 4 developers, 1 QA.
-
-So delete any lessons learned section, any deferred or disputed work section, any pain points section, any opportunities section, any technical decisions the master run appended beyond the 2 above, and anything else it added. Set Delivery status back to the wording above if the master run changed it to closed.
-
-Update the page in place. Do not delete the page and rebuild it, because the master run matches on the page and a fresh page with the same name is not the same test.
-
-While you are on the page, read the title of the database holding it. It has to read Client Projects, because the master run looks that database up by name and an untitled database sends it hunting. Where it reads New database, Untitled or anything else, rename it to Client Projects, reload and read it back, and say in the report what it read before and what it reads now. That is the only change this run makes to the database itself.
-
-
-PART 5, HUBSPOT
+PART 4, HUBSPOT
 
 Open the company record ABC Retail.
 
@@ -114,14 +96,14 @@ Delete every Note on the company's activity timeline dated 2026-09-02, and any n
 Leave the company record itself in place with its Company owner property still set. Leave the pipeline Sales Pipeline and the stage Appointment Scheduled alone.
 
 
-PART 6, GMAIL
+PART 5, GMAIL
 
 Delete the draft with the subject ABC Retail Ecommerce Platform Sales Handoff, and any other draft carrying ABC Retail in its subject. Empty them out of Trash as well, because the master run searches Drafts by subject before it writes.
 
 Leave the 2 seeded threads exactly as they are. The thread ABC Retail Project Closure keeps its 3 messages and the thread ABC Retail Invoice Query keeps its single message. Do not delete, archive, mark or reply to either of them.
 
 
-PART 7, WHAT DOES NOT GET TOUCHED AT ALL
+PART 6, WHAT DOES NOT GET TOUCHED AT ALL
 
 Nothing in this run goes near any of these, and none of them should show a change when you are finished:
 
@@ -132,18 +114,16 @@ The repositories abc-retail-web and abc-retail-api, including the merged pull re
 The Slack channel abc-retail-project and every message and thread reply in it.
 The 2 seeded Gmail threads.
 The calendar event ABC Retail Project Closure Meeting on 2026-08-28.
-The Notion database Client Projects itself, past reading its title back and correcting it to Client Projects where it reads otherwise, and the 4 sections listed in Part 4.
 The HubSpot company ABC Retail and the decoy deal ABC Retail Ecommerce Platform Build.
 
 
-PART 8, CHECK YOUR OWN WORK
+PART 7, CHECK YOUR OWN WORK
 
 Open each of these and confirm what you see, do not assume:
 
 The Drive folder holds exactly the 5 keep list items and Drive Trash holds none of the deleted documents.
 The tracker sheet shows 1 tab named Effort Log with its 6 data rows intact.
 A search of ABCR for the label carryover-2026-09-02 comes back empty, ABCR-150 reads In Progress with no comments and no resolution, and the issue count in ABCR matches the 15 seeded keys.
-The Notion page shows 4 sections, it sits in a database whose title reads Client Projects, and Delivery status reads In delivery, production launched 2026-08-14, closure pending.
 The ABC Retail company in HubSpot shows 1 deal, ABC Retail Ecommerce Platform Build at Closed Won, and no notes.
 A Gmail search for ABC Retail in Drafts comes back empty, and both seeded threads still open normally.
 
@@ -155,7 +135,6 @@ Finish by telling me, in plain text:
 Every filename deleted from the Drive folder, and whether Trash was emptied.
 Whether the Variance Summary tab existed and was removed, and confirmation that Effort Log is unchanged, or exactly what changed on it if something did.
 Every Jira issue key deleted, the number of comments removed from ABCR-150, and the status and resolution ABCR-150 now reads.
-Every Notion section removed, what Delivery status now reads, and the parent database title with whether you had to rename it.
 Every HubSpot deal and note deleted.
 Every Gmail draft deleted.
 Anything the master run left behind that this brief does not cover, described but not deleted, so I can decide what to do with it.

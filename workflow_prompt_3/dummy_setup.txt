@@ -9,7 +9,7 @@ This is a SETUP RUN ONLY.
 Do not classify any scope item.
 Do not calculate any variance figure.
 Do not rank or qualify any expansion opportunity.
-Do not write any of the 5 closure documents.
+Do not write any of the 3 closure documents.
 Do not create the Variance Summary tab.
 Do not create any carryover Jira issue and do not use the label carryover-2026-09-02.
 Do not comment on ABCR-150 and do not move it to Closed.
@@ -35,13 +35,13 @@ Do not skip these date prefixes. Without them the master run has no dates to rea
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can reach Google Drive, Google Docs, Google Sheets, Gmail, Google Calendar, Jira Cloud, GitHub, Slack, Notion, HubSpot, and the Chrome browser plugin.
+Confirm you can reach Google Drive, Google Docs, Google Sheets, Gmail, Google Calendar, Jira Cloud, GitHub, Slack, HubSpot, and the Chrome browser plugin.
 
 I stay signed in to all of those in Chrome, so the browser route is open for every one of them.
 
 Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
 
-This applies to creating and updating, not just reading. If the Jira connector will not create an issue, create it in Chrome. If the Notion connector will not write a block, write it in Chrome. If the HubSpot connector will not save a property, save it in Chrome. If the Slack connector will not post, post it in Chrome. If the GitHub connector will not open a pull request, open it in Chrome.
+This applies to creating and updating, not just reading. If the Jira connector will not create an issue, create it in Chrome. If the HubSpot connector will not save a property, save it in Chrome. If the Slack connector will not post, post it in Chrome. If the GitHub connector will not open a pull request, open it in Chrome.
 
 A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep building, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there. Do not finish this run telling me an app is unavailable or a plugin is not working unless the report also carries what happened when you opened that same app in Chrome.
 
@@ -247,23 +247,7 @@ Client raised for next year: a mobile app on iOS and Android, and listing on Ama
 Accessibility and multi currency acknowledged as ours to finish at no charge.
 
 
-PART 8, NOTION
-
-Use the signed in Notion workspace. Create a database named exactly Client Projects, and inside it a page named exactly ABC Retail Ecommerce Platform.
-
-The database title matters as much as the page name, because the master run looks the database up by name. A database created through a connector or an API call usually lands with no title at all and then shows on screen as New database or as Untitled, which fails this setup. After creating it, open it and read the title back off the screen. Where it does not read Client Projects, rename it in Chrome, reload the page and read it back a second time. Do not finish this part until the title on screen reads Client Projects, and quote that title exactly as it reads in the setup report.
-
-Seed the page with these 4 sections and nothing more, because the master run is what fills in the rest:
-
-Delivery status: In delivery, production launched 2026-08-14, closure pending.
-Technical decisions: Postgres chosen over MySQL for the order tables, 2026-02-10. Search runs on a separate service rather than in the main app, 2026-03-05.
-Client notes: their marketing head keeps coming back to a mobile app, has raised it more than once.
-Team roster: delivery lead, tech lead, 4 developers, 1 QA.
-
-Do not add a lessons learned section, a deferred work section, a pain points section or an opportunities section. The master run adds those. Leave Team roster on the page, it is there to check the master run leaves alone what it was not asked to touch.
-
-
-PART 9, HUBSPOT
+PART 8, HUBSPOT
 
 Use the signed in HubSpot account.
 
@@ -276,7 +260,7 @@ Create one deal named exactly ABC Retail Ecommerce Platform Build, associated to
 Do not create a deal named ABC Retail Mobile Application Expansion. Do not put a note dated 2026-09-02 on the company. The master run does both.
 
 
-PART 10, CHECK YOUR OWN WORK
+PART 9, CHECK YOUR OWN WORK
 
 Open each of these and confirm what you see, do not assume:
 
@@ -287,7 +271,6 @@ In abc-retail-web, the accessibility pull request reads closed and not merged. I
 The Slack channel holds 12 channel messages and the 3 ERP replies sit inside 1 thread, not as separate channel messages.
 The Gmail thread ABC Retail Project Closure holds 3 messages and Drafts holds nothing with ABC Retail in the subject.
 The calendar event sits on 2026-08-28 with the notes in its description.
-The Notion database title reads Client Projects on screen, not New database and not Untitled, and the page inside it carries 4 sections and no opportunities section.
 HubSpot holds the ABC Retail company with a Company owner set, the decoy Closed Won deal, and no deal named ABC Retail Mobile Application Expansion.
 
 
@@ -301,7 +284,6 @@ The 2 repository URLs, and for each of the 3 unmerged pull requests, its state a
 The Slack channel name, the channel message count and the thread reply count.
 The Gmail thread subject with its message count, and confirmation that Drafts is clean.
 The calendar event link.
-The Notion page link, the parent database title exactly as the screen shows it, and the section names on the page.
 The HubSpot company link, the pipeline and stage names as they actually read on this account, and whether you renamed either.
 Every step that fell back to the Chrome browser plugin, with the error that sent it there.
 Every step still blocked, with the exact error text from both routes.

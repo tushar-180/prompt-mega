@@ -1,0 +1,365 @@
+SETUP WORKFLOW, EMERGENCY RECOVERY ROUTE READINESS SYSTEM
+
+I am building the workspace that my master workflow, emergency recovery route readiness and release slot allocation, reads and writes. Everything that master run opens has to exist first and be named exactly as written here, otherwise the run stops partway through.
+
+This is deliberately small. 6 in scope incident records, 2 decoy records that must stay out of scope, 6 PagerDuty incidents, 6 GitHub repositories with 5 pull requests between them, 1 Confluence page, 8 window rows and 19 contact rows across the 2 tabs of 1 sheet, 1 calendar event, 1 Notion database with 1 seeded record. Do not pad it out, do not add extra records to make it look fuller, and do not invent items that are not listed below. Every single item here is carrying something specific, so build exactly what is written and nothing more.
+
+This is a SETUP RUN ONLY.
+
+Do not classify any incident.
+Do not work out any recovery route or recovery readiness status.
+Do not calculate any Priority Score.
+Do not allocate any release window and do not write into the Existing Allocation column.
+Do not add any tab to the tracker sheet beyond Release Windows and Recovery Contacts.
+Do not create any calendar event named Emergency Release.
+Do not create a Notion record for any incident other than the 1 named in Part 8.
+Do not raise any GitHub issue.
+Do not create any Gmail draft.
+Do not merge any pull request and do not deploy anything.
+Do not send mail to anybody outside the signed in account.
+Do not invent an incident, a person, a client or an error message.
+Do not report anything as created when it was not.
+
+Everything below is invented test data. No web search is needed for any of it. Blackpine Engineering is a made up company, every client ID is invented, and every person named below is invented. Every email address written anywhere is the signed in Gmail account's own address, so nothing a later run drafts can reach a real person by accident. No real client, real colleague or real credential goes anywhere in this run.
+
+All dates use Asia/Kolkata. The master run works to a fixed scenario date of 2026-09-03 and an emergency release period of 2026-09-03 through 2026-09-09 inclusive. Every date this setup writes into a field, a cell, a file or a page is written exactly as given below in YYYY-MM-DD form.
+
+
+THE 2 THINGS THAT CANNOT BE FAKED, READ THIS FIRST
+
+Jira sets the created and updated timestamps itself and they cannot be backdated. That is fine and it is expected. The master run filters on records created or updated between 2026-08-04 and 2026-09-03, so every record built today lands inside that window on its own. Do not try to backdate anything in Jira and do not report that you did. The incident start timestamps below are a separate thing, they are written into the description as text, and those are the ones that must match exactly.
+
+GitHub Actions results cannot be hand written either. The master run settles whether tests passed on the most recent completed workflow run on the head commit of each pull request, so those runs have to be real. Push the workflow file, let the run finish, and check on the Actions tab that the run has actually completed with the result the brief asks for before you move on. A pull request with no completed run against it breaks the test this seed exists to set up. If a run will not complete, say so in the setup report with the exact error rather than describing a result that is not on the screen.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can actually reach Jira Cloud, PagerDuty, GitHub, Confluence, Google Drive, Google Sheets, Google Calendar, Gmail, Notion and the Chrome browser plugin.
+
+I stay signed in to all of those in Chrome, so the browser route is open for every one of them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
+
+This applies to writing every bit as much as reading, and every part of this seed can be built by hand in the browser. If the Jira connector will not create the project, add the issue type, add a status or create an issue, do it in Chrome. If PagerDuty will not trigger an incident or add a note, do it in Chrome. If GitHub will not create a repository, commit a file, push a branch, open a pull request or cut a release, do it in Chrome. If Confluence will not create the space or the page, do it in Chrome. If Drive or Sheets will not make the folder, the sheet, the tab or the rows, do it in Chrome. If Calendar will not create the calendar or the event, do it in Chrome. If Notion will not create the database, add a property or write the seeded record, do it in Chrome. If Gmail will not delete a draft, delete it in Chrome.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs, none of those is a reason to stop and none of them is a reason to pause and ask me to connect something. Open the app in Chrome and carry on.
+
+Do not finish this run telling me an app is unavailable or a plugin is not working unless the setup report also carries what happened when you opened that same app in Chrome. A part reported as blocked without the browser route having been tried is a failed setup, however much of the rest got built. If a piece genuinely will not go in on either route, build everything else, then name that piece in the report with the exact error text from both routes and say which trap it leaves unarmed.
+
+Build the parts in whatever order suits the tools. Nothing here depends on anything else being finished first, apart from the GitHub pull requests needing their repositories to exist.
+
+
+PART 1, JIRA PROJECT
+
+Site name Blackpine Engineering. If the site is already called something else, leave the site name alone and say what it actually reads in the setup report.
+
+Create a project named Incident Recovery Management with the key IRM. A team managed software project is fine.
+
+That project needs an issue type named Incident Recovery Record and a workflow status named Pending Recovery Review. Both of those are what the master run filters on, so they matter. Add the issue type to the project and add the status to the project workflow, sitting alongside the statuses already there. The project also needs a status named Recovery Complete for the decoy record in Part 2.
+
+Do not add custom fields. Every incident detail below goes into the issue description as labelled lines, exactly in the order written, 1 label per line. That keeps the seed readable and it is enough for the master run to work off.
+
+Do not create any other project, and do not touch a project that is already on the site.
+
+
+PART 2, THE 6 INCIDENT RECORDS AND THE 2 DECOYS
+
+Create 8 issues in IRM. The 6 below are issue type Incident Recovery Record at status Pending Recovery Review. The summary line of each is the Incident ID followed by a short title.
+
+Record 1, summary INC-2041 Payment retry timeouts on checkout. Description lines:
+Incident ID: INC-2041
+Client ID: CL-104
+Affected Service: Payments
+Incident Severity: Sev1
+Incident Start Timestamp: 2026-08-29 02:14 Asia/Kolkata
+Affected User Count: 1800
+Approved Root Cause Record: RCA-2041, connection pool exhaustion in the PaymentRecovery retry loop, approved 2026-08-30
+Confirmed Commercial Route: Defect under warranty, no charge to the client
+Current Workaround: Manual retry queue drained every 2 hours by the on call engineer
+Workaround Expiry: 2026-09-05
+Production Repository: blackpine-payments-legacy
+Production Release Tag: v4.2.0
+Target Recovery Version: v4.1.8
+Service Directory Path: src/payments
+Source Module or Symbol: PaymentRecovery
+Recovery Branch or Pull Request: recovery/inc-2041-timeout-fix, pull request 12
+
+Record 2, summary INC-2042 Bearer tokens written to billing logs. Description lines:
+Incident ID: INC-2042
+Client ID: CL-118
+Affected Service: Billing
+Incident Severity: Sev3
+Incident Start Timestamp: 2026-08-31 09:40 Asia/Kolkata
+Affected User Count: 180
+Approved Root Cause Record: RCA-2042, token refresh handler logging the full bearer token, confirmed security exposure, approved 2026-09-01
+Confirmed Commercial Route: Defect under warranty, no charge to the client
+Current Workaround: Billing log ingestion paused and the affected log store locked down
+Workaround Expiry: 2026-09-04
+Production Repository: blackpine-billing-api
+Production Release Tag: v1.8.2
+Target Recovery Version: v1.8.3
+Service Directory Path: src/billing
+Source Module or Symbol: TokenRefresh
+Recovery Branch or Pull Request: recovery/inc-2042-token-leak, pull request 9
+
+Record 3, summary INC-2043 Stock counts drifting after order sync. Description lines:
+Incident ID: INC-2043
+Client ID: CL-127
+Affected Service: Orders
+Incident Severity: Sev2
+Incident Start Timestamp: 2026-08-26 17:05 Asia/Kolkata
+Affected User Count: 300
+Approved Root Cause Record: RCA-2043, race condition between the stock sync worker and the order writer, approved 2026-08-28
+Confirmed Commercial Route: Defect under warranty, no charge to the client
+Current Workaround: Nightly stock reconciliation script run by hand
+Workaround Expiry: 2026-09-20
+Production Repository: blackpine-orders-api
+Production Release Tag: v3.0.1
+Target Recovery Version: v3.0.2
+Service Directory Path: src/orders
+Source Module or Symbol: StockSync
+Recovery Branch or Pull Request: recovery/inc-2043-stock-sync, pull request 5
+
+Record 3 also gets 1 comment on the issue, posted as a normal comment, reading exactly: Testing complete, all green, ready to ship. QA signed off on 2026-09-01. That comment is deliberately wrong and the master run is supposed to catch it against the real workflow run. Do not soften it and do not add a second comment correcting it.
+
+Record 4, summary INC-2044 Duplicate ledger rows after backfill. Description lines:
+Incident ID: INC-2044
+Client ID: CL-133
+Affected Service: Payments Ledger
+Incident Severity: Sev2
+Incident Start Timestamp: 2026-08-24 11:20 Asia/Kolkata
+Affected User Count: 120
+Approved Root Cause Record: RCA-2044, a bad ledger backfill writing duplicate rows, confirmed risk of permanent data loss on any reversal, approved 2026-08-27
+Confirmed Commercial Route: Defect under warranty, no charge to the client
+Current Workaround: Duplicate rows suppressed in the reporting view only
+Workaround Expiry: 2026-09-12
+Production Repository: blackpine-payments-legacy
+Production Release Tag: v2.9.4
+Target Recovery Version: v2.9.5
+Service Directory Path: src/payments
+Source Module or Symbol: PaymentRecovery
+Recovery Branch or Pull Request: recovery/inc-2044-ledger-backfill, pull request 7
+
+Record 5, summary INC-2045 Checkout retry storm on the web portal. Description lines:
+Incident ID: INC-2045
+Client ID: CL-141
+Affected Service: Web Portal
+Incident Severity: Sev2
+Incident Start Timestamp: 2026-08-30 08:15 Asia/Kolkata
+Affected User Count: 500
+Approved Root Cause Record: RCA-2045, unbounded client side retries on a failed checkout call, approved 2026-08-31
+Confirmed Commercial Route: Defect under warranty, no charge to the client
+Current Workaround: Retry limit lowered through a runtime config change
+Workaround Expiry: 2026-09-06
+Production Repository: blackpine-web-portal
+Production Release Tag: v2.3.0
+Target Recovery Version: v2.3.1
+Service Directory Path: src/checkout
+Source Module or Symbol: CheckoutRecovery
+Recovery Branch or Pull Request: recovery/inc-2045-checkout-retry, pull request 4
+
+Record 6, summary INC-2046 SAML login failures for 1 client. Description lines:
+Incident ID: INC-2046
+Client ID: CL-152
+Affected Service: Identity
+Incident Severity: Sev3
+Incident Start Timestamp: 2026-08-22 14:00 Asia/Kolkata
+Affected User Count: 15
+Approved Root Cause Record: RCA-2046, the signing certificate expired at the client's own identity provider, nothing wrong on our side, approved 2026-08-25
+Confirmed Commercial Route: Client side issue, no charge, the client rotates the certificate
+Current Workaround: Local password login switched on for the affected users
+Workaround Expiry: 2026-09-30
+Production Repository: blackpine-identity-api
+Production Release Tag: v1.2.0
+Target Recovery Version: None, no code change required
+Service Directory Path: src/identity
+Source Module or Symbol: SamlAssertion
+Recovery Branch or Pull Request: None, no code change required
+
+Now the 2 decoys, which exist so the master run has something to correctly leave out.
+
+Decoy 1, issue type Incident Recovery Record, status Recovery Complete, summary INC-2039 Search indexing lag, closed. Description line: Incident ID: INC-2039. Nothing else needed.
+
+Decoy 2, issue type Task, status Pending Recovery Review, summary Quarterly recovery process review. No description lines. This one has the right status but the wrong issue type.
+
+Do not set any recovery readiness status, proposed recovery method, hold reason or Priority Score on any of these. Those are the master run's job.
+
+
+PART 3, PAGERDUTY
+
+Service name Production Applications. Create it if it is not there.
+
+Create 6 triggered incidents on that service, all left open so they show on the Active Incidents view. Each one gets a note on the incident carrying the affected user count, because PagerDuty has nowhere else to put it and the master run reads that number from here.
+
+Incident 1, title INC-2041 Sev1 Payments full service outage, urgency High, note reading: Affected users 4200. Full service outage on Payments confirmed.
+Incident 2, title INC-2042 Sev2 Billing token exposure, urgency High, note reading: Affected users 850. Confirmed security exposure, no service outage.
+Incident 3, title INC-2043 Sev2 Orders stock drift, urgency High, note reading: Affected users 300. Degraded service, no outage.
+Incident 4, title INC-2044 Sev2 Payments Ledger duplicate rows, urgency High, note reading: Affected users 120. Degraded reporting, no outage.
+Incident 5, title Sev2 Web Portal checkout retry storm, urgency High, note reading: Affected users 500. Degraded checkout, no outage. Jira reference IRM-5. If record 5 did not land as IRM-5, write the key it actually got into that note instead, because the master run matches this incident on the service plus that key.
+Incident 6, title INC-2046 Sev3 Identity SAML failures, urgency Low, note reading: Affected users 15. Single client affected, no outage.
+
+Incident 5 has no Incident ID in its title on purpose, so the master run has to fall back to matching on the affected service together with the IRM issue key. Leave it that way.
+
+Incident 2 says Sev2 here while the Jira record says Sev3, and the affected user counts differ on that same incident, 850 here against 180 in Jira. Both of those disagreements are deliberate. Do not fix either of them and do not add a note explaining them.
+
+
+PART 4, GITHUB
+
+Create 6 repositories, all private, all with a default branch named main: blackpine-payments-api, blackpine-payments-legacy, blackpine-billing-api, blackpine-orders-api, blackpine-identity-api and blackpine-web-portal.
+
+Every repository that gets a pull request below also gets this workflow file at .github/workflows/ci.yml on main, running on pull_request, with 3 jobs named unit-tests, integration-tests and rollback-test. Each job is a single shell step. Use echo followed by a successful exit for a job that has to pass, and a plain exit 1 for a job that has to fail. Keep it that simple, there is nothing to actually build here.
+
+blackpine-payments-api. On main: a README, src/payments/PaymentRecovery.ts holding a short retry loop stub, and config/production.yaml holding the lines client_id CL-104, service Payments and a feature flag block with payment_recovery_v2 set to false. Releases: create v4.1.7 from main and leave it marked as the Latest release, then create v4.2.0 and mark it as a pre release so it does not take the Latest badge. Branch recovery/inc-2041-timeout-fix off main, changing src/payments/PaymentRecovery.ts and adding scripts/rollback/inc-2041-rollback.sh. No migration files anywhere on that branch. Open pull request 12 into main, and the pull request body has to list production verification steps under a heading line reading Production verification. All 3 CI jobs pass on that branch.
+
+blackpine-payments-legacy. On main: a README, src/payments/PaymentRecovery.ts holding a different stub with a header comment saying it serves the legacy ledger for client CL-133, and config/production.yaml holding the lines client_id CL-133 and service Payments Ledger. Release v2.9.4 from main, marked Latest. Branch recovery/inc-2044-ledger-backfill off main, adding migrations/20260828_drop_legacy_ledger_columns.sql, which drops 2 columns and rewrites the remaining ledger rows, and adding migrations/rollback/20260828_restore_legacy_ledger.sql, whose header comment says in plain words that it restores the pre migration schema and drops any ledger row created after the migration ran. Open pull request 7 into main, body listing production verification steps. All 3 CI jobs pass on that branch, rollback-test included, because the script does run, it is just destructive. That is the point.
+
+The 2 PaymentRecovery files are the decoy pair. Same module name, 2 repositories, different clients. Do not rename either of them and do not add a comment pointing at the other repository.
+
+blackpine-billing-api. On main: a README, src/billing/TokenRefresh.ts, and config/production.yaml holding client_id CL-118 and service Billing. Release v1.8.2 from main, marked Latest. Branch recovery/inc-2042-token-leak off main, changing src/billing/TokenRefresh.ts and adding scripts/rollback/inc-2042-rollback.sh, no migration files. Open pull request 9 into main, body listing production verification steps. All 3 CI jobs pass.
+
+blackpine-orders-api. On main: a README, src/orders/StockSync.ts, and config/production.yaml holding client_id CL-127 and service Orders. Release v3.0.1 from main, marked Latest. Branch recovery/inc-2043-stock-sync off main, changing src/orders/StockSync.ts, no migration files, no rollback script. Open pull request 5 into main. On this branch unit-tests passes, rollback-test passes, and integration-tests fails on a plain exit 1. Let the run finish and confirm on the Actions tab that the completed run shows integration-tests as failed. This is the single most important run in the whole seed, because Jira record 3 claims the opposite.
+
+blackpine-web-portal. On main: a README, src/checkout/CheckoutRecovery.ts, and config/production.yaml holding client_id CL-141, service Web Portal and a feature flag block with checkout_recovery_v2 set to true. Release v2.3.0 from main, marked Latest. Branch recovery/inc-2045-checkout-retry off main, changing src/checkout/CheckoutRecovery.ts and adding scripts/rollback/inc-2045-rollback.sh, no migration files. Open pull request 4 into main, body listing production verification steps. All 3 CI jobs pass.
+
+blackpine-identity-api. A README and nothing else on main, plus release v1.2.0 marked Latest. No branch, no pull request, no CI. Incident INC-2046 needs no code change, so this repository only has to exist and show a Latest release.
+
+Leave all 5 pull requests open. Do not merge, approve or request changes on any of them, and do not open a single issue in any of these repositories.
+
+
+PART 5, CONFLUENCE
+
+Space name Engineering Operations. Create it if it is not there.
+
+Create a page in that space titled Production Emergency Release Runbook, carrying these sections in plain text.
+
+Emergency release criteria. An incident qualifies for an emergency release window when it reads Sev1 or Sev2 in PagerDuty, or carries a confirmed risk of permanent data loss, or carries a confirmed security exposure. Everything else waits for the next scheduled release.
+
+Change freeze. A quarter end change freeze is in force from 2026-09-01 through 2026-09-09 inclusive. No production release goes out inside that window except under the exception below.
+
+Change freeze exception conditions. All 4 have to be met, not 3. One, the incident reads Sev1 or Sev2 in PagerDuty. Two, a rollback script exists in the pull request and the most recent completed GitHub Actions run on the head commit shows the rollback-test job passing. Three, the pull request contains no database schema or data migration. Four, the pull request body lists the production verification steps.
+
+Approval requirements. The Emergency Release Approver signs off every emergency release before it ships. Nothing in a readiness review counts as that sign off.
+
+Rollback requirements. Every emergency release carries a rollback script that has been exercised in CI. A rollback that would drop records written after the change went out does not count as a rollback.
+
+Production verification requirements. Every emergency release names the checks that will be run in production straight after it ships.
+
+Contacts. Emergency Release Approver, Rohit Deshmukh, and then the signed in Gmail account's own email address. Engineering Delivery Lead, Priya Nair, and then that same signed in Gmail account's email address. Write the real signed in address into both lines so a later draft cannot reach anybody real. Nobody else goes on this page, because every other person the master run writes to sits on the Recovery Contacts tab in Part 6, and the master run has to join the 2 sources to address its drafts.
+
+
+PART 6, GOOGLE DRIVE AND THE CAPACITY TRACKER
+
+In My Drive, create a folder named Emergency Release Management. Inside it create a Google Sheet named Emergency Release Capacity Tracker.
+
+Rename the first tab to Release Windows. Row 1 holds the headers, reading across from A to H: Window ID, Window Date, Window Start Time, Window End Time, Duration Minutes, Status, Blackout Reason, Existing Allocation.
+
+From row 2 down, these 8 rows exactly, with empty cells left genuinely empty and not filled with a dash or the word none:
+
+W-00, 2026-09-02, 10:00, 12:00, 120, Available, empty, empty
+W-01, 2026-09-04, 10:00, 12:00, 120, Available, empty, empty
+W-02, 2026-09-05, 14:00, 16:00, 120, Available, empty, empty
+W-03, 2026-09-06, 09:00, 11:00, 120, Blocked, Quarter end change freeze, empty
+W-04, 2026-09-07, 11:00, 13:00, 120, Available, empty, IRM-9
+W-05, 2026-09-08, 15:00, 16:00, 60, Available, empty, empty
+W-06, 2026-09-09, 13:00, 15:00, 120, Available, empty, empty
+W-07, 2026-09-09, 10:00, 12:00, 120, Available, empty, empty
+
+Each of those rows is doing a job. W-00 sits before the release period. W-03 is blacked out. W-04 is already spoken for. W-05 is the wrong length. W-06 looks free on the sheet but the calendar in Part 7 has something sitting in it. W-01, W-02 and W-07 are the 3 that are genuinely free, and the master run is only allowed to take 2 of them.
+
+Dates go in as plain text in YYYY-MM-DD form and times as plain text in 24 hour HH:MM form, so nothing gets reformatted into something else by the sheet.
+
+Add a 2nd tab to that same sheet named Recovery Contacts. Row 1 holds the headers, reading across from A to G: Contact Role, Contact Name, Client ID, Email Address, Draft, Field, Contact Status. Every name below is invented, and every address that goes in the Email Address column is the signed in Gmail account's own address written out in full, so no draft a later run writes can reach a real person.
+
+From row 2 down, these 19 rows exactly, with the Client ID column left genuinely empty on the internal roles and not filled with a dash or the word none:
+
+Sales Lead, Meera Iyer, empty, signed in address, Sales, To, Active
+Commercial Lead, Arjun Rao, empty, signed in address, Sales, Cc, Active
+Platform Engineering Manager, Sanjay Menon, empty, signed in address, Engineering, Cc, Active
+QA Lead, Nisha Verma, empty, signed in address, Engineering, Cc, Active
+Account Manager, Kavya Pillai, CL-104, signed in address, Sales, Cc, Active
+Account Manager, Devan Shetty, CL-118, signed in address, Sales, Cc, Active
+Account Manager, Ritu Bhatia, CL-127, signed in address, Sales, Cc, Active
+Account Manager, Imran Qureshi, CL-133, signed in address, Sales, Cc, Active
+Account Manager, Leela Krishnan, CL-141, signed in address, Sales, Cc, Active
+Account Manager, Farhan Ali, CL-152, signed in address, Sales, Cc, Active
+Account Manager, Tanvi Joshi, CL-199, signed in address, Sales, Cc, Active
+Client Contact, Anita Ravi, CL-104, signed in address, Client, To, Active
+Client Contact, Gopal Menon, CL-118, signed in address, Client, To, Inactive
+Client Contact, Shruti Nambiar, CL-118, signed in address, Client, To, Active
+Client Contact, Vikram Desai, CL-127, signed in address, Client, To, Active
+Client Contact, Manoj Iyer, CL-133, empty, Client, To, Active
+Client Contact, Neha Kulkarni, CL-141, signed in address, Client, To, Active
+Client Contact, Rahul Sen, CL-152, signed in address, Client, To, Active
+Client Contact, Priyanka Ghosh, CL-199, signed in address, Client, To, Active
+
+Every Client Contact row is a person at the business that engaged Blackpine to build and run that service, the one who owns the work on their side, and not somebody using the site. The affected user counts on the incidents belong to that client's own users, so a client draft tells them what their users are hitting rather than treating the reader as 1 of them.
+
+These rows are carrying jobs the same way the window rows are. CL-118 has 2 Client Contact rows and the Inactive one is live bait, because Gopal Menon has moved on and the master run has to write to Shruti Nambiar instead. CL-199 is a client with no incident anywhere in this seed, so both of its rows are decoys no draft is allowed to touch. Manoj Iyer has a name and no address, so a run that drafts to CL-133 has to leave a To field empty and say so rather than inventing an address. Client IDs go in exactly as written, because the master run joins these rows to the incidents on that column.
+
+Release Windows and Recovery Contacts are the only 2 tabs this sheet needs, so do not add a 3rd. The master run is not allowed to add one either, and whether it stays that way is part of what I am testing. The master run also only ever writes into Existing Allocation on Release Windows, so Recovery Contacts has to come back off that run untouched.
+
+
+PART 7, GOOGLE CALENDAR
+
+Create a calendar named Engineering Emergency Releases on the signed in Google account.
+
+Put exactly 1 event on it: Platform Maintenance Window, on 2026-09-09 from 13:00 to 15:00 Asia/Kolkata, no guests, no invitations sent. That event is what makes window W-06 unavailable even though the sheet reads Available.
+
+Nothing else goes on that calendar. No event named Emergency Release, and no event carrying any Incident ID.
+
+
+PART 8, NOTION
+
+Workspace name Blackpine Engineering. If the workspace is already called something else, leave it and say what it reads in the setup report.
+
+Create a database named Emergency Recovery Readiness Register with these 25 properties, spelled exactly like this: Incident ID, Client ID, Affected Service, Confirmed Root Cause Record, Confirmed Commercial Route, Production Repository, Production Release Tag, Proposed Recovery Method, Fix Branch or Pull Request, Database Migration Impact, Rollback Availability, Rollback Risk, Feature Flag Option, Dependency Impact, Automated Test Result, Manual Verification Required, Open Jira Blockers, Runbook Status, Recovery Readiness Status, Priority Score, Allocated Calendar Slot, Hold Reason, Missing Evidence, Leadership Review Requirement, Last Reviewed Timestamp. Plus 1 more, Target Recovery Version, because that is half the key the master run searches on. Text properties are fine for all of them, apart from Priority Score which can be a number.
+
+Seed exactly 1 record in it, and leave the database otherwise empty:
+
+Incident ID INC-2045. Target Recovery Version v2.3.1. Client ID CL-141. Affected Service Web Portal. Production Repository blackpine-web-portal. Production Release Tag v2.3.0. Feature Flag Option, checkout_recovery_v2 is unused in production. Last Reviewed Timestamp 2026-08-20. Every other property left empty, Recovery Readiness Status and Priority Score included.
+
+That Feature Flag Option line is deliberately wrong, because config/production.yaml in blackpine-web-portal has checkout_recovery_v2 set to true. The master run is supposed to catch that and correct this record. Do not correct it here.
+
+That record also gives the master run something it has to update in place rather than create fresh, so leave it exactly as written.
+
+
+PART 9, GMAIL
+
+Nothing gets created here. Search the Gmail Drafts folder for the subject Emergency Recovery Route Readiness and Release Slot Review 2026-09-03, for the subject Client Impact and Recovery Timeline Review 2026-09-03, and for any subject that starts Service Recovery Update and ends 2026-09-03, and delete every draft carrying any of those, so the master run starts against a clean mailbox. If none of them is there, say so and move on.
+
+
+PART 10, CHECK YOUR OWN WORK
+
+Before writing the report, go back and confirm each of these on the screen rather than from memory.
+
+IRM holds 8 issues. 6 of them are issue type Incident Recovery Record at status Pending Recovery Review, 1 is the same type at Recovery Complete, and 1 is a Task.
+Every 1 of the 6 in scope descriptions carries all 16 labelled lines, and record 3 carries the testing complete comment.
+PagerDuty shows 6 open incidents on Production Applications, each with its affected user note, and incident 5 still has no Incident ID in its title.
+All 6 repositories exist. The Latest release badge reads v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api, v2.3.0 on blackpine-web-portal and v1.2.0 on blackpine-identity-api. v4.2.0 exists on blackpine-payments-api and does not carry the Latest badge.
+5 pull requests are open and none is merged. The completed Actions run on the head of pull request 5 shows integration-tests failed, and the completed runs on pull requests 12, 9, 7 and 4 show all 3 jobs passing.
+PaymentRecovery.ts exists in both payments repositories.
+The Confluence page carries all 7 sections including the 4 numbered exception conditions and both contact lines.
+Release Windows has headers on row 1 and 8 rows underneath, and W-04 is the only row with anything in Existing Allocation.
+Recovery Contacts has headers on row 1 and 19 rows underneath, the Gopal Menon row reads Inactive, the Manoj Iyer row has an empty Email Address, and every other Email Address cell holds the signed in account's own address.
+Release Windows and Recovery Contacts are the only 2 tabs on the sheet.
+The calendar holds 1 event and it is the maintenance window, not an emergency release.
+The Notion database has 26 properties and exactly 1 record, and that record still says the flag is unused.
+Gmail Drafts holds no draft carrying any of the master run's 3 subjects.
+
+
+SETUP REPORT
+
+Finish by telling me, in plain text:
+
+The Jira site name as it actually reads, the project name and key, and the real issue key each of the 8 seeded issues received if the keys did not land as IRM-1 through IRM-8.
+Whether the issue type Incident Recovery Record and the statuses Pending Recovery Review and Recovery Complete were created as asked, and what you did instead if any of them would not go in.
+The PagerDuty service link and the 6 incident numbers PagerDuty assigned.
+The 6 repository URLs, and for each of the 5 pull requests its number, its state, its head branch and the result of the most recent completed Actions run on its head commit, job by job, exactly as the Actions tab shows them.
+The release name and tag carrying the Latest badge on each repository, as the releases page shows it.
+The Confluence page link, and confirmation that the email address on both contact lines is the signed in account's own.
+Links to the Drive folder and the tracker sheet, the tab names the sheet actually ends up with, the row count on each tab, and confirmation that every Email Address cell on Recovery Contacts holds the signed in account's own address apart from the Manoj Iyer row, which is empty on purpose.
+The calendar name and the event link.
+The Notion database link and the property names it actually ended up with, if any of the 26 had to be renamed.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every step still blocked, with the exact error text from both routes.
+Every deviation from this brief, with the reason.

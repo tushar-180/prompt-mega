@@ -61,6 +61,10 @@ Pre-sales
 
 Weekly - each run takes the two oldest qualifying SP issues off the Prospect Pipeline board and works them end to end, with the next action dated off the run date and the band (High two days out, Medium three, Low five, rolling to the Monday after if it lands on a weekend, so a Medium prospect on 2026-09-01 is due 2026-09-04). The run is idempotent by design - filename, tracker row, draft subject and Jira comment are all matched before anything is written - so a repeat run on the same date updates in place rather than duplicating.
 
-5. What systems, applications, or files are typically involved? *
+5. What systems, applications, or files are typically involved? * (only apps names , files folder names)
 
-Jira Cloud, Google Drive, Google Docs, Google Sheets, Gmail, Google Search, Google PageSpeed Insights, Chrome browser plugin, Sales Prospect Research folder, Agency Services and Ideal Customer doc, Sales Prospect Research Tracker sheet, prospect and competitor websites, public social pages
+Apps: Jira Cloud, Google Drive, Google Docs, Google Sheets, Gmail, Google Search, Google PageSpeed Insights, Chrome browser plugin
+
+Folder Files: Sales Prospect Research folder (My Drive), Agency Services and Ideal Customer doc, Sales Prospect Research Tracker sheet (Prospects tab), Prospect_Analysis_Company_Name_2026-09-01 docs, Sales Prospecting (SP) Jira project, Prospect Pipeline board
+
+System : Windows

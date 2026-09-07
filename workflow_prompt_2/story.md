@@ -35,7 +35,7 @@ Three survive: rows 3, 5 and 8. Sort by deadline, earliest first → rows 5 and 
 
 From row 5 you carry forward: Buyer **Deccan Airports Authority**, Reference **DAA-BHA-2027-052**, Contract Start **2027-01-15**, Contract Duration **24 months**, Bid Owner **Anita Deshmukh**, Bid Owner Email **anita.deshmukh@empiricinfotech.com**, Drive Folder and Portal URL.
 
-> *If all seven rows had been knocked out, the run would write nothing anywhere — no Notion page, no Jira issue, no calendar event, no draft — and the closing message would just say "read 7 rows, here is what disqualified each."*
+> *If all seven rows had been knocked out, the run would write nothing anywhere — no Notion page, no Jira issue, no draft — and the closing message would just say "read 7 rows, here is what disqualified each."*
 
 ---
 
@@ -43,7 +43,7 @@ From row 5 you carry forward: Buyer **Deccan Airports Authority**, Reference **D
 
 The Drive Folder cell points at **My Drive / Tenders / 2027 / Deccan Airports Authority / DAA-BHA-2027-052 Baggage Handling Analytics**.
 
-That folder tail gives you the **short tender name: `Baggage Handling Analytics`**. That exact string comes back in every Jira summary, Notion title, calendar event and email subject later — so getting it right here matters downstream.
+That folder tail gives you the **short tender name: `Baggage Handling Analytics`**. That exact string comes back in every Jira summary, Notion title and email subject later — so getting it right here matters downstream.
 
 **Before reading a single word**, you prove you're in the right folder: at least one document inside has to print `DAA-BHA-2027-052` character for character. You open `01_RFP_Main_Document.pdf` and page 1 carries the reference in the header. Proof passed.
 
@@ -73,7 +73,7 @@ Three notices are on that page. One is for `DAA-RWY-2027-061` — different refe
 - **Corrigendum-01, dated 2026-08-11** — moves the submission deadline from **2026-10-09 17:00 IST** to **2026-10-23 15:00 IST**.
 - **Addendum-02, dated 2026-08-26** — amends `02_Eligibility_Criteria.pdf` clause 4.3: ISO/IEC 27001 certification must now be **valid through the entire contract term**, and raises the minimum similar-project value band.
 
-Latest publication wins, so the **authoritative deadline is 2026-10-23**, set by Corrigendum-01. The RFP's 2026-10-09 gets recorded as **superseded**, with both dates spelled out on the Notion page. Note that the sheet still says 2026-10-09 — the sheet is stale and the portal is right. **Every backward-dated calendar milestone below hangs off 2026-10-23, not 2026-10-09.**
+Latest publication wins, so the **authoritative deadline is 2026-10-23**, set by Corrigendum-01. The RFP's 2026-10-09 gets recorded as **superseded**, with both dates spelled out on the Notion page. Note that the sheet still says 2026-10-09 — the sheet is stale and the portal is right. **Every backward-counted Bid Production Due date below hangs off 2026-10-23, not 2026-10-09.**
 
 Two branches you didn't hit, but which change everything when you do:
 
@@ -86,23 +86,21 @@ And if Corrigendum-01 and Addendum-02 had carried the *same date* and contradict
 
 ## Act 4 — Building the effective requirement set
 
-From pack + portal together you assemble **28 requirements**: all **18 the pack marks mandatory**, plus the **10 non-mandatory** carrying the most delivery risk (ties there broken on lower document number, then lower page number).
+From pack + portal together you assemble **23 requirements**: all **18 the pack marks mandatory**, plus the **5 non-mandatory** carrying the most delivery risk (ties there broken on lower document number, then lower page number).
 
-Each one carries **11 fields**. Here's one, fully populated, so the shape is concrete:
+Each one carries **9 fields**. Here's one, fully populated, so the shape is concrete:
 
 | Field | Value |
 |---|---|
 | 1. Quote (buyer's words) | "The Bidder shall hold a valid ISO/IEC 27001 certification covering software development and data processing services, valid for the entire contract term." |
 | 2. Mandatory? | Yes |
 | 3. Source | `02_Eligibility_Criteria.pdf` page 7, clause 4.3 |
-| 4. Version / amendment | RFP v1.0, amended by **Addendum-02 dated 2026-08-26** |
+| 4. Amendment / version | **Addendum-02 dated 2026-08-26**, RFP now at v1.0 as amended |
 | 5. Status | **Partially Compliant** |
 | 6. Company evidence | Notion → **Company Knowledge Base → Certifications** → record "ISO/IEC 27001:2022 — Information Security" |
-| 7. Risk | Certificate expires 22 months before contract end; buyer can reject at evaluation or terminate mid-term. |
-| 8. Action | Complete recertification with scope extended through 2029-01-14 |
-| 9. Fatal / curable / neither | **Curable** |
-| 10. Owner | Vikram Shah (Jira **BID-241**) |
-| 11. Due by | **2026-10-15** (before the authoritative deadline 2026-10-23) |
+| 7. Action | Complete recertification with scope extended through 2029-01-14 |
+| 8. Fatal / curable / neither | **Curable** |
+| 9. Due by | **2026-10-15** (before the authoritative deadline 2026-10-23) |
 
 Sources always look like `04_Technical_Specification.pdf page 14` or `06_Annexure_C_Compliance_Matrix.xlsx tab Eligibility row 22` — never "the technical document" or "the compliance sheet." Somebody has to be able to go and check.
 
@@ -172,7 +170,7 @@ All three land *after* 2027-01-15, so this is a genuine staffing shortfall. The 
 
 ## Act 8 — One decision
 
-Counting the 28 requirements: **16 Compliant, 6 Partially Compliant, 2 Not Compliant, 4 Cannot Determine.** Of the 18 mandatory ones: 12 Compliant, 4 Partially, 2 Cannot Determine, **0 Not Compliant**.
+Counting the 23 requirements: **14 Compliant, 5 Partially Compliant, 1 Not Compliant, 3 Cannot Determine.** Of the 18 mandatory ones: 12 Compliant, 4 Partially, 2 Cannot Determine, **0 Not Compliant**.
 
 Walk the three rules in order:
 
@@ -204,7 +202,7 @@ Five candidates qualified. Three is the hard ceiling, so you rank: mandatory fir
 
 ### Jira → project `BID`, component `Bid Compliance`
 
-**One `Task` per mandatory requirement that came out Not Compliant, Partially Compliant or Cannot Determine.** That's 4 + 2 = **6 issues**, comfortably inside the cap of 12 (had it overflowed: fatal ranked ahead of curable, ties on lower document number then lower page number).
+**One `Task` per mandatory requirement that came out Not Compliant, Partially Compliant or Cannot Determine.** That's 4 + 2 = **6 issues**, comfortably inside the cap of 8 (had it overflowed: fatal ranked ahead of curable, ties on lower document number then lower page number).
 
 Format — summary is the bracketed reference then the check; the `Labels` field takes the **bare** reference with no brackets:
 
@@ -218,37 +216,24 @@ Then **3 more issues on the same component**, one per kept clarification questio
 
 ### Jira → project `BID`, component `Bid Production`
 
-Exactly **6 issues**, same prefix and label, each taking the Due date of the calendar milestone it matches:
+Exactly **6 issues**, same prefix and label, in the order the work actually happens, with Due dates counted backwards from the authoritative deadline **2026-10-23** in working days:
 
-| Issue summary | Due |
-|---|---|
-| `[DAA-BHA-2027-052] Complete Technical Proposal` | 2026-10-13 |
-| `[DAA-BHA-2027-052] Complete Commercial Proposal` | 2026-10-15 |
-| `[DAA-BHA-2027-052] Complete Legal Review` | 2026-10-15 |
-| `[DAA-BHA-2027-052] Complete Final Compliance Review` | 2026-10-09 |
-| `[DAA-BHA-2027-052] Obtain Management Approval` | 2026-10-19 |
-| `[DAA-BHA-2027-052] Final Tender Submission` | 2026-10-21 |
-
-### Notion → `Bid Management` teamspace → `Tender Decisions` database
-
-**One page**, titled `DAA-BHA-2027-052 Baggage Handling Analytics` — reference then short tender name. It carries: tender name, buyer, reference; original deadline 2026-10-09 and authoritative deadline 2026-10-23 *with Corrigendum-01 named as what set it*; contract dates 2027-01-15 to 2029-01-14; effective RFP version plus Corrigendum-01 and Addendum-02 with the wording each superseded; all 28 requirements at 11 fields apiece; the fatal issue (Data Engineer shortfall), the curable ones with owner and close date, the 4 Cannot Determine items with what's missing on each; the 3 clarification questions; the decision with reasoning **in 200 words or fewer**; and housekeeping — the 8 filenames read, the 15 Jira keys, the 6 event names, the draft subject.
-
-### Google Calendar → `Bid Management`
-
-Six events, all **1 hour, all starting 10:00 Asia/Kolkata, no guests on any of them**, dated backwards from **2026-10-23** in working days:
-
-| Event name | Working days before deadline | Date |
+| Issue summary | Working days before deadline | Due |
 |---|---|---|
-| `[DAA-BHA-2027-052] Proposal Preparation` | 15 | Fri **2026-10-02** |
-| `[DAA-BHA-2027-052] Compliance Review` | 10 | Fri **2026-10-09** |
-| `[DAA-BHA-2027-052] Technical Review` | 8 | Tue **2026-10-13** |
-| `[DAA-BHA-2027-052] Commercial Review` | 6 | Thu **2026-10-15** |
-| `[DAA-BHA-2027-052] Management Approval` | 4 | Mon **2026-10-19** |
+| `[DAA-BHA-2027-052] Complete Technical Proposal` | 15 | Fri **2026-10-02** |
+| `[DAA-BHA-2027-052] Complete Commercial Proposal` | 10 | Fri **2026-10-09** |
+| `[DAA-BHA-2027-052] Complete Legal Review` | 8 | Tue **2026-10-13** |
+| `[DAA-BHA-2027-052] Complete Final Compliance Review` | 6 | Thu **2026-10-15** |
+| `[DAA-BHA-2027-052] Obtain Management Approval` | 4 | Mon **2026-10-19** |
 | `[DAA-BHA-2027-052] Final Tender Submission` | 2 | Wed **2026-10-21** |
 
 There are **37 working days** between 2026-09-02 and 2026-10-23, so the full schedule fits and nothing gets squeezed. No weekend landings to fix.
 
-> *Had the deadline been, say, 2026-09-18 — only 12 working days out — the earlier milestones would give way: Final Tender Submission keeps its 2 clear working days no matter what, nothing goes earlier than today 2026-09-02, and Proposal Preparation would compress from 15 to 12. The closing message would then have to say which ones were squeezed and by how much.*
+> *Had the deadline been, say, 2026-09-18 — only 12 working days out — the earlier issues would give way: Final Tender Submission keeps its 2 clear working days no matter what, nothing goes earlier than today 2026-09-02, and Complete Technical Proposal would compress from 15 to 12. The closing message would then have to say which ones were squeezed and by how much.*
+
+### Notion → `Bid Management` teamspace → `Tender Decisions` database
+
+**One page**, titled `DAA-BHA-2027-052 Baggage Handling Analytics` — reference then short tender name. It carries: tender name, buyer, reference; original deadline 2026-10-09 and authoritative deadline 2026-10-23 *with Corrigendum-01 named as what set it*; contract dates 2027-01-15 to 2029-01-14; effective RFP version plus Corrigendum-01 and Addendum-02 with the wording each superseded; all 23 requirements at 9 fields apiece; the fatal issue (Data Engineer shortfall), the curable ones with owner and close date, the 3 Cannot Determine items with what's missing on each; the 3 clarification questions; the decision with reasoning **in 200 words or fewer**; and housekeeping — the 8 filenames read, the 15 Jira keys, the draft subject.
 
 ### Gmail → Drafts, single signed-in account
 
@@ -256,7 +241,7 @@ There are **37 working days** between 2026-09-02 and 2026-10-23, so the full sch
 
 > **To:** anita.deshmukh@empiricinfotech.com
 > **Subject:** `[DAA-BHA-2027-052] Bid Decision Conditional Bid`
-> **Body (180–260 words):** tender name and buyer; authoritative deadline 2026-10-23 set by Corrigendum-01 dated 2026-08-11; the decision and the one finding that drove it (mandatory ISO 27001 clause amended by Addendum-02 is only Partially Compliant, 22 months of contract uncovered); the fatal issue (Data Engineer shortfall of 2, no hiring plan on record); the curable ones with owner and close date each — Vikram Shah by 2026-10-15, Meera Nair by 2026-12-15; the 4 Cannot Determine items; the 3 clarification questions; and the one thing Anita has to do next, with its date.
+> **Body (180–260 words):** tender name and buyer; authoritative deadline 2026-10-23 set by Corrigendum-01 dated 2026-08-11; the decision and the one finding that drove it (mandatory ISO 27001 clause amended by Addendum-02 is only Partially Compliant, 22 months of contract uncovered); the fatal issue (Data Engineer shortfall of 2, no hiring plan on record); the curable ones with owner and close date each — Vikram Shah by 2026-10-15, Meera Nair by 2026-12-15; the 3 Cannot Determine items; the 3 clarification questions; and the one thing Anita has to do next, with its date.
 > **No attachments. Not sent** — not through a connector, not through a browser.
 
 > *If the Bid Owner Email cell had been empty: leave `To` empty, and open the body with the line `RECIPIENT NOT CONFIRMED`.*
@@ -273,10 +258,9 @@ This is the idempotency contract. **Look before creating anything:**
 
 - Jira: `project = BID AND labels = "DAA-BHA-2027-052"` across `Bid Compliance` and `Bid Production`
 - Notion: search the `Tender Decisions` database for the bracketed prefix
-- Calendar: search `Bid Management` for `[DAA-BHA-2027-052]`
 - Gmail: search Drafts for the same prefix
 
-Anything already carrying it gets **updated where it stands**, never duplicated. However many times this runs: **1 reference = 1 decision page, 6 production issues, 6 calendar events, 1 draft.**
+Anything already carrying it gets **updated where it stands**, never duplicated. However many times this runs: **1 reference = 1 decision page, 6 production issues, 1 draft.**
 
 ---
 
@@ -290,14 +274,14 @@ The login rule that blocks the buyer's portal (and Upwork, Freelancer, LinkedIn,
 
 **Only two things stop the run outright:** `Tender Tracker 2026` failing on both routes, or the tender folder failing on both routes. Either one is reported as blocked, quoting the exact error text from each route.
 
-Everything else gets written down and worked around. If `07_Annexure_D_Pricing_Schedule.xlsx` refuses to open on both routes, you name it exactly as the brief names it, say what it cost the analysis, mark the requirements it left as **Cannot Determine**, and **finish every other part of the run**. You never invent a file, folder, tab, Notion page, Jira issue, calendar event, portal notice or certificate — and you never report something as opened or created when it wasn't.
+Everything else gets written down and worked around. If `07_Annexure_D_Pricing_Schedule.xlsx` refuses to open on both routes, you name it exactly as the brief names it, say what it cost the analysis, mark the requirements it left as **Cannot Determine**, and **finish every other part of the run**. You never invent a file, folder, tab, Notion page, Jira issue, portal notice or certificate — and you never report something as opened or created when it wasn't.
 
 ---
 
 ## The closing message
 
-The run is done when: row 5 carries `Conditional Bid` and `2026-09-02`; the Notion page has every field filled or marked Cannot Determine; `Bid Compliance` holds 6 compliance issues plus 3 clarification issues; `Bid Production` holds its 6; the 6 events sit on the `Bid Management` calendar with no guests and no weekend dates; one unsent draft sits in Gmail Drafts; and the closing message covers **all eleven items** — the tender taken and what ruled the other six rows out, the authoritative deadline and the notice that set it, requirement counts by status, the fatal issue, the curable ones, the Cannot Determine items, the 3 questions kept and the 2 dropped with reasons, every step that fell back to Chrome with the error that sent it there, and every step still blocked with the error from both routes.
+The run is done when: row 5 carries `Conditional Bid` and `2026-09-02`; the Notion page has every field filled or marked Cannot Determine; `Bid Compliance` holds 6 compliance issues plus 3 clarification issues; `Bid Production` holds its 6 with the back-counted Due dates on them and none of them on a weekend; one unsent draft sits in Gmail Drafts; and the closing message covers **all ten items** — the tender taken and what ruled the other six rows out, the authoritative deadline and the notice that set it, requirement counts by status, the fatal issue, the curable ones, the Cannot Determine items, the 3 questions kept and the 2 dropped with reasons, any production Due dates that had to be squeezed and by how much, every step that fell back to Chrome with the error that sent it there, and every step still blocked with the error from both routes.
 
 ---
 
-**The shape of it, in one line:** *pick one row → prove the folder → read everything → check the portal for what moved → build 28 requirements at 11 fields each → test them against Notion evidence and Jira capacity → apply the curable bar honestly → land one decision → write it into Jira, Notion, Calendar, Gmail and back into the sheet, idempotently.*
+**The shape of it, in one line:** *pick one row → prove the folder → read everything → check the portal for what moved → build 23 requirements at 9 fields each → test them against Notion evidence and Jira capacity → apply the curable bar honestly → land one decision → write it into Jira, Notion, Gmail and back into the sheet, idempotently.*

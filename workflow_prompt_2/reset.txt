@@ -7,13 +7,13 @@ This run clears what the master run wrote and nothing else. The seed stays exact
 This is a CLEARING RUN ONLY.
 
 Do not evaluate the tender.
-Do not create a compliance issue, a decision page, a calendar event or an email draft.
+Do not create a compliance issue, a decision page or an email draft.
 Do not reseed anything, and do not repair the seed beyond what the verification section at the end asks for.
 Do not send any email.
 
 Reach each app through its connected integration where that works, and through the Chrome browser plugin wherever the integration is missing, errors, times out, refuses the call, reports a tool it does not recognise, hands back nothing the screen is clearly showing, or hands back something that does not match what the screen shows. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so a report saying an integration would not connect is not a finished reset. Retry once where a failure looks transient and wait out a rate limit rather than falling back for it, and where the integration and the screen disagree about what is still sitting there, the screen is what the workspace actually holds.
 
-Through Chrome that means clearing the two cells in the sheet on screen, opening a Jira issue and deleting it from its own menu or running the label search in the JQL box on the issue search screen, opening the Notion page and moving it to trash from the page menu, opening a calendar event and deleting it, and discarding a draft from the Gmail Drafts list. Where both routes fail on a piece, leave that piece alone, say so in the report, and carry on with the rest. A half cleared workspace that is honestly reported is fine. A workspace reported as clear when something is still sitting in it is not, because the next master run will silently update it and the test will prove nothing.
+Through Chrome that means clearing the two cells in the sheet on screen, opening a Jira issue and deleting it from its own menu or running the label search in the JQL box on the issue search screen, opening the Notion page and moving it to trash from the page menu, and discarding a draft from the Gmail Drafts list. Where both routes fail on a piece, leave that piece alone, say so in the report, and carry on with the rest. A half cleared workspace that is honestly reported is fine. A workspace reported as clear when something is still sitting in it is not, because the next master run will silently update it and the test will prove nothing.
 
 
 WHAT THE MASTER RUN WROTE, AND WHERE
@@ -25,8 +25,6 @@ The Decision cell and the Decision Date cell of row 2 on the Pending Tenders tab
 Issues in the Jira project Bid Management, project key BID, on the components Bid Compliance and Bid Production, every one of them carrying ABC-HMS-2026-001 in the Labels field.
 
 One page in the Notion database Tender Decisions, in the teamspace Bid Management, titled ABC-HMS-2026-001 Hospital Management System.
-
-Up to six events on the Google Calendar named Bid Management, every one with a name opening [ABC-HMS-2026-001].
 
 One draft in the Gmail Drafts folder of the signed in account, subject opening [ABC-HMS-2026-001].
 
@@ -64,15 +62,6 @@ In the teamspace Bid Management, open the database Tender Decisions and move to 
 Leave the database Historical Bid Outcomes alone, all four records. Leave the whole teamspace Company Knowledge Base alone, all four databases and every record in them, the certifications, the projects, the client references and the capability records including the support desk expansion plan, the headcount record and the ramp up plan. The master run reads all of that and writes none of it.
 
 
-GOOGLE CALENDAR
-
-On the calendar named Bid Management, delete every event whose name opens [ABC-HMS-2026-001], across the whole of 2026. There should be six, named Proposal Preparation, Compliance Review, Technical Review, Commercial Review, Management Approval and Final Tender Submission after the prefix. Delete however many you find, including duplicates.
-
-Where an event opens with that prefix but carries none of those six names, delete it as well and name it in the report, since only the master run writes that prefix.
-
-Leave every event carrying a different prefix or no prefix alone, and leave the calendar itself in place. The calendar ends this run holding nothing for ABC-HMS-2026-001.
-
-
 GMAIL
 
 In the Drafts folder of the signed in account, delete every draft whose subject opens [ABC-HMS-2026-001]. There should be one. Delete duplicates too.
@@ -104,4 +93,4 @@ Run this reset on an already reset workspace and it changes nothing. Every step 
 
 THE REPORT AT THE END
 
-Say what you cleared and what you found already clear, counted item by item: the two sheet cells, the number of Jira issues deleted with their keys and summaries, the Notion page, the number of calendar events deleted with their names, the draft. Then say what the verification section found, naming anything that had moved from the seeded values and anything you set back. Then say whether the workspace is ready for another master run, and where it is not, name the piece and the error from both routes. Never report something as cleared where it was not.
+Say what you cleared and what you found already clear, counted item by item: the two sheet cells, the number of Jira issues deleted with their keys and summaries, the Notion page, the draft. Then say what the verification section found, naming anything that had moved from the seeded values and anything you set back. Then say whether the workspace is ready for another master run, and where it is not, name the piece and the error from both routes. Never report something as cleared where it was not.

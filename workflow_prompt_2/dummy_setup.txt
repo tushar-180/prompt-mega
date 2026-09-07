@@ -2,13 +2,13 @@ SETUP WORKFLOW, TENDER BID DECISION SYSTEM
 
 I am setting up a pre bid tender evaluation workflow for our software development and IT services business.
 
-The purpose of this run is to build the exact workspace structure, folders, sheets, tabs, documents, Notion databases, Jira projects, components, issues and calendar that the later Tender Bid Decision master workflow depends on, and to fill it with sample tender data that workflow can be tested against. Everything the master workflow reads or writes has to exist and be named exactly as written here, otherwise that run will fail partway through.
+The purpose of this run is to build the exact workspace structure, folders, sheets, tabs, documents, Notion databases, Jira projects, components and issues that the later Tender Bid Decision master workflow depends on, and to fill it with sample tender data that workflow can be tested against. Everything the master workflow reads or writes has to exist and be named exactly as written here, otherwise that run will fail partway through.
 
 This is a SETUP RUN ONLY.
 
 Do not evaluate the tender.
 Do not decide Bid, Conditional Bid or No Bid.
-Do not create the compliance issues, the decision page, the calendar events or the email draft that the master run creates.
+Do not create the compliance issues, the decision page or the email draft that the master run creates.
 Do not send any email.
 Do not put real client, employee or company confidential data anywhere in this seed.
 
@@ -37,11 +37,11 @@ Everything else in this seed is the hard text written out below. Where a clause 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
 
-Confirm you can reach Google Drive, Google Sheets, Google Calendar, Gmail, Notion and Jira, and confirm the Chrome browser plugin is available. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so where one of those is not connected, errors, times out, refuses the call, reports a tool it does not recognise, returns nothing where the screen shows something, or hands back something that does not match what the screen shows, do that piece through Chrome instead, carry on with the setup, and say in the report which route you used and what error sent you there. Stop and name the piece only where Chrome cannot reach it either, quoting the error from both attempts. Do not report the setup as complete when a required piece could not be built by either route.
+Confirm you can reach Google Drive, Google Sheets, Gmail, Notion and Jira, and confirm the Chrome browser plugin is available. Nothing here is called missing, unauthorized or blocked until the Chrome browser plugin has been pointed at it and failed too, so where one of those is not connected, errors, times out, refuses the call, reports a tool it does not recognise, returns nothing where the screen shows something, or hands back something that does not match what the screen shows, do that piece through Chrome instead, carry on with the setup, and say in the report which route you used and what error sent you there. Stop and name the piece only where Chrome cannot reach it either, quoting the error from both attempts. Do not report the setup as complete when a required piece could not be built by either route.
 
 A report that says an app is not connected, not authorised or not working is not a finished setup run. The browser is the second route and it is expected to be used, not treated as a last resort, so an integration that fails is a reason to open the app in Chrome and carry on rather than a reason to stop. Retry once where a failure looks transient and wait out a rate limit rather than falling back for it. Where the integration and the screen disagree about what is there, the screen is what the workspace actually holds.
 
-In practice, through Chrome, that means creating or renaming a Google Sheet tab where the Sheets connection cannot, typing the seed rows into the sheet on screen, creating the Drive folders and opening each seeded document to confirm the page markers and page breaks survived the save, creating the Notion teamspaces, databases and properties and adding records where the Notion connection cannot add a property or a select option, creating the Jira projects, choosing the project key, adding the components under project settings, creating and assigning issues and setting Due dates, creating the Bid Management calendar under calendar settings, and confirming the Gmail address and that Drafts holds nothing with the [ABC-HMS-2026-001] prefix. Never use Chrome to send an email during this run.
+In practice, through Chrome, that means creating or renaming a Google Sheet tab where the Sheets connection cannot, typing the seed rows into the sheet on screen, creating the Drive folders and opening each seeded document to confirm the page markers and page breaks survived the save, creating the Notion teamspaces, databases and properties and adding records where the Notion connection cannot add a property or a select option, creating the Jira projects, choosing the project key, adding the components under project settings, creating and assigning issues and setting Due dates, and confirming the Gmail address and that Drafts holds nothing with the [ABC-HMS-2026-001] prefix. Never use Chrome to send an email during this run.
 
 Note the Gmail address of the single signed in account before you start. It goes into the Bid Owner Email cell of the target row, so the draft the master run leaves unsent is addressed back to the person running the test and nothing can leave the workspace even if something goes wrong.
 
@@ -229,11 +229,6 @@ Those numbers are set against the headcount record in Notion on purpose, so seve
 Assign every one of these issues to the signed in Jira user where that user is the only member of the site, and put the person's name in the summary as written above so the role and the person are readable whatever the Assignee field says. Where the site has other members, spread the assignees across them and keep the summaries as written. Say in the report which of those two you did.
 
 
-GOOGLE CALENDAR
-
-Create or verify a calendar named exactly Bid Management on the signed in Google account, set to Asia/Kolkata. Leave it empty. The master run puts six events on it, and a seeded event carrying the same square bracket prefix would be updated rather than created.
-
-
 GMAIL
 
 Nothing gets seeded here. Confirm one Gmail account is signed in, note its address, confirm the Drafts folder holds no draft whose subject opens with [ABC-HMS-2026-001], and say so in the report. Do not create a draft and do not send anything.
@@ -241,14 +236,14 @@ Nothing gets seeded here. Confirm one Gmail account is signed in, note its addre
 
 WHAT THIS RUN MUST NOT CREATE
 
-No issues on the components Bid Compliance or Bid Production. No page inside the Notion database Tender Decisions. No events on the Bid Management calendar. No Gmail draft. No value in the Decision or Decision Date cells of row 2. No Jira issue carrying the label ABC-HMS-2026-001. Every one of those belongs to the master run, and seeding any of them turns its create path into an update path and hides whatever it would have got wrong.
+No issues on the components Bid Compliance or Bid Production. No page inside the Notion database Tender Decisions. No Gmail draft. No value in the Decision or Decision Date cells of row 2. No Jira issue carrying the label ABC-HMS-2026-001. Every one of those belongs to the master run, and seeding any of them turns its create path into an update path and hides whatever it would have got wrong.
 
 
 RUNNING THIS TWICE
 
-Run this setup twice and nothing gets duplicated. Look for the folder, the sheet, the tab, each Notion database, each Jira project and component, each seeded issue and the calendar before creating it, match on the exact names above, and update what is already there in place rather than making a second copy. Where you find a seeded item holding different content from what is written here, correct it to what is written here and list the correction in the report. Where you find work the master run left behind, a compliance issue, a decision page, a calendar event or a draft carrying the [ABC-HMS-2026-001] prefix or the ABC-HMS-2026-001 label, do not delete it on your own initiative. List it in the report as left over from a previous master run and say it needs clearing before the next test.
+Run this setup twice and nothing gets duplicated. Look for the folder, the sheet, the tab, each Notion database, each Jira project and component and each seeded issue before creating it, match on the exact names above, and update what is already there in place rather than making a second copy. Where you find a seeded item holding different content from what is written here, correct it to what is written here and list the correction in the report. Where you find work the master run left behind, a compliance issue, a decision page or a draft carrying the [ABC-HMS-2026-001] prefix or the ABC-HMS-2026-001 label, do not delete it on your own initiative. List it in the report as left over from a previous master run and say it needs clearing before the next test.
 
 
 THE REPORT AT THE END
 
-Finish with a report that names the Drive folder paths created, the Google Sheet with a link and the row count on Pending Tenders, every document created with its filename and page count, the Notion databases with the record count in each, the Jira projects with their keys and the issue count on each component, the calendar, the Gmail address that went into Bid Owner Email, the portal URL you used and the confirmation it opens without a login, every piece done through the Chrome browser plugin with the error that sent it there, every piece still blocked with the error from both routes, and a plain statement that Bid Compliance, Bid Production, Tender Decisions, the Bid Management calendar and Gmail Drafts were all left empty of anything carrying the tender reference. Never report something as created where it was not.
+Finish with a report that names the Drive folder paths created, the Google Sheet with a link and the row count on Pending Tenders, every document created with its filename and page count, the Notion databases with the record count in each, the Jira projects with their keys and the issue count on each component, the Gmail address that went into Bid Owner Email, the portal URL you used and the confirmation it opens without a login, every piece done through the Chrome browser plugin with the error that sent it there, every piece still blocked with the error from both routes, and a plain statement that Bid Compliance, Bid Production, Tender Decisions and Gmail Drafts were all left empty of anything carrying the tender reference. Never report something as created where it was not.

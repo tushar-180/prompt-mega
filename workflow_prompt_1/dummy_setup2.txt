@@ -1,0 +1,316 @@
+SETUP WORKFLOW, SALES PROSPECT RESEARCH SYSTEM — HARDCODED SEED VERSION
+
+I am setting up the workspace that my master workflow, prospect research and outreach drafting, reads and writes. Everything that master run opens has to exist first and be named exactly as written here, otherwise the run stops partway through.
+
+This is a SETUP RUN ONLY.
+
+Do not research any prospect.
+Do not score any prospect.
+Do not write any research report other than the exact decoy document specified below.
+Do not create any prospect outreach draft.
+Do not send mail to anyone outside the signed in account.
+Do not invent or substitute a company, website, person, fact, date, query or score.
+Do not report anything as created when it was not.
+
+All business and evidence data in this brief is a fixed test fixture. Use it exactly as written. Do not use Google Search, PageSpeed Insights, company websites, social pages, maps, directories, Apollo or any other public source to discover, verify, refresh, replace or add information. Do not choose new companies even if a listed site is unavailable or its live facts have changed. This setup must remain deterministic.
+
+The only values that may be generated at run time are values controlled by the destination systems: Jira issue keys, Jira Created timestamps, Gmail message timestamps, and the URLs or IDs of newly created Jira and Google artifacts. Read those values back and report them. They are technical outputs, not prospect research.
+
+All dates in this system use the Asia/Kolkata time zone. The master workflow runs against a fixed scenario date of 2026-09-01 in Asia/Kolkata. Every date this setup writes into a sheet cell or document is written exactly as given below in YYYY-MM-DD form.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can actually reach Jira Cloud, Google Drive, Google Docs, Google Sheets, Gmail and the Chrome browser plugin.
+
+Public Google Search, PageSpeed Insights, company websites and social media are deliberately outside this setup run. Do not open or query them. The fixed evidence snapshot below replaces all live public-web checks.
+
+I stay signed in to the workspace apps in Chrome, so the browser route is open for them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at the relevant workspace app and failed too. Where a workspace integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, or a workspace page that will not load are all reasons to open that workspace app in Chrome and keep building, never reasons to begin public-web research. Do not ask me to connect an integration mid run, since the browser route is already there.
+
+If something genuinely cannot be built on either workspace route, mark that piece blocked, quote the exact error text from both routes, and carry on with everything that does not depend on it. Do not replace a hardcoded company or value as a workaround.
+
+
+SAFETY RULES THAT HOLD FOR THE WHOLE RUN
+
+The businesses seeded below are real companies, used here only as fixed public research subjects for a later test run. Never contact them. Never send them mail. Never put a real company email address, a real personal name, a real phone number or any real customer detail into a Jira issue, a sheet cell, a document or a Gmail message.
+
+The signed in Gmail account for every Contact Email field and both test messages is:
+jeel.empiricinfotech@expert.micro1.ai
+
+Use that exact address. If a different Gmail account is signed in, stop the Gmail portion, mark only that portion blocked and report the mismatch. Do not replace the address with another account and do not contact any prospect.
+
+The only mail this run sends is two test messages, both from jeel.empiricinfotech@expert.micro1.ai to jeel.empiricinfotech@expert.micro1.ai in one thread.
+
+
+TIMESTAMPS, READ THIS BEFORE SEEDING
+
+Jira stamps Created itself and it cannot be backdated through the interface or the API. The master run picks its two prospects on the oldest Created timestamp, so create the five issues one at a time in the exact order given below and let Jira stamp them in that order. All five may land within a few minutes of each other, which is expected and correct, and the master run reads Created at full timestamp precision rather than the date shown on a card.
+
+A genuine tie on Created cannot be seeded for the same reason, so the Priority tie break in the master brief stays untested by this data. Do not try to backdate anything, do not write a fake Created date into a field, and do not hold off on seeding because the timestamps sit close together.
+
+Gmail also stamps the sent messages itself. Do not attempt to backdate them. Record the actual newest message date in the setup report.
+
+
+FIXED COMPANY AND EVIDENCE CATALOG
+
+Use these five companies and no others. The labels Company A through Company E are aliases used only by this brief; enter each real company name wherever the instructions say Company A, B, C, D or E.
+
+Company A
+Company Name: Easy Clean Facility Services
+Company Website: https://www.easycleanfacility.in/
+Industry: Facility management services
+Location: Ahmedabad
+Fixed qualifying evidence: Mobile PageSpeed performance score 46. This value is a frozen test fixture from the prior check; do not rerun PageSpeed. It is below 50 and therefore triggers Website Optimization.
+
+Company B
+Company Name: Aayam Architects
+Company Website: https://aayamarchitects.in/
+Industry: Architecture and interior design
+Location: Ahmedabad
+Fixed qualifying evidence: Mobile PageSpeed performance score 64. Main commercial search query: architecture firm Ahmedabad. The company was absent from the first two Google result pages in the frozen check. Public Facebook page: https://www.facebook.com/aayamarchitect/. Newest visible public post date in the frozen check: 2026-03-24. Do not rerun PageSpeed, repeat the Google search or open the social page. These fixture facts trigger SEO and Social Media Marketing, with the master workflow's precedence rules deciding the recommendation.
+
+Company C
+Company Name: The Cleaning Company
+Company Website: https://www.thecleaning.company/
+Industry: Cleaning services
+Location: Ahmedabad
+Fixed role: Completed-work decoy. No live trait check is required or allowed.
+
+Company D
+Company Name: My Sofa Cleaning
+Reference Website: https://www.mysofacleaning.com/
+Industry: Home cleaning services
+Location: Ahmedabad
+Fixed role: Oldest Pending issue with an intentionally empty Company Website field. The reference URL is supplied only to make the fixture catalog complete; do not enter it in that Jira field or in the tracker, and do not open it.
+
+Company E
+Company Name: 99 Studio
+Company Website: https://99studio.in/
+Industry: Architecture and interior design
+Location: Ahmedabad
+Fixed role: Third qualifying Pending issue used to test the batch limit. No live trait check is required or allowed.
+
+If any public fact is now different, ignore the change for this setup. Do not refresh the fixed evidence and do not pick a replacement company. Record a deviation only if you could not seed the exact supplied value into a workspace artifact.
+
+
+JIRA SETUP
+
+Create or verify a team managed project named Sales Prospecting with the project key SP. If a project with that key already exists and serves this purpose, reuse it rather than making a second one.
+
+Rename the project board to Prospect Pipeline.
+
+Set the board statuses to exactly three, in this order: Pending, In Progress, Research Complete. Pending is the leftmost column. Do not add any other status, and do not create a status meaning contacted or sent.
+
+Issue type: Task, which is the only type this project needs.
+
+Add these fields to the Task issue type, all of them short text: Company Name, Company Website, Industry, Location, Contact Email, Assigned BDE. Priority uses the standard Jira priority field with High, Medium and Low. Description is the built in description field.
+
+If this account cannot create custom fields, put those six as labelled lines at the very top of the description instead, one per line, in exactly this shape and order, and say in the setup report that the description route was used.
+
+Company Name:
+Company Website:
+Industry:
+Location:
+Contact Email:
+Assigned BDE:
+
+The issue summary is the supplied company name in every case.
+
+Create the five issues one at a time, in this order. The order is the whole point, so do not batch them and do not reorder them. In a fresh empty SP project they are expected to become SP-1 through SP-5, but always use the actual keys Jira returns if they differ.
+
+SEED 1, created first, and the trap that sits ahead of everything else.
+Summary and Company Name: My Sofa Cleaning
+Issue type: Task
+Status: Pending
+Priority: High
+Company Website: leave this empty
+Industry: Home cleaning services
+Location: Ahmedabad
+Contact Email: jeel.empiricinfotech@expert.micro1.ai
+Assigned BDE: Rahul
+Description: Walked in through the website form last month, no site link captured yet, needs the URL before anyone researches it.
+What it tests: the oldest Pending issue is disqualified by an empty Company Website, so the master run must skip it and say why.
+
+SEED 2, created second. This is the first prospect the master run should pick.
+Summary and Company Name: Easy Clean Facility Services
+Issue type: Task
+Status: Pending
+Priority: Medium
+Company Website: https://www.easycleanfacility.in/
+Industry: Facility management services
+Location: Ahmedabad
+Contact Email: jeel.empiricinfotech@expert.micro1.ai
+Assigned BDE: Rahul
+Description: Owner asked what we would change on the site. Slow on a phone and hard to find a way to get in touch.
+What it tests: the fixed weak-site evidence fires Website Optimization, a live Gmail thread blocks the draft, and an existing tracker row forces an update in place.
+
+SEED 3, created third. This is the second prospect the master run should pick.
+Summary and Company Name: Aayam Architects
+Issue type: Task
+Status: Pending
+Priority: Low
+Company Website: https://aayamarchitects.in/
+Industry: Architecture and interior design
+Location: Ahmedabad
+Contact Email: jeel.empiricinfotech@expert.micro1.ai
+Assigned BDE: Priya
+Description: Site looks fine, nobody can find them on search though. Social pages have gone quiet.
+What it tests: the fixed SEO and social evidence makes SEO and Social Media Marketing fire so the precedence order decides, no Gmail history means a draft gets written, and no tracker row means a row gets appended.
+
+SEED 4, created fourth.
+Summary and Company Name: 99 Studio
+Issue type: Task
+Status: Pending
+Priority: High
+Company Website: https://99studio.in/
+Industry: Architecture and interior design
+Location: Ahmedabad
+Contact Email: jeel.empiricinfotech@expert.micro1.ai
+Assigned BDE: Karan
+Description: Came off a directory list, nothing looked at yet.
+What it tests: the batch limit. This one qualifies on every rule and is only third in the queue, so a master run that processes it has taken a third prospect and failed.
+
+SEED 5, created fifth.
+Summary and Company Name: The Cleaning Company
+Issue type: Task
+Status: Research Complete
+Priority: Medium
+Company Website: https://www.thecleaning.company/
+Industry: Cleaning services
+Location: Ahmedabad
+Contact Email: jeel.empiricinfotech@expert.micro1.ai
+Assigned BDE: Priya
+Description: Researched on 2026-08-27, report is in the Drive folder, waiting on the owner to reply.
+What it tests: work that is already finished, which the master run must not touch or count.
+
+
+GOOGLE DRIVE SETUP
+
+In My Drive of the signed in Google account, create or verify one folder named Sales Prospect Research. Reuse the folder if it is already there and do not create a second folder with a similar name. Leave the folder's sharing as it is.
+
+
+GOOGLE DOC: AGENCY SERVICES AND IDEAL CUSTOMER
+
+Inside Sales Prospect Research, create a Google Doc named exactly Agency Services and Ideal Customer, holding the text between the two marker lines below and nothing else. Do not reword it, and do not add headings or formatting beyond plain paragraphs.
+
+BEGIN DOCUMENT TEXT
+
+What we sell. Four services and nothing outside them.
+
+SEO. Local and organic search work, on page fixes, content, listings and citations, for businesses that want to be found on the searches their buyers actually type.
+
+Paid Advertising. Google Ads and Meta Ads, built and managed, for businesses that need enquiries sooner than search work can deliver them.
+
+Social Media Marketing. Content planning, posting and community replies, for businesses whose competitors are visibly more active than they are.
+
+Website Optimization. Speed, mobile experience, contact routes, forms and conversion work on a site that already exists. We do not rebuild sites from scratch.
+
+Who we sell to. Service businesses in Gujarat, mostly Ahmedabad, Gandhinagar and Surat. Five to a hundred staff. Owner led, with nobody in house running marketing full time. Monthly budget from twenty five thousand rupees. We do our best work in home services, healthcare clinics, education, small manufacturing and professional services.
+
+Who we do not sell to. Companies already on a retainer with another agency. National brands and listed companies. Businesses with an in house marketing team of three or more people. Anyone whose website we cannot open.
+
+How we win the work. We lead with one problem the owner can see on their own screen in under a minute, we show what a competitor is doing about it, and we name the one service that fixes it. We never promise a ranking, a traffic number or a revenue figure.
+
+END DOCUMENT TEXT
+
+
+GOOGLE SHEET: SALES PROSPECT RESEARCH TRACKER
+
+Inside Sales Prospect Research, create a Google Sheet named exactly Sales Prospect Research Tracker. Rename its first tab to Prospects. If the workbook already exists, open it and bring it into line with what follows rather than building a second one.
+
+Row 1 holds these headers, in these columns, spelled exactly like this.
+
+A Company Name
+B Company Website
+C Jira Issue Key
+D Research Status
+E Main Gap
+F Recommended Service
+G Secondary Services
+H Competitor Gap
+I Priority Score
+J Priority Band
+K Decision Maker
+L Decision Maker Status
+M Gmail History
+N Report Link
+O Outreach Status
+P Next Action
+Q Last Updated
+
+Seed three rows and no more. Dates go in as text in YYYY-MM-DD form. Leave every cell not named below empty. Use the actual Jira keys returned for SEED 2 and SEED 5; do not perform any public lookup to obtain them.
+
+Row 2. Company Name reads Easy Clean Facility Services. Company Website reads https://www.easycleanfacility.in/. Jira Issue Key is the actual key returned for SEED 2. Research Status reads Pending. Outreach Status reads Not Started. Next Action reads Research this one. Last Updated reads 2026-08-18. Every other cell is empty. This row is what forces the master run to update in place rather than append.
+
+Row 3. Company Name reads The Cleaning Company. Company Website reads https://www.thecleaning.company/. Jira Issue Key is the actual key returned for SEED 5. Research Status reads Research Complete. Main Gap reads No local listings and thin service pages. Recommended Service reads SEO. Secondary Services reads Website Optimization. Competitor Gap reads Two competitors hold the map pack. Priority Score reads 68. Priority Band reads Medium. Decision Maker reads Not Verified. Decision Maker Status reads One source only. Gmail History reads No Previous Contact. Report Link is the link to the decoy report document created below. Outreach Status reads Draft Ready Not Sent. Next Action reads Send the draft by 2026-08-31. Last Updated reads 2026-08-27. Every other cell is empty. This row is finished work that the master run must leave exactly as it is. Its values are fixed fixtures and must not be researched or recalculated.
+
+Row 4. Company Name reads Aayam Architects Solutions. Company Website reads https://99studio.in/. Jira Issue Key is empty. Research Status reads Research Complete. Recommended Service reads Paid Advertising. Priority Score reads 48. Priority Band reads Medium. Outreach Status reads Draft Ready Not Sent. Last Updated reads 2026-08-11. Every other cell is empty. This is the fixed near miss that the master run must not mistake for Aayam Architects.
+
+
+DECOY REPORT DOCUMENT
+
+Inside Sales Prospect Research, create one Google Doc named exactly Prospect_Analysis_The_Cleaning_Company_2026-08-27. It holds these three plain lines and nothing else:
+
+The Cleaning Company
+Research completed 2026-08-27
+Recommended service SEO
+
+This is last week's fixed report. It is there so the folder is not empty and so the master run has something it must not overwrite.
+
+
+GMAIL SETUP
+
+Two things happen in jeel.empiricinfotech@expert.micro1.ai and nothing else.
+
+First, seed one live thread for Easy Clean Facility Services. Send this exact first message from jeel.empiricinfotech@expert.micro1.ai to the same address.
+
+Subject: Website enquiry Easy Clean Facility Services
+
+Body:
+Easy Clean Facility Services
+https://www.easycleanfacility.in/
+This is test data for a prospect research setup, not real correspondence.
+
+Then reply once on that same thread with this exact body:
+
+Confirmed: this is the second internal test message for Easy Clean Facility Services. It is not real correspondence.
+
+Let Gmail assign the actual timestamps. Confirm the thread comes back when you search all mail for easycleanfacility.in. That newest message inside the last ninety days is what should stop the master run drafting an email for Easy Clean Facility Services. This Gmail account search is permitted because it verifies internal seeded data; it is not public-web research.
+
+Second, clear the decks. Search Drafts for the exact subject text Prospect Outreach and delete any matching draft left over from an earlier run of the master workflow. Delete nothing else, anywhere.
+
+Do not create a prospect outreach draft for any company. That is the master run's job, not this one's.
+
+
+VERIFY BY READING EVERYTHING BACK
+
+Do not trust the call that created a thing. Open each workspace artifact and read it. Verification here means reading Jira, Drive, Docs, Sheets and the signed in Gmail account only. Do not verify the company facts against the public web.
+
+Count the issues on the Prospect Pipeline board and confirm five, with the statuses, priorities and field values as seeded. Note the actual issue key given to each seed.
+Open the Sales Prospect Research folder and confirm it holds the services document, the tracker sheet and the decoy report, and nothing else.
+Open the tracker and read the tab strip at the bottom to confirm the tab is named Prospects, then read row 1 across to column Q and the three seeded rows.
+Open the services document and confirm the text came through as plain paragraphs.
+Search Gmail for easycleanfacility.in and confirm the two-message thread comes back, then search Drafts for Prospect Outreach and confirm nothing comes back.
+
+
+SETUP REPORT
+
+Finish by reporting, in plain text:
+
+The Jira project name, key, board name and the three statuses, plus whether the six fields went in as custom fields or as labelled description lines.
+The five fixed companies with their supplied website values, which seed each one became, the actual Jira issue key each seed received, and the exact Industry and Location value seeded on each.
+For Easy Clean Facility Services, report the fixed mobile PageSpeed score as 46 and label it Hardcoded fixture, not checked during this run.
+For Aayam Architects, report the fixed mobile PageSpeed score as 64, the fixed commercial query architecture firm Ahmedabad, the fixed result Absent from the first two pages, and the fixed newest public social post date 2026-03-24. Label all four Hardcoded fixture, not checked during this run.
+Links to the Sales Prospect Research folder, the Agency Services and Ideal Customer document, the Sales Prospect Research Tracker sheet and the decoy report document.
+The Gmail thread subject and the actual date on its newest system-stamped message.
+The planted edge cases in a short list, each with the one thing it tests, so I can check the master run against them afterwards.
+Every workspace step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every workspace step still blocked, with the exact error text from both routes.
+Every deviation from this brief, with the reason.
+
+End the report with this exact statement:
+No public-web discovery or live prospect verification was performed. All prospect and evidence data came from the hardcoded fixture in this setup brief.

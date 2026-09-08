@@ -16,11 +16,11 @@ Do not delete anything that is not named in this brief.
 All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
 
 
-WHY MOVING ABCR-150 BACK TO IN PROGRESS IS NOT ENOUGH ON ITS OWN
+WHY MOVING ABCR-15 BACK TO IN PROGRESS IS NOT ENOUGH ON ITS OWN
 
 The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the 3 documents, the Variance Summary tab, the carryover issues, the closure comment and the Gmail draft in place, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
 
-Putting ABCR-150 back to In Progress only fixes the status. Everything below is what makes the second run a genuine repeat of the first.
+Putting ABCR-15 back to In Progress only fixes the status. Everything below is what makes the second run a genuine repeat of the first.
 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
@@ -72,9 +72,11 @@ Open the project ABC Retail Ecommerce, key ABCR.
 
 Delete every issue carrying the label carryover-2026-09-02. There should be around 4 of them, raised against the deferred and disputed scope items.
 
-Then check for strays. These 15 keys are the only issues the setup run created: ABCR-1, ABCR-2, ABCR-10, ABCR-12, ABCR-14, ABCR-16, ABCR-20, ABCR-22, ABCR-24, ABCR-26, ABCR-28, ABCR-30, ABCR-38, ABCR-40, ABCR-150. Any other issue in ABCR came from the master run, whether or not it got the label, so delete it as well. If the setup run reported different real keys because the site would not let it control numbering, use that mapping instead of this list and say so in the report.
+Then check for strays. ABCR-1 through ABCR-15 are the only issues the setup run created, and they run in an unbroken block: ABCR-1 and ABCR-2 the epics, ABCR-3 through ABCR-12 the stories and tasks, ABCR-13 and ABCR-14 the bugs, ABCR-15 the closure issue. Anything numbered ABCR-16 or above came from the master run, whether or not it got the label, so delete it as well.
 
-On ABCR-150:
+Deleting those does not wind Jira's key counter back, so the next master run will raise its carryover issues from wherever the numbering has reached rather than from ABCR-16 again. That is expected and correct, it changes nothing about the test, and it is not something to fix. What matters is that ABCR-1 through ABCR-15 survive untouched and nothing above ABCR-15 is left behind.
+
+On ABCR-15:
 
 Delete every comment on it. The setup run left it with no comments at all, so anything there now came from the master run.
 Move its status from Closed back to In Progress.
@@ -82,7 +84,7 @@ Clear its resolution if one got set.
 Remove any link the master run added to a carryover issue, if deleting those issues did not already clear the links.
 Leave its summary, description and epic exactly as they are.
 
-Do not change the status or resolution of any other issue. ABCR-22, ABCR-24 and ABCR-26 stay as they are, To Do, To Do and In Progress. Everything else that reads Done stays Done.
+Do not change the status or resolution of any other issue. ABCR-8 data migration, ABCR-9 accessibility baseline and ABCR-10 multi currency display stay as they are, To Do, To Do and In Progress. Everything else that reads Done stays Done.
 
 
 PART 4, GMAIL
@@ -98,7 +100,7 @@ Nothing in this run goes near any of these, and none of them should show a chang
 
 The 4 source documents in the Drive folder.
 The Effort Log tab.
-The 15 seeded Jira issues, other than the status, resolution, comments and links on ABCR-150.
+The 15 seeded Jira issues ABCR-1 through ABCR-15, other than the status, resolution, comments and links on ABCR-15.
 The repositories abc-retail-web and abc-retail-api, including the merged pull requests, the 3 unmerged ones and the releases.
 The Slack channel abc-retail-project and every message and thread reply in it.
 The 2 seeded Gmail threads.
@@ -111,7 +113,7 @@ Open each of these and confirm what you see, do not assume:
 
 The Drive folder holds exactly the 5 keep list items and Drive Trash holds none of the deleted documents.
 The tracker sheet shows 1 tab named Effort Log with its 6 data rows intact.
-A search of ABCR for the label carryover-2026-09-02 comes back empty, ABCR-150 reads In Progress with no comments and no resolution, and the issue count in ABCR matches the 15 seeded keys.
+A search of ABCR for the label carryover-2026-09-02 comes back empty, ABCR-15 reads In Progress with no comments and no resolution, and ABCR holds exactly 15 issues keyed ABCR-1 through ABCR-15 with nothing above ABCR-15.
 A Gmail search for ABC Retail in Drafts comes back empty, and both seeded threads still open normally.
 
 
@@ -121,7 +123,7 @@ Finish by telling me, in plain text:
 
 Every filename deleted from the Drive folder, and whether Trash was emptied.
 Whether the Variance Summary tab existed and was removed, and confirmation that Effort Log is unchanged, or exactly what changed on it if something did.
-Every Jira issue key deleted, the number of comments removed from ABCR-150, and the status and resolution ABCR-150 now reads.
+Every Jira issue key deleted, the number of comments removed from ABCR-15, and the status and resolution ABCR-15 now reads.
 Every Gmail draft deleted.
 Anything the master run left behind that this brief does not cover, described but not deleted, so I can decide what to do with it.
 Anything that was already clean before you started, so I know the master run never got that far.

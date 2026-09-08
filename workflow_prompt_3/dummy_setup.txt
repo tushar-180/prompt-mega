@@ -12,7 +12,7 @@ Do not rank or qualify any expansion opportunity.
 Do not write any of the 3 closure documents.
 Do not create the Variance Summary tab.
 Do not create any carryover Jira issue and do not use the label carryover-2026-09-02.
-Do not comment on ABCR-150 and do not move it to Closed.
+Do not comment on ABCR-15 and do not move it to Closed.
 Do not create any Gmail draft.
 Do not send mail to anybody outside the signed in account.
 Do not invent a scope item, an hour figure, a person, a company or an error message.
@@ -110,10 +110,10 @@ Row 1 headers, exactly: Module, Estimated Hours, Actual Hours, Billable Hours, N
 
 Rows 2 down, exactly these 6 rows:
 
-Catalog, 160, 172, 154, 18, 6, 8, ABCR-40, Dev A
-Checkout, 120, 168, 136, 32, 14, 22, ABCR-38, Dev B
-Payments, 90, 126, 102, 24, 10, 18, ABCR-40, Dev B
-Search, 80, 88, 84, 4, 0, 4, ABCR-40, Dev C
+Catalog, 160, 172, 154, 18, 6, 8, ABCR-14, Dev A
+Checkout, 120, 168, 136, 32, 14, 22, ABCR-13, Dev B
+Payments, 90, 126, 102, 24, 10, 18, ABCR-14, Dev B
+Search, 80, 88, 84, 4, 0, 4, ABCR-14, Dev C
 Admin Dashboard, 0, 46, 40, 6, 0, 0, , Dev C
 Reporting, 70, 70, 70, 0, 0, 0, , Dev D
 
@@ -124,37 +124,43 @@ PART 3, JIRA
 
 Use the signed in Jira Cloud site. Create a project named exactly ABC Retail Ecommerce with key exactly ABCR. It needs the statuses To Do, In Progress, Done and Closed on its workflow.
 
-Issue keys have to land exactly as written below, so create issues in key order and use throwaway placeholder issues to burn any gaps in the numbering, then delete the placeholders once the real keys are taken. If the site will not let you control keys, create every issue anyway, then tell me in the report which real key each one got, because I will need that mapping.
+The keys have to land exactly as written below and there is no room to negotiate on that, because the master run names ABCR-15 as the closure issue and the effort tracker in Part 2, the pull request titles in Part 4 and the release notes all carry these keys as literal text. Jira will not let anybody choose a key, so the only thing that controls the numbering is the order issues get created in. That works on a brand new empty project and nowhere else.
+
+So start from an empty one. Create the project with a template that seeds no sample issues. If ABC Retail Ecommerce already exists on the site, or if the site created sample issues along with the project, delete the whole project and create it again, because deleting issues does not wind the key counter back and a used project starts its numbering wherever the last run left off.
+
+Then create the 15 issues strictly in the order listed below, 1 at a time, and create nothing else in ABCR while you work. No test issue, no placeholder to burn a gap, no draft you delete afterwards, nothing. 1 extra issue anywhere pushes every key after it out by 1, and the master run then goes hunting for issues that are not there. The numbering runs 1 through 15 in list order, so the first issue you create is ABCR-1 and the closure issue, created last, is ABCR-15.
 
 Every issue description carries a line reading Scenario date: YYYY-MM-DD using the date given, and a line reading Scope item: followed by the SOW number, the CR number or the heading. Every Bug also carries a line reading Module: followed by the module name.
 
-2 epics:
+2 epics, created first so the stories underneath have something to hang off:
 ABCR-1, Epic, Storefront and Checkout, Done, 2026-01-12
 ABCR-2, Epic, Content and Launch, In Progress, 2026-01-12
 
-10 stories and tasks:
-ABCR-10, Story, Product catalog and search, Done, resolution Done, epic ABCR-1, scope item 1, 2026-03-18
-ABCR-12, Story, Shopping cart and checkout, Done, resolution Done, epic ABCR-1, scope item 2, 2026-05-10
-ABCR-14, Story, Payment gateway integration, Done, resolution Done, epic ABCR-1, scope item 3, 2026-05-14
-ABCR-16, Story, Admin dashboard with sales reports, Done, resolution Done, epic ABCR-1, scope item 4, 2026-06-30
-ABCR-20, Story, Content pages and blog, Done, resolution Done, epic ABCR-2, scope item 5, 2026-07-24
-ABCR-22, Task, Data migration from the old store, To Do, no resolution, epic ABCR-2, scope item 6, 2026-06-18
-ABCR-24, Story, Accessibility baseline, To Do, no resolution, epic ABCR-2, scope item Accessibility Baseline, 2026-05-08
-ABCR-26, Story, Multi currency display, In Progress, no resolution, epic ABCR-2, scope item CR-01, 2026-08-10
-ABCR-28, Story, Abandoned cart email, Done, resolution Done, epic ABCR-2, scope item CR-02, 2026-08-18
-ABCR-30, Task, Training and handover documentation, Done, resolution Done, epic ABCR-2, scope item 7, 2026-08-26
+10 stories and tasks, in exactly this order:
+ABCR-3, Story, Product catalog and search, Done, resolution Done, epic ABCR-1, scope item 1, 2026-03-18
+ABCR-4, Story, Shopping cart and checkout, Done, resolution Done, epic ABCR-1, scope item 2, 2026-05-10
+ABCR-5, Story, Payment gateway integration, Done, resolution Done, epic ABCR-1, scope item 3, 2026-05-14
+ABCR-6, Story, Admin dashboard with sales reports, Done, resolution Done, epic ABCR-1, scope item 4, 2026-06-30
+ABCR-7, Story, Content pages and blog, Done, resolution Done, epic ABCR-2, scope item 5, 2026-07-24
+ABCR-8, Task, Data migration from the old store, To Do, no resolution, epic ABCR-2, scope item 6, 2026-06-18
+ABCR-9, Story, Accessibility baseline, To Do, no resolution, epic ABCR-2, scope item Accessibility Baseline, 2026-05-08
+ABCR-10, Story, Multi currency display, In Progress, no resolution, epic ABCR-2, scope item CR-01, 2026-08-10
+ABCR-11, Story, Abandoned cart email, Done, resolution Done, epic ABCR-2, scope item CR-02, 2026-08-18
+ABCR-12, Task, Training and handover documentation, Done, resolution Done, epic ABCR-2, scope item 7, 2026-08-26
 
-2 bugs, each carrying its Module line, because the module named on the bug is what the master run needs:
+2 bugs, each carrying its Module line, because the module named on the bug is what the master run needs. These 2 keys are the ones already written into the Defect Reference column in Part 2, so they matter more than most:
 
-ABCR-38, Bug, Checkout totals wrong when a coupon is removed, Done, resolution Done, Module: Checkout, reported by the Checkout team, 2026-05-14
-ABCR-40, Bug, Catalog facets return stale counts after a price update, Done, resolution Done, Module: Catalog, reported by the Payments team, 2026-06-05
+ABCR-13, Bug, Checkout totals wrong when a coupon is removed, Done, resolution Done, Module: Checkout, reported by the Checkout team, 2026-05-14
+ABCR-14, Bug, Catalog facets return stale counts after a price update, Done, resolution Done, Module: Catalog, reported by the Payments team, 2026-06-05
 
-The closure issue:
-ABCR-150, Task, Project closure and handover, In Progress, no resolution, epic ABCR-2, 2026-08-29
+The closure issue, created last of all 15 so it lands on ABCR-15:
+ABCR-15, Task, Project closure and handover, In Progress, no resolution, epic ABCR-2, 2026-08-29
 
-Description on ABCR-150: closure and handover for the ABC Retail Ecommerce Platform build. Production runs on AWS Mumbai, staging runs on AWS Singapore. Known debt at closure, search relevance tuning is half done and the notification retry logic has no backoff. Awaiting the closure pack.
+Description on ABCR-15: closure and handover for the ABC Retail Ecommerce Platform build. Production runs on AWS Mumbai, staging runs on AWS Singapore. Known debt at closure, search relevance tuning is half done and the notification retry logic has no backoff. Awaiting the closure pack.
 
-ABCR-150 stays In Progress with no comments on it. The master run is what closes it.
+ABCR-15 stays In Progress with no comments on it. The master run is what closes it.
+
+Before you go anywhere near Part 4, open the board and read the keys back against the summaries above. They have to read ABCR-1 through ABCR-15 with no gaps and nothing extra. If they do not, something got created along the way that should not have been, so delete the project and build it again from an empty one. Do not patch the numbering by hand, do not renumber anything, and do not carry on with keys that do not match, because Part 2 is already written against ABCR-13 and ABCR-14, Part 4 is written against ABCR-3 through ABCR-11, and the master run is written against ABCR-15.
 
 
 PART 4, GITHUB
@@ -163,26 +169,26 @@ Create 2 repositories on the signed in GitHub account, named exactly abc-retail-
 
 Keep the pull requests trivial, a one line change to a text file is plenty. Nobody reads the code, only the titles, the branch and the merge state.
 
-Real merge timestamps cannot be backdated, so every pull request title opens with its scenario date in square brackets and carries its ABCR key.
+Real merge timestamps cannot be backdated, so every pull request title opens with its scenario date in square brackets and carries its ABCR key. Write these titles exactly as given, keys included, because the master run ties each merge back to the issue by the key in the title and a key that does not exist on the board proves nothing.
 
 In abc-retail-web, create and MERGE into main:
-[2026-03-18] ABCR-10 product catalog and search
-[2026-06-30] ABCR-16 admin dashboard sales reports, CSV export
-[2026-07-24] ABCR-20 content pages and blog
+[2026-03-18] ABCR-3 product catalog and search
+[2026-06-30] ABCR-6 admin dashboard sales reports, CSV export
+[2026-07-24] ABCR-7 content pages and blog
 
 In abc-retail-api, create and MERGE into main:
-[2026-05-10] ABCR-12 cart and checkout service
-[2026-05-14] ABCR-14 payment gateway, card and UPI
+[2026-05-10] ABCR-4 cart and checkout service
+[2026-05-14] ABCR-5 payment gateway, card and UPI
 
 Then 3 pull requests that must NOT end up merged into main. These 3 are the whole point of this part, so get them right:
 
-In abc-retail-web, open a pull request titled [2026-08-12] ABCR-24 accessibility baseline pass and CLOSE IT WITHOUT MERGING.
-In abc-retail-api, open a pull request titled [2026-09-02] ABCR-26 multi currency display and LEAVE IT OPEN.
-In abc-retail-api, create a branch named release-candidate, then open and merge a pull request titled [2026-08-30] ABCR-28 abandoned cart email job INTO release-candidate, never into main.
+In abc-retail-web, open a pull request titled [2026-08-12] ABCR-9 accessibility baseline pass and CLOSE IT WITHOUT MERGING.
+In abc-retail-api, open a pull request titled [2026-09-02] ABCR-10 multi currency display and LEAVE IT OPEN.
+In abc-retail-api, create a branch named release-candidate, then open and merge a pull request titled [2026-08-30] ABCR-11 abandoned cart email job INTO release-candidate, never into main.
 
-There is deliberately no pull request anywhere for ABCR-30, the training and handover documentation. Do not create one.
+There is deliberately no pull request anywhere for ABCR-12, the training and handover documentation. Do not create one.
 
-One release per repository, cut on main, with the ABCR keys it covers in the release notes:
+One release per repository, cut on main, with the ABCR keys it covers in the release notes. abc-retail-web covers ABCR-3, ABCR-6 and ABCR-7, abc-retail-api covers ABCR-4 and ABCR-5:
 abc-retail-web, v1.0.0, titled Storefront and content
 abc-retail-api, v1.0.0, titled Core services
 
@@ -252,7 +258,8 @@ Open each of these and confirm what you see, do not assume:
 
 The Drive folder holds exactly 5 items, the 4 source files with their pdf, xlsx and docx extensions intact, plus the tracker sheet.
 The tracker sheet has exactly 1 tab, named Effort Log, with 6 data rows and Admin Dashboard showing 0 in Estimated Hours.
-Jira ABCR holds 15 issues, ABCR-150 reads In Progress with no comments, each Bug carries its Module line, and no pull request exists anywhere for ABCR-30.
+Jira ABCR holds exactly 15 issues keyed ABCR-1 through ABCR-15 with no gap and nothing extra, ABCR-15 is the closure issue and reads In Progress with no comments, each Bug carries its Module line, and no pull request exists anywhere for ABCR-12.
+Every key written anywhere else in this build opens as the issue it is meant to be. ABCR-13 and ABCR-14 in the Defect Reference column are the Checkout and Catalog bugs in that order, and ABCR-3, ABCR-4, ABCR-5, ABCR-6, ABCR-7, ABCR-9, ABCR-10 and ABCR-11 in the pull request titles are the issues named beside them. Open them and look. A key that does not resolve is the 1 fault that makes the master run unrunnable, so fix it here rather than reporting it.
 In abc-retail-web, the accessibility pull request reads closed and not merged. In abc-retail-api, the multi currency pull request reads open, and the abandoned cart pull request shows as merged into release-candidate with main untouched by it.
 The Slack channel holds 12 channel messages and the 3 ERP replies sit inside 1 thread, not as separate channel messages.
 The Gmail thread ABC Retail Project Closure holds 3 messages and Drafts holds nothing with ABC Retail in the subject.
@@ -264,7 +271,7 @@ SETUP REPORT
 Finish by telling me, in plain text:
 
 Links to the Drive folder, the 4 source files and the tracker sheet.
-The Jira project name and key, and the real issue key each seeded issue actually received if the keys did not land as written.
+The Jira project name and key, and the 15 issue keys with the summary against each, so I can see they landed on ABCR-1 through ABCR-15 as written. If any key came out different, say so on the first line of the report rather than burying it, because the master run is written against ABCR-15 as the closure issue, ABCR-13 and ABCR-14 as the bugs, and ABCR-3 through ABCR-11 in the pull request titles, and a shifted board makes that run impossible.
 The 2 repository URLs, and for each of the 3 unmerged pull requests, its state and its target branch as GitHub shows it. The release name and the tag on each repository as the releases page shows them.
 The Slack channel name, the channel message count and the thread reply count.
 The Gmail thread subject with its message count, and confirmation that Drafts is clean.

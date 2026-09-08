@@ -20,16 +20,18 @@ Do not send mail to anybody outside the signed in account.
 Do not invent an incident, a person, a client or an error message.
 Do not report anything as created when it was not.
 
-Everything below is invented test data. No web search is needed for any of it. Blackpine Engineering is a made up company, every client ID is invented, and every person named below is invented. Every email address written anywhere is the signed in Gmail account's own address, so nothing a later run drafts can reach a real person by accident. No real client, real colleague or real credential goes anywhere in this run.
+Everything below is invented test data. No web search is needed for any of it. Blackpine Engineering is a made up company, every client ID is invented, and every person named below is invented. Every email address written anywhere is the signed in Gmail account's own address carrying a plus tag, so where the signed in address is jane@gmail.com, Meera Iyer's address is jane+meera.iyer@gmail.com. Gmail delivers every 1 of those into that same signed in mailbox, so nothing a later run drafts can reach a real person by accident, and because no 2 of the tags read the same, a draft going to 4 of these people shows 4 separate recipients instead of folding them into 1. Write them in lower case with no spaces, on exactly the tags given below. No real client, real colleague or real credential goes anywhere in this run.
 
 All dates use Asia/Kolkata. The master run works to a fixed scenario date of 2026-09-03 and an emergency release period of 2026-09-03 through 2026-09-09 inclusive. Every date this setup writes into a field, a cell, a file or a page is written exactly as given below in YYYY-MM-DD form.
 
 
-THE 2 THINGS THAT CANNOT BE FAKED, READ THIS FIRST
+THE 3 THINGS THAT CANNOT BE FAKED, READ THIS FIRST
 
-Jira sets the created and updated timestamps itself and they cannot be backdated. That is fine and it is expected. The master run filters on records created or updated between 2026-08-04 and 2026-09-03, so every record built today lands inside that window on its own. Do not try to backdate anything in Jira and do not report that you did. The incident start timestamps below are a separate thing, they are written into the description as text, and those are the ones that must match exactly.
+Jira sets the created and updated timestamps itself and they cannot be backdated. That is fine, and the master run does not read them. It works its date window off the Incident Start Timestamp line in the description, which is plain text typed in by hand, so that line is the one that has to be exact on every record. Do not try to backdate anything in Jira and do not report that you did.
 
 GitHub Actions results cannot be hand written either. The master run settles whether tests passed on the most recent completed workflow run on the head commit of each pull request, so those runs have to be real. Push the workflow file, let the run finish, and check on the Actions tab that the run has actually completed with the result the brief asks for before you move on. A pull request with no completed run against it breaks the test this seed exists to set up. If a run will not complete, say so in the setup report with the exact error rather than describing a result that is not on the screen.
+
+GitHub numbers pull requests itself, 1 upwards inside each repository, and that number cannot be chosen either. The Jira records in Part 2 quote pull request numbers that came off another tracker and none of them lines up with the real ones, which is deliberate, so type those quoted numbers into the descriptions exactly as written and let GitHub give the real pull requests whatever numbers they land on. The master run is supposed to find the pull request off the branch name rather than off that number, so this is a trap and not a mistake to tidy up. Write the real number each pull request got into the setup report.
 
 
 BEFORE YOU START, CONNECTIONS AND TOOLS
@@ -176,6 +178,8 @@ Service Directory Path: src/identity
 Source Module or Symbol: SamlAssertion
 Recovery Branch or Pull Request: None, no code change required
 
+The pull request numbers on those records, 12, 9, 5, 7 and 4, are quoted from a tracker that is not GitHub and none of them matches the pull requests Part 4 opens. Type them in exactly as written. The branch names are the part that has to be right, because the branch is what the master run has to find the real pull request off before it writes the correction back.
+
 Now the 2 decoys, which exist so the master run has something to correctly leave out.
 
 Decoy 1, issue type Incident Recovery Record, status Recovery Complete, summary INC-2039 Search indexing lag, closed. Description line: Incident ID: INC-2039. Nothing else needed.
@@ -209,17 +213,17 @@ Create 6 repositories, all private, all with a default branch named main: blackp
 
 Every repository that gets a pull request below also gets this workflow file at .github/workflows/ci.yml on main, running on pull_request, with 3 jobs named unit-tests, integration-tests and rollback-test. Each job is a single shell step. Use echo followed by a successful exit for a job that has to pass, and a plain exit 1 for a job that has to fail. Keep it that simple, there is nothing to actually build here.
 
-blackpine-payments-api. On main: a README, src/payments/PaymentRecovery.ts holding a short retry loop stub, and config/production.yaml holding the lines client_id CL-104, service Payments and a feature flag block with payment_recovery_v2 set to false. Releases: create v4.1.7 from main and leave it marked as the Latest release, then create v4.2.0 and mark it as a pre release so it does not take the Latest badge. Branch recovery/inc-2041-timeout-fix off main, changing src/payments/PaymentRecovery.ts and adding scripts/rollback/inc-2041-rollback.sh. No migration files anywhere on that branch. Open pull request 12 into main, and the pull request body has to list production verification steps under a heading line reading Production verification. All 3 CI jobs pass on that branch.
+blackpine-payments-api. On main: a README, src/payments/PaymentRecovery.ts holding a short retry loop stub, and config/production.yaml holding the lines client_id CL-104, service Payments and a feature flag block with payment_recovery_v2 set to false. Releases: create v4.1.7 from main and leave it marked as the Latest release, then create v4.2.0 and mark it as a pre release so it does not take the Latest badge. Branch recovery/inc-2041-timeout-fix off main, changing src/payments/PaymentRecovery.ts and adding scripts/rollback/inc-2041-rollback.sh. No migration files anywhere on that branch. Open a pull request from that branch into main, whatever number GitHub gives it, and the pull request body has to list production verification steps under a heading line reading Production verification. All 3 CI jobs pass on that branch.
 
-blackpine-payments-legacy. On main: a README, src/payments/PaymentRecovery.ts holding a different stub with a header comment saying it serves the legacy ledger for client CL-133, and config/production.yaml holding the lines client_id CL-133 and service Payments Ledger. Release v2.9.4 from main, marked Latest. Branch recovery/inc-2044-ledger-backfill off main, adding migrations/20260828_drop_legacy_ledger_columns.sql, which drops 2 columns and rewrites the remaining ledger rows, and adding migrations/rollback/20260828_restore_legacy_ledger.sql, whose header comment says in plain words that it restores the pre migration schema and drops any ledger row created after the migration ran. Open pull request 7 into main, body listing production verification steps. All 3 CI jobs pass on that branch, rollback-test included, because the script does run, it is just destructive. That is the point.
+blackpine-payments-legacy. On main: a README, src/payments/PaymentRecovery.ts holding a different stub with a header comment saying it serves the legacy ledger for client CL-133, and config/production.yaml holding the lines client_id CL-133 and service Payments Ledger. Release v2.9.4 from main, marked Latest. Branch recovery/inc-2044-ledger-backfill off main, adding migrations/20260828_drop_legacy_ledger_columns.sql, which drops 2 columns and rewrites the remaining ledger rows, and adding migrations/rollback/20260828_restore_legacy_ledger.sql, whose header comment says in plain words that it restores the pre migration schema and drops any ledger row created after the migration ran. Open a pull request from that branch into main, whatever number GitHub gives it, body listing production verification steps. All 3 CI jobs pass on that branch, rollback-test included, because the script does run, it is just destructive. That is the point.
 
 The 2 PaymentRecovery files are the decoy pair. Same module name, 2 repositories, different clients. Do not rename either of them and do not add a comment pointing at the other repository.
 
-blackpine-billing-api. On main: a README, src/billing/TokenRefresh.ts, and config/production.yaml holding client_id CL-118 and service Billing. Release v1.8.2 from main, marked Latest. Branch recovery/inc-2042-token-leak off main, changing src/billing/TokenRefresh.ts and adding scripts/rollback/inc-2042-rollback.sh, no migration files. Open pull request 9 into main, body listing production verification steps. All 3 CI jobs pass.
+blackpine-billing-api. On main: a README, src/billing/TokenRefresh.ts, and config/production.yaml holding client_id CL-118 and service Billing. Release v1.8.2 from main, marked Latest. Branch recovery/inc-2042-token-leak off main, changing src/billing/TokenRefresh.ts and adding scripts/rollback/inc-2042-rollback.sh, no migration files. Open a pull request from that branch into main, whatever number GitHub gives it, body listing production verification steps. All 3 CI jobs pass.
 
-blackpine-orders-api. On main: a README, src/orders/StockSync.ts, and config/production.yaml holding client_id CL-127 and service Orders. Release v3.0.1 from main, marked Latest. Branch recovery/inc-2043-stock-sync off main, changing src/orders/StockSync.ts, no migration files, no rollback script. Open pull request 5 into main. On this branch unit-tests passes, rollback-test passes, and integration-tests fails on a plain exit 1. Let the run finish and confirm on the Actions tab that the completed run shows integration-tests as failed. This is the single most important run in the whole seed, because Jira record 3 claims the opposite.
+blackpine-orders-api. On main: a README, src/orders/StockSync.ts, and config/production.yaml holding client_id CL-127 and service Orders. Release v3.0.1 from main, marked Latest. Branch recovery/inc-2043-stock-sync off main, changing src/orders/StockSync.ts, no migration files, no rollback script. Open a pull request from that branch into main, whatever number GitHub gives it. On this branch unit-tests passes, rollback-test passes, and integration-tests fails on a plain exit 1, so this repository holds the 1 copy of ci.yml carrying exit 1 in the integration-tests job while the other 4 copies pass all 3. Let the run finish and confirm on the Actions tab that the completed run shows integration-tests as failed. This is the single most important run in the whole seed, because Jira record 3 claims the opposite.
 
-blackpine-web-portal. On main: a README, src/checkout/CheckoutRecovery.ts, and config/production.yaml holding client_id CL-141, service Web Portal and a feature flag block with checkout_recovery_v2 set to true. Release v2.3.0 from main, marked Latest. Branch recovery/inc-2045-checkout-retry off main, changing src/checkout/CheckoutRecovery.ts and adding scripts/rollback/inc-2045-rollback.sh, no migration files. Open pull request 4 into main, body listing production verification steps. All 3 CI jobs pass.
+blackpine-web-portal. On main: a README, src/checkout/CheckoutRecovery.ts, and config/production.yaml holding client_id CL-141, service Web Portal and a feature flag block with checkout_recovery_v2 set to true. Release v2.3.0 from main, marked Latest. Branch recovery/inc-2045-checkout-retry off main, changing src/checkout/CheckoutRecovery.ts and adding scripts/rollback/inc-2045-rollback.sh, no migration files. Open a pull request from that branch into main, whatever number GitHub gives it, body listing production verification steps. All 3 CI jobs pass.
 
 blackpine-identity-api. A README and nothing else on main, plus release v1.2.0 marked Latest. No branch, no pull request, no CI. Incident INC-2046 needs no code change, so this repository only has to exist and show a Latest release.
 
@@ -244,7 +248,7 @@ Rollback requirements. Every emergency release carries a rollback script that ha
 
 Production verification requirements. Every emergency release names the checks that will be run in production straight after it ships.
 
-Contacts. Emergency Release Approver, Rohit Deshmukh, and then the signed in Gmail account's own email address. Engineering Delivery Lead, Priya Nair, and then that same signed in Gmail account's email address. Write the real signed in address into both lines so a later draft cannot reach anybody real. Nobody else goes on this page, because every other person the master run writes to sits on the Recovery Contacts tab in Part 6, and the master run has to join the 2 sources to address its drafts.
+Contacts. Emergency Release Approver, Rohit Deshmukh, and then the signed in Gmail address under the tag rohit.deshmukh, so jane+rohit.deshmukh@gmail.com where the signed in address is jane@gmail.com. Engineering Delivery Lead, Priya Nair, and then that same signed in address under the tag priya.nair. Both land in the signed in mailbox so a later draft cannot reach anybody real, and the 2 tags differ, so a draft going to both shows 2 recipients rather than 1. Nobody else goes on this page, because every other person the master run writes to sits on the Recovery Contacts tab in Part 6, and the master run has to join the 2 sources to address its drafts.
 
 
 PART 6, GOOGLE DRIVE AND THE CAPACITY TRACKER
@@ -268,29 +272,29 @@ Each of those rows is doing a job. W-00 sits before the release period. W-03 is 
 
 Dates go in as plain text in YYYY-MM-DD form and times as plain text in 24 hour HH:MM form, so nothing gets reformatted into something else by the sheet.
 
-Add a 2nd tab to that same sheet named Recovery Contacts. Row 1 holds the headers, reading across from A to G: Contact Role, Contact Name, Client ID, Email Address, Draft, Field, Contact Status. Every name below is invented, and every address that goes in the Email Address column is the signed in Gmail account's own address written out in full, so no draft a later run writes can reach a real person.
+Add a 2nd tab to that same sheet named Recovery Contacts. Row 1 holds the headers, reading across from A to G: Contact Role, Contact Name, Client ID, Email Address, Draft, Field, Contact Status. Every name below is invented, and every address that goes in the Email Address column is the signed in Gmail account's own address carrying that row's tag, so a row reading tag meera.iyer holds jane+meera.iyer@gmail.com where the signed in address is jane@gmail.com. The word tag never goes in the cell, only the finished address does. All of them deliver into the signed in mailbox, so no draft a later run writes can reach a real person, and no 2 of them read the same, so a draft can show each person as their own recipient.
 
 From row 2 down, these 19 rows exactly, with the Client ID column left genuinely empty on the internal roles and not filled with a dash or the word none:
 
-Sales Lead, Meera Iyer, empty, signed in address, Sales, To, Active
-Commercial Lead, Arjun Rao, empty, signed in address, Sales, Cc, Active
-Platform Engineering Manager, Sanjay Menon, empty, signed in address, Engineering, Cc, Active
-QA Lead, Nisha Verma, empty, signed in address, Engineering, Cc, Active
-Account Manager, Kavya Pillai, CL-104, signed in address, Sales, Cc, Active
-Account Manager, Devan Shetty, CL-118, signed in address, Sales, Cc, Active
-Account Manager, Ritu Bhatia, CL-127, signed in address, Sales, Cc, Active
-Account Manager, Imran Qureshi, CL-133, signed in address, Sales, Cc, Active
-Account Manager, Leela Krishnan, CL-141, signed in address, Sales, Cc, Active
-Account Manager, Farhan Ali, CL-152, signed in address, Sales, Cc, Active
-Account Manager, Tanvi Joshi, CL-199, signed in address, Sales, Cc, Active
-Client Contact, Anita Ravi, CL-104, signed in address, Client, To, Active
-Client Contact, Gopal Menon, CL-118, signed in address, Client, To, Inactive
-Client Contact, Shruti Nambiar, CL-118, signed in address, Client, To, Active
-Client Contact, Vikram Desai, CL-127, signed in address, Client, To, Active
+Sales Lead, Meera Iyer, empty, tag meera.iyer, Sales, To, Active
+Commercial Lead, Arjun Rao, empty, tag arjun.rao, Sales, Cc, Active
+Platform Engineering Manager, Sanjay Menon, empty, tag sanjay.menon, Engineering, Cc, Active
+QA Lead, Nisha Verma, empty, tag nisha.verma, Engineering, Cc, Active
+Account Manager, Kavya Pillai, CL-104, tag kavya.pillai, Sales, Cc, Active
+Account Manager, Devan Shetty, CL-118, tag devan.shetty, Sales, Cc, Active
+Account Manager, Ritu Bhatia, CL-127, tag ritu.bhatia, Sales, Cc, Active
+Account Manager, Imran Qureshi, CL-133, tag imran.qureshi, Sales, Cc, Active
+Account Manager, Leela Krishnan, CL-141, tag leela.krishnan, Sales, Cc, Active
+Account Manager, Farhan Ali, CL-152, tag farhan.ali, Sales, Cc, Active
+Account Manager, Tanvi Joshi, CL-199, tag tanvi.joshi, Sales, Cc, Active
+Client Contact, Anita Ravi, CL-104, tag anita.ravi, Client, To, Active
+Client Contact, Gopal Menon, CL-118, tag gopal.menon, Client, To, Inactive
+Client Contact, Shruti Nambiar, CL-118, tag shruti.nambiar, Client, To, Active
+Client Contact, Vikram Desai, CL-127, tag vikram.desai, Client, To, Active
 Client Contact, Manoj Iyer, CL-133, empty, Client, To, Active
-Client Contact, Neha Kulkarni, CL-141, signed in address, Client, To, Active
-Client Contact, Rahul Sen, CL-152, signed in address, Client, To, Active
-Client Contact, Priyanka Ghosh, CL-199, signed in address, Client, To, Active
+Client Contact, Neha Kulkarni, CL-141, tag neha.kulkarni, Client, To, Active
+Client Contact, Rahul Sen, CL-152, tag rahul.sen, Client, To, Active
+Client Contact, Priyanka Ghosh, CL-199, tag priyanka.ghosh, Client, To, Active
 
 Every Client Contact row is a person at the business that engaged Blackpine to build and run that service, the one who owns the work on their side, and not somebody using the site. The affected user counts on the incidents belong to that client's own users, so a client draft tells them what their users are hitting rather than treating the reader as 1 of them.
 
@@ -312,7 +316,7 @@ PART 8, NOTION
 
 Workspace name Blackpine Engineering. If the workspace is already called something else, leave it and say what it reads in the setup report.
 
-Create a database named Emergency Recovery Readiness Register with these 25 properties, spelled exactly like this: Incident ID, Client ID, Affected Service, Confirmed Root Cause Record, Confirmed Commercial Route, Production Repository, Production Release Tag, Proposed Recovery Method, Fix Branch or Pull Request, Database Migration Impact, Rollback Availability, Rollback Risk, Feature Flag Option, Dependency Impact, Automated Test Result, Manual Verification Required, Open Jira Blockers, Runbook Status, Recovery Readiness Status, Priority Score, Allocated Calendar Slot, Hold Reason, Missing Evidence, Leadership Review Requirement, Last Reviewed Timestamp. Plus 1 more, Target Recovery Version, because that is half the key the master run searches on. Text properties are fine for all of them, apart from Priority Score which can be a number.
+Create a database named Emergency Recovery Readiness Register with these 25 properties, spelled exactly like this: Incident ID, Client ID, Affected Service, Confirmed Root Cause Record, Confirmed Commercial Route, Production Repository, Production Release Tag, Proposed Recovery Method, Fix Branch or Pull Request, Database Migration Impact, Rollback Availability, Rollback Risk, Feature Flag Option, Dependency Impact, Automated Test Result, Manual Verification Required, Open Jira Blockers, Runbook Status, Recovery Readiness Status, Priority Score, Allocated Calendar Slot, Hold Reason, Missing Evidence, Leadership Review Requirement, Last Reviewed Timestamp. Plus 1 more, Target Recovery Version, because that is half the key the master run searches on. Text properties are fine for all of them, apart from Priority Score which can be a number. Notion always keeps 1 title property on a database, so rename that title property to Incident ID rather than leaving a Name column sitting there and adding a 2nd Incident ID beside it. The database ends up showing 26 columns and not 27.
 
 Seed exactly 1 record in it, and leave the database otherwise empty:
 
@@ -336,11 +340,11 @@ IRM holds 8 issues. 6 of them are issue type Incident Recovery Record at status 
 Every 1 of the 6 in scope descriptions carries all 16 labelled lines, and record 3 carries the testing complete comment.
 PagerDuty shows 6 open incidents on Production Applications, each with its affected user note, and incident 5 still has no Incident ID in its title.
 All 6 repositories exist. The Latest release badge reads v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api, v2.3.0 on blackpine-web-portal and v1.2.0 on blackpine-identity-api. v4.2.0 exists on blackpine-payments-api and does not carry the Latest badge.
-5 pull requests are open and none is merged. The completed Actions run on the head of pull request 5 shows integration-tests failed, and the completed runs on pull requests 12, 9, 7 and 4 show all 3 jobs passing.
+5 pull requests are open and none is merged, and the number each 1 landed on is written down. The completed Actions run on the head of the blackpine-orders-api pull request shows integration-tests failed, and the completed runs on the other 4 show all 3 jobs passing.
 PaymentRecovery.ts exists in both payments repositories.
 The Confluence page carries all 7 sections including the 4 numbered exception conditions and both contact lines.
 Release Windows has headers on row 1 and 8 rows underneath, and W-04 is the only row with anything in Existing Allocation.
-Recovery Contacts has headers on row 1 and 19 rows underneath, the Gopal Menon row reads Inactive, the Manoj Iyer row has an empty Email Address, and every other Email Address cell holds the signed in account's own address.
+Recovery Contacts has headers on row 1 and 19 rows underneath, the Gopal Menon row reads Inactive, the Manoj Iyer row has an empty Email Address, and the other 18 cells each hold the signed in account's own address under that row's own tag, all 18 reading differently from each other.
 Release Windows and Recovery Contacts are the only 2 tabs on the sheet.
 The calendar holds 1 event and it is the maintenance window, not an emergency release.
 The Notion database has 26 properties and exactly 1 record, and that record still says the flag is unused.
@@ -354,10 +358,10 @@ Finish by telling me, in plain text:
 The Jira site name as it actually reads, the project name and key, and the real issue key each of the 8 seeded issues received if the keys did not land as IRM-1 through IRM-8.
 Whether the issue type Incident Recovery Record and the statuses Pending Recovery Review and Recovery Complete were created as asked, and what you did instead if any of them would not go in.
 The PagerDuty service link and the 6 incident numbers PagerDuty assigned.
-The 6 repository URLs, and for each of the 5 pull requests its number, its state, its head branch and the result of the most recent completed Actions run on its head commit, job by job, exactly as the Actions tab shows them.
+The 6 repository URLs, and for each of the 5 pull requests the number GitHub actually gave it beside the number the matching Jira record quotes, its state, its head branch and the result of the most recent completed Actions run on its head commit, job by job, exactly as the Actions tab shows them.
 The release name and tag carrying the Latest badge on each repository, as the releases page shows it.
-The Confluence page link, and confirmation that the email address on both contact lines is the signed in account's own.
-Links to the Drive folder and the tracker sheet, the tab names the sheet actually ends up with, the row count on each tab, and confirmation that every Email Address cell on Recovery Contacts holds the signed in account's own address apart from the Manoj Iyer row, which is empty on purpose.
+The Confluence page link, and confirmation that both contact lines carry the signed in account's own address under the tags rohit.deshmukh and priya.nair.
+Links to the Drive folder and the tracker sheet, the tab names the sheet actually ends up with, the row count on each tab, and confirmation that every Email Address cell on Recovery Contacts holds the signed in account's own address under its own tag, the 18 of them all reading differently, apart from the Manoj Iyer row, which is empty on purpose.
 The calendar name and the event link.
 The Notion database link and the property names it actually ended up with, if any of the 26 had to be renamed.
 Every step that fell back to the Chrome browser plugin, with the error that sent it there.

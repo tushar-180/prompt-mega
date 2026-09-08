@@ -20,7 +20,7 @@ WHY PUTTING THE 6 RECORDS BACK TO PENDING RECOVERY REVIEW IS NOT ENOUGH ON ITS O
 
 The master workflow searches for its own earlier output before it writes anything, so it updates whatever it finds instead of creating it fresh. Leave the calendar holds, the Notion records and the Gmail drafts sitting there, and the second test run takes the update path rather than the create path. That is a different test from the one I want to repeat.
 
-There is a second thing the status alone does not fix, and it matters more. Several of the seeded values are deliberately wrong, and the master run is supposed to catch them and write the correction back. Once it has, the trap is spent. If IRM-1 now reads blackpine-payments-api instead of blackpine-payments-legacy, the wrong repository trap is gone. If the Notion record now says the checkout flag is enabled, the feature flag trap is gone. Putting those values back is the real work of this run, so read the value lists below rather than skimming them.
+There is a second thing the status alone does not fix, and it matters more. Several of the seeded values are deliberately wrong, and the master run is supposed to catch them and write the correction back. Once it has, the trap is spent. If IRM-1 now reads blackpine-payments-api instead of blackpine-payments-legacy, the wrong repository trap is gone. If it now quotes the pull request number GitHub really gave that branch instead of 12, the wrong pull request number trap is gone. If the Notion record now says the checkout flag is enabled, the feature flag trap is gone. Putting those values back is the real work of this run, so read the value lists below rather than skimming them.
 
 Run this twice and the second run should find nothing left to undo and say so. An item that is already gone is not an error, it is the expected result. Report it as already clean and move on.
 
@@ -54,16 +54,16 @@ Remove any label the master run added.
 The description has to end up carrying these 16 labelled lines and nothing else: Incident ID, Client ID, Affected Service, Incident Severity, Incident Start Timestamp, Affected User Count, Approved Root Cause Record, Confirmed Commercial Route, Current Workaround, Workaround Expiry, Production Repository, Production Release Tag, Target Recovery Version, Service Directory Path, Source Module or Symbol, Recovery Branch or Pull Request. Delete every other line, heading, table, panel or block the master run added, wherever it sits, including anything holding a recovery readiness status, a proposed recovery method, a Priority Score, a hold reason, evidence notes, a calendar allocation, a missing evidence note or a leadership review requirement.
 Delete every comment on the issue, with 1 exception. IRM-3 keeps the comment reading Testing complete, all green, ready to ship. QA signed off on 2026-09-01. That comment came from the setup run and it is the whole point of that record. Anything else on IRM-3, and everything on the other 5, came from the master run and goes.
 
-Now the values. The master run is meant to correct 4 of these, so check each one on the screen and put it back where it has moved:
+Now the values. The master run is meant to catch and correct several of these, so check each one on the screen and put it back where it has moved:
 
-IRM-1, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v4.2.0, Incident Severity reads Sev1, Affected User Count reads 1800.
-IRM-2, Incident Severity reads Sev3, Affected User Count reads 180, Production Repository reads blackpine-billing-api, Production Release Tag reads v1.8.2.
-IRM-3, Incident Severity reads Sev2, Affected User Count reads 300, Production Repository reads blackpine-orders-api, Production Release Tag reads v3.0.1.
-IRM-4, Incident Severity reads Sev2, Affected User Count reads 120, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v2.9.4.
-IRM-5, Incident Severity reads Sev2, Affected User Count reads 500, Production Repository reads blackpine-web-portal, Production Release Tag reads v2.3.0.
-IRM-6, Incident Severity reads Sev3, Affected User Count reads 15, Production Repository reads blackpine-identity-api, Production Release Tag reads v1.2.0.
+IRM-1, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v4.2.0, Incident Severity reads Sev1, Affected User Count reads 1800, Recovery Branch or Pull Request reads recovery/inc-2041-timeout-fix, pull request 12.
+IRM-2, Incident Severity reads Sev3, Affected User Count reads 180, Production Repository reads blackpine-billing-api, Production Release Tag reads v1.8.2, Recovery Branch or Pull Request reads recovery/inc-2042-token-leak, pull request 9.
+IRM-3, Incident Severity reads Sev2, Affected User Count reads 300, Production Repository reads blackpine-orders-api, Production Release Tag reads v3.0.1, Recovery Branch or Pull Request reads recovery/inc-2043-stock-sync, pull request 5.
+IRM-4, Incident Severity reads Sev2, Affected User Count reads 120, Production Repository reads blackpine-payments-legacy, Production Release Tag reads v2.9.4, Recovery Branch or Pull Request reads recovery/inc-2044-ledger-backfill, pull request 7.
+IRM-5, Incident Severity reads Sev2, Affected User Count reads 500, Production Repository reads blackpine-web-portal, Production Release Tag reads v2.3.0, Recovery Branch or Pull Request reads recovery/inc-2045-checkout-retry, pull request 4.
+IRM-6, Incident Severity reads Sev3, Affected User Count reads 15, Production Repository reads blackpine-identity-api, Production Release Tag reads v1.2.0, Recovery Branch or Pull Request reads None, no code change required.
 
-The wrong repository on IRM-1 and the mismatched tag on IRM-1 are deliberate. Do not helpfully fix them. Every other one of the 16 lines keeps whatever the setup run wrote, so if any of them reads differently now, put it back and name it in the report.
+The wrong repository on IRM-1, the mismatched tag on IRM-1 and all 5 of those quoted pull request numbers are deliberate, because GitHub numbered the real pull requests its own way and the master run is meant to work off the branch name and write the correction in. Do not helpfully fix any of them, and do not put the real GitHub numbers in their place. Every other one of the 16 lines keeps whatever the setup run wrote, so if any of them reads differently now, put it back and name it in the report.
 
 The 2 decoys do not move. IRM-7 stays issue type Incident Recovery Record at status Recovery Complete. IRM-8 stays a Task at status Pending Recovery Review. Do not change either, and do not delete them.
 
@@ -78,7 +78,7 @@ On the Release Windows tab, clear the Existing Allocation cell on every row exce
 
 Nothing else on Release Windows changes. The headers stay on row 1, all 8 rows W-00 through W-07 stay where they are, and the Window ID, Window Date, Window Start Time, Window End Time, Duration Minutes, Status and Blackout Reason columns keep exactly the values they hold. No row gets deleted, no row gets added, and the Status column does not move, so W-03 still reads Blocked and everything else still reads Available.
 
-The Recovery Contacts tab is read only for the master run, so it comes back untouched with headers on row 1 and 19 rows underneath. Read it back anyway and put right anything that has moved, because a master run editing it is a rule broken and I want it in the report. The Gopal Menon row still reads Inactive, the Manoj Iyer row still has an empty Email Address, the CL-199 rows are still sitting there, and every other Email Address cell still holds the signed in account's own address. No row gets deleted, no row gets added and no cell gets rewritten unless the master run moved it first.
+The Recovery Contacts tab is read only for the master run, so it comes back untouched with headers on row 1 and 19 rows underneath. Read it back anyway and put right anything that has moved, because a master run editing it is a rule broken and I want it in the report. The Gopal Menon row still reads Inactive, the Manoj Iyer row still has an empty Email Address, the CL-199 rows are still sitting there, and every other Email Address cell still holds the signed in account's own address under that row's own plus tag, all 18 of them reading differently from each other. No row gets deleted, no row gets added and no cell gets rewritten unless the master run moved it first.
 
 
 PART 3, GOOGLE CALENDAR
@@ -106,7 +106,7 @@ Every other property goes back to empty. That means Confirmed Root Cause Record,
 
 The Feature Flag Option line is the one that matters most here. The master run is supposed to notice that production has checkout_recovery_v2 switched on and correct this record, so if it now reads enabled, or active, or anything other than unused, put the unused wording back. Get that wrong and the next master run has nothing to catch.
 
-Do not delete the database, do not rename it, and do not remove any of its 26 properties.
+Do not delete the database, do not rename it, and do not remove any of its 26 properties. If a 27th property has appeared that the setup run did not create, the master run added it, so delete that property and name it in the report.
 
 
 PART 5, GITHUB
@@ -115,7 +115,7 @@ GitHub is read only for the master run and the setup run opened nothing either, 
 
 Anything that turns up is a master run writing where it was told not to, so name it in the report with its repository and number. Delete it rather than closing it, and where GitHub will not let you delete an issue on either route, say so with the exact error and name what is left standing.
 
-Then check, and change nothing unless something is wrong. Pull requests 12, 9, 7, 5 and 4 should all still be open and unmerged, with no approval and no requested changes on them. The recovery branches should carry no commit the master run pushed, and no workflow run should have been started again. The Latest release badge should still read v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api, v2.3.0 on blackpine-web-portal and v1.2.0 on blackpine-identity-api, and v4.2.0 should still be sitting on blackpine-payments-api as a pre release without the badge.
+Then check, and change nothing unless something is wrong. The 5 recovery pull requests, under whatever numbers GitHub gave them when the setup run opened them, should all still be open and unmerged, with no approval and no requested changes on them. The recovery branches should carry no commit the master run pushed, and no workflow run should have been started again. The Latest release badge should still read v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api, v2.3.0 on blackpine-web-portal and v1.2.0 on blackpine-identity-api, and v4.2.0 should still be sitting on blackpine-payments-api as a pre release without the badge.
 
 If a pull request got merged, or a branch got a new commit, or a workflow got re run, that is a master run that broke its own rules. Report it with what you found. Do not try to unpick it by reverting commits or closing what was merged, tell me instead and I will decide.
 
@@ -152,7 +152,7 @@ PART 9, CHECK YOUR OWN WORK
 Before writing the report, read each of these back off the screen rather than from memory.
 
 IRM holds 8 issues and no more. 6 of them read Pending Recovery Review with 16 description lines each and no extras. IRM-7 reads Recovery Complete and IRM-8 is still a Task.
-IRM-1 says blackpine-payments-legacy and v4.2.0, and IRM-2 says Sev3 and 180.
+IRM-1 says blackpine-payments-legacy, v4.2.0 and pull request 12, and IRM-2 says Sev3 and 180.
 IRM-3 carries 1 comment and it is the testing complete one. No other issue carries any comment.
 The tracker sheet has 2 tabs, Release Windows and Recovery Contacts, column H on Release Windows is empty everywhere except the W-04 row, and Recovery Contacts still holds its 19 rows with the Gopal Menon row Inactive and the Manoj Iyer address empty.
 The calendar holds 1 event, the maintenance window.

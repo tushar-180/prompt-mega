@@ -1,0 +1,19 @@
+What I cut
+Removed	Why
+PagerDuty	Duplicated Jira's severity/user count; its whole incident-matching and source-precedence section is gone
+Confluence runbook	The emergency criteria are now 1 sentence in the prompt; the 4-condition freeze exception is gone
+Notion register	A second system of record on top of Jira + the sheet
+Google Calendar	The allocation is already recorded in the sheet
+2 of 3 email drafts	Sales draft and per-client drafts gone, so no client-facing wording, legal-review line, or Account Manager double-read
+Priority Score out of 100	Replaced by a short 4-test ordering chain
+1 repo, 1 window row, 14 contact rows	identity-api, the calendar-clash window, and the contacts the other drafts needed
+What the workflow is now
+Read the 6 open recovery reviews in Jira → settle in GitHub which repo and release actually serves each one and whether the fix really passed CI → land 1 of 4 statuses (was 7) → allocate up to 2 windows on the Sheets tracker → leave 1 comment per incident and 1 unsent Gmail draft. Three write actions in three apps.
+
+The decision traps all survive: the PaymentRecovery decoy pair, the wrong repo and tag on IRM-1, the quoted PR numbers that match nothing, the Jira comment claiming "all green" against a failed integration-tests run, the rollback that drops rows written after its migration, and the Inactive contact row.
+
+One structural change worth knowing: the run now writes its decision as a Jira comment and leaves the description and status alone. That keeps the seeded traps unspent, which is why reset.txt is down to deleting comments, clearing 2 cells, and deleting 1 draft.
+
+Expected run: INC-2042 takes W-01 (its workaround expires first), INC-2041 takes W-02, INC-2045 drops to Scheduled on capacity, INC-2043 and INC-2044 hold for different reasons, INC-2046 is No Release Required, W-06 comes back unused.
+
+Word counts: prompt 3955 → 2294, setup 5648 → 3876, reset 3240 → 2307. No markdown, no dashes, voice unchanged. Nothing committed yet — say the word and I'll commit the four files.

@@ -1,0 +1,340 @@
+What the workflow is for
+A BDE writes prep notes before a sales call. Those notes say things about the product — "we'll demo X", "Y is included in their plan". Products change constantly: features get renamed, moved to higher plans, deprecated, stuck in beta. So the notes go stale, and nobody notices until the BDE says something wrong in front of the customer.
+
+This workflow is a pre-call fact checker. It reads the notes, checks every product claim against what's actually true for that customer's plan on that call's date, fixes the notes, and pings the BDE on Slack only if something important is wrong.
+
+The three apps and their jobs
+App	Job	Read or write
+Salesforce	Who's the customer, when's the call, what plan are they on	Read only
+Notion	What the BDE plans to say (prep notes) + what's actually true (changelog + feature availability)	Read sources, write corrections to notes
+Slack	Warn the BDE	Write
+Example 1: a call where things go wrong (SC-3001)
+Step 1 — Salesforce says who and when
+The report row:
+
+
+Call ID:      SC-3001
+Account:      Northwind Retail Group  (ACC-401)
+Call Type:    Product Demonstration
+Call Status:  Scheduled
+Date/Time:    2026-09-11 15:00
+BDE:          Rahul Menon  (@rahul.menon)
+Is it in scope? Call Type is a Demonstration ✓, Status is Scheduled ✓, BDE filled ✓, Account ID filled ✓, and 2026-09-11 sits inside the window 2026-09-10 → 2026-09-16 ✓. Yes, work it.
+
+Step 2 — Salesforce says what plan
+Open account ACC-401: Current Plan = Pro, Pending Plan empty, Contract Add Ons empty.
+
+So every claim on this call gets tested against Pro. This matters enormously — the same claim can be right on one plan and wrong on another.
+
+Step 3 — Notion says what the BDE plans to say
+Find the prep record carrying Call ID SC-3001 → PREP-9001:
+
+"We are demoing AI Assistant and Advanced Analytics on this one. Both are included on their plan already. Pricing stays at the annual rate we agreed in July and the discount is not up for discussion."
+
+Pull the product claims out of that:
+
+Claim 1: AI Assistant (a feature, being demoed)
+Claim 2: Advanced Analytics is included on their plan
+The pricing sentence is not a product claim — it's about money. Leave it exactly as written, even if it looks wrong. Not this workflow's business.
+Step 4 — Check claim 1: "AI Assistant"
+Look in Feature Availability → there is no row called AI Assistant. Now look in Product Changelog:
+
+
+CHG-101: AI Assistant  →  renamed to Smart Assistant
+         Effective 2026-05-15    Superseded By: CHG-102
+It says "Superseded By CHG-102", so follow it:
+
+
+CHG-102: Smart Assistant  →  renamed to AI Copilot
+         Effective 2026-07-01    Superseded By: (empty)
+Chain ends here. Both dates are before the call date 2026-09-11, so both renames are already live.
+
+Feature Availability confirms: AI Copilot, Generally Available, Plans Included = Pro, Enterprise.
+
+Status: RENAMED. The customer can have it — they're on Pro — it's just called something else now.
+
+This is the trap. If the run stops at the first hop it tells Rahul to say "Smart Assistant", which is also wrong. It has to follow the chain to the end.
+
+Step 5 — Check claim 2: "Advanced Analytics is included on their plan"
+Feature Availability:
+
+
+Advanced Analytics — Generally Available
+Plans Included:   Enterprise
+Add On Required:  Analytics Add On
+Last Reviewed:    2026-08-28   (fresh)
+The customer is on Pro, not Enterprise. Do they have the add-on? ACC-401's Contract Add Ons is empty. No.
+
+Cross-check the changelog:
+
+
+CHG-103: Advanced Analytics — Plan Restriction
+         Effective 2026-08-01    Plans Affected: Starter, Pro
+Pro is in Plans Affected, and 2026-08-01 is before the call. So it bites.
+
+Status: PLAN RESTRICTED.
+
+Step 6 — What actually gets written
+In Notion (PREP-9001):
+
+Property	Value
+Preparation Notes	rewritten — "AI Copilot" replaces "AI Assistant", and the Advanced Analytics line now says it's Enterprise only. The pricing sentence stays untouched.
+Verification Status	Corrected
+Verified Against Changelog Version	v2026.09
+Verified On	2026-09-10
+Correction Summary	2 lines, each quoting the original wording, the status, the Change ID behind it, and the new wording
+In Slack (sales-call-alerts), one message to @rahul.menon covering both corrections together — not one message per claim.
+
+Example 2: a call where nothing should fire (SC-3002)
+This one is just as important, because it's where a careless run over-reacts.
+
+
+SC-3002  Vantage Health Systems (ACC-402)
+Discovery Call    2026-09-14 11:30    Priya Nair
+Account ACC-402: Current Plan = Starter, Pending Plan = Pro, Plan Change Effective Date = 2026-09-12
+
+The plan question comes first
+They're on Starter today, but they move to Pro on 2026-09-12 — and the call is 2026-09-14. By the time Priya sits down, they're on Pro.
+
+So test against Pro, not Starter.
+
+Notes: "Walk them through Workflow Designer and Bulk Import. Both are included once they move up to Pro."
+
+Claim 1 — Workflow Designer
+Feature Availability: GA, Plans Included Pro + Enterprise, Last Reviewed 2026-07-30 (fresh).
+
+But the changelog says:
+
+
+CHG-104: Workflow Designer — Deprecated
+         Effective 2026-09-25
+Is 2026-09-25 on or before the call date 2026-09-14? No. The deprecation happens 11 days after this call.
+
+Status: CURRENT. The feature is perfectly fine on the day Priya demos it. The coming change gets a note in Correction Summary, but the claim is not flagged.
+
+A careless run screams "Workflow Designer is deprecated!" — and it's wrong. It isn't, not on this date.
+
+Claim 2 — Bulk Import
+Feature Availability says Last Reviewed = 2026-04-18. That's before the 2026-06-10 cutoff, so the row is stale and can't settle anything by itself.
+
+Check the changelog:
+
+
+CHG-105: Bulk Import — Plan Restriction
+         Effective 2026-06-20    Plans Affected: Starter
+That entry is already effective, so it settles the stale row. But Plans Affected is Starter only — and we're testing against Pro. It doesn't touch this customer.
+
+Status: CURRENT.
+
+Result
+Verification Status = Verified Clean. Notes untouched. No Slack message at all.
+
+The other four, quickly
+SC-3003 Cobalt — Advanced Analytics is fine here, even though it was Plan Restricted for Northwind. Same feature, same Pro plan, opposite answer — because ACC-403 has Analytics Add On in Contract Add Ons. Meanwhile "Forecast Studio is generally available" is wrong: it's Beta. Also, the Notion record says the call is 2026-09-05 while Salesforce says 2026-09-15 → Salesforce wins, and the disagreement gets logged.
+
+SC-3004 Meridian — Live Chat Widget is Limited Release, and the notes say they "asked to see both running" on a Product Demonstration → must be Generally Available → Beta Only. And "Offline Mode" appears in neither Notion database → Needs Product Confirmation. Plus the BDE Slack Handle is empty — the message still goes out, naming Arjun Shah the way Salesforce spells it, with a line saying the handle was missing.
+
+SC-3005 Harbourline — ACC-405 has Pending Plan = Enterprise but no effective date. So there's no way to know which plan they're on at call time → every plan-dependent claim → Needs Product Confirmation.
+
+SC-3006 Silverbrook — two prep records match the same account on the same date and neither carries a Call ID → ambiguous → nothing gets edited, it's reported as unmatched.
+
+The materiality gate
+This is what separates "fix the note quietly" from "interrupt the BDE."
+
+Status	Slack message?
+Renamed, Replaced, Deprecated, Plan Restricted	Always
+Beta Only	Only if the notes call it generally available or promise a demo
+Needs Product Confirmation	Only if the notes promise a live demo or say it's in the plan
+Current	Never
+Look at SC-3005 to see it working: both claims land on Needs Product Confirmation, but only one goes in the Slack message. "Advanced Analytics is included in their plan today" claims plan inclusion → material. "Talk about Route Optimizer" is just a talking point → not material.
+
+Running it twice
+Verified Against Changelog Version and Last Alert Version are the memory. Run it again on the same day with no new changelog version and it changes nothing and posts nothing. Only a newer Changelog Version triggers fresh work — and then only for the new corrections, not the ones already sent.
+
+Why this is hard for a model
+Each of these alone is easy. Together they interact:
+
+A change dated after the call must not be flagged (SC-3002)
+A pending plan may or may not have kicked in yet (SC-3002 vs SC-3005)
+An add-on can override a plan restriction (SC-3003 vs SC-3001)
+A rename can be two hops deep (SC-3001)
+A stale availability row can't settle anything alone (SC-3002)
+Plans Affected scopes whether a change applies at all (SC-3002)
+Call Type raises the bar for anything demoed live (SC-3004)
+Not every correction earns a message (SC-3005)
+The most common failures will be flagging Workflow Designer as deprecated, stopping the rename chain at "Smart Assistant", and firing a Slack message for Route Optimizer.
+
+That's finalPrompt. Say the word and I'll walk through dummy_setup the same way — what it builds, why each account and record exists, and which trap each one is carrying.
+
+c:\Users\Empiric\Desktop\prompt-mega\workflow_prompt_5\finalPrompt.txt
+i still not get what is this Harbourline  , Silverbrook  etc what is the plan is pro enterprices etc
+Ah — I skipped the basics. Let me start from zero. All of these names are invented. I made them up when I wrote dummy_setup.txt. They're fake test data, nothing real.
+
+The story in one picture
+
+Larkfield Systems  ← the company YOU work for (invented)
+   sells software
+        ↓
+   to 7 customer companies (all invented):
+   Northwind Retail Group, Vantage Health Systems,
+   Cobalt Logistics, Meridian Foods, Harbourline Media,
+   Northwind Retail Grp, Silverbrook Estates
+So Harbourline Media and Silverbrook Estates are just made-up names of companies that buy Larkfield's software. Like "Acme Corp" or "XYZ Ltd" in a test file. They aren't real and they don't mean anything.
+
+What "Pro" and "Enterprise" mean
+Think of a gym membership:
+
+Membership	Price	What you get
+Basic	cheap	Just the gym floor
+Plus	mid	Gym + classes
+Premium	expensive	Gym + classes + sauna
+Larkfield sells its software the same way — three tiers:
+
+Plan	Think of it as	Gets you
+Starter	cheapest	Basic features only
+Pro	middle	More features
+Enterprise	most expensive	Everything
+Each customer pays for one plan. That's it — that's all "Pro" and "Enterprise" mean here.
+
+Why it matters: the sauna is Premium-only. If a gym salesperson tells a Basic member "sure, use the sauna" — that's embarrassing when they turn up and get refused.
+
+Same problem here. Advanced Analytics is an Enterprise feature. If a salesperson tells a Pro customer "Advanced Analytics is included in your plan", that's wrong, and the customer finds out during the demo.
+
+This workflow catches that before the meeting happens.
+
+Who's who
+The 7 customers (all invented) and what plan each one pays for:
+
+Customer	Plan	What's special about them
+Northwind Retail Group	Pro	Nothing — the plain one
+Vantage Health Systems	Starter → Pro on 12 Sept	Upgrading soon
+Cobalt Logistics	Pro	Paid extra for an "Analytics Add On"
+Meridian Foods	Enterprise	Top tier
+Harbourline Media	Pro → Enterprise, date unknown	Upgrade date is missing
+Northwind Retail Grp	Starter	A near-identical name to the first one, on purpose
+Silverbrook Estates	Pro	Has two sets of prep notes, on purpose
+The 3 salespeople (invented): Rahul Menon, Priya Nair, Arjun Shah. "BDE" = Business Development Executive = salesperson.
+
+The features (invented) — things Larkfield's software can do:
+
+Feature	Who can use it
+AI Copilot	Pro + Enterprise (used to be called "AI Assistant")
+Advanced Analytics	Enterprise only — unless you bought the Analytics Add On
+Forecast Studio	Still in beta, not finished
+Bulk Import	Everyone except Starter
+Workflow Designer	Pro + Enterprise (being retired on 25 Sept)
+Live Chat Widget	Enterprise, limited release
+Route Optimizer	Pro + Enterprise
+Offline Mode	Doesn't exist — a salesperson made it up
+Now the example again, in plain words
+Northwind Retail Group pays for Pro. Rahul has a demo with them on 11 September.
+
+Rahul wrote in his notes: "We're demoing AI Assistant and Advanced Analytics. Both are included on their plan."
+
+The workflow checks both:
+
+"AI Assistant" — that feature got renamed. Twice. It's now called AI Copilot. Northwind can use it (they're on Pro), but Rahul would walk in saying a name that doesn't exist any more.
+
+"Advanced Analytics is included on their plan" — no it isn't. That's Enterprise only. Northwind is on Pro, and they didn't buy the add-on. If Rahul promises it, the customer will ask to see it and there'll be nothing to show.
+
+So the workflow fixes the notes and Slacks Rahul before the call.
+
+Compare to Cobalt Logistics — also on Pro, also wants Advanced Analytics. But Cobalt paid extra for the Analytics Add On. So for them it's fine. Same feature, same plan, opposite answer.
+
+Does that clear it up? If the invented names are what's making it hard to follow, I can swap them for something plainer — Customer A, Customer B, Customer C — throughout dummy_setup.txt and reset.txt. Just say so.
+
+yup
+Before I spend the effort — "yup" could mean two different things here.
+
+AskUserQuestion
+OUT
+Your questions have been answered: "Which did you mean by "yup"?"="It's clear — now explain dummy_setup". You can now continue with these answers in mind.
+Good. Now dummy_setup.txt.
+
+What it's for
+Your finalPrompt reads a Salesforce report, three Notion databases and a Slack channel. None of those exist yet. dummy_setup builds them and fills them with fake data — including data that's deliberately wrong, so there's something for the master run to catch.
+
+The cycle:
+
+
+1. dummy_setup.txt   →  builds the fake workspace
+2. finalPrompt.txt   →  the actual test (Codex runs this)
+3. reset.txt         →  undoes what step 2 changed
+4. finalPrompt.txt   →  test again on identical data
+The key idea: containers first, then data
+Salesforce doesn't come with a field called "Current Plan", and it has no place to store sales calls. You have to create those first.
+
+Think of a spreadsheet:
+
+dummy_setup part	Spreadsheet equivalent
+Part 1	Drawing the column headers
+Parts 2–3	Typing the rows underneath
+Part 4	Saving a view that shows those rows
+Same in Notion: Part 5 creates the three databases with their column names, Parts 6–8 fill in the rows.
+
+Part 1 — the Salesforce containers
+Two jobs:
+
+Add 5 fields to Accounts (Salesforce already has accounts, but not these fields):
+Account ID, Current Plan, Pending Plan, Plan Change Effective Date, Contract Add Ons
+
+Create a brand-new object called "Sales Call" with 7 fields — because Salesforce has nowhere to record "Rahul has a demo with Northwind on the 11th at 3pm."
+
+This is the slow part. Everything after it is just typing.
+
+Parts 2, 3, 4 — filling Salesforce
+Part 2: the 7 customer companies and what plan each pays for
+Part 3: 10 sales call records — 6 real ones plus 4 decoys
+Part 4: the report called Upcoming Sales Calls
+The decoys matter. The report shows all 10 rows with no filter, because filtering out the bad ones is the master run's job. If the setup pre-filtered them, you'd be testing nothing.
+
+The 4 decoys, and why each is out of scope:
+
+Decoy	Why it must be skipped
+SC-3007	Call Status is Cancelled
+SC-3008	Date is 22 Sept — outside the window
+SC-3009	No salesperson assigned
+SC-3010	Call Type is Renewal Review, not a demo or discovery
+Parts 5–8 — filling Notion
+Part 5: creates the 3 databases
+Part 6: 8 prep records — the salespeople's notes, wrong on purpose
+Part 7: 7 changelog entries — the record of what changed in the product and when
+Part 8: 7 feature rows — what's true about each feature right now
+Part 9 — Slack
+Creates sales-call-alerts and leaves it empty. If a message is already sitting in there, the master run's "have I already warned about this?" check behaves differently, and you'd be testing the wrong path.
+
+The traps — this is the real content
+Every record is carrying something. Here's the full list:
+
+Record	What's odd	What it catches
+ACC-402 Vantage	Plan upgrade lands 2 days before the call	Must test against the new plan, not today's
+ACC-405 Harbourline	Pending plan filled, no date	Must say "can't tell" instead of guessing
+ACC-406 Northwind Retail Grp	Name almost identical to ACC-401	Must match on Account ID, never on the name
+ACC-403 Cobalt	Has the Analytics Add On	Add-on must override the plan restriction
+SC-3004 Meridian	Slack handle is empty	Message must still go out anyway
+PREP-9003	Notion says 5 Sept, Salesforce says 15 Sept	Salesforce wins
+PREP-9006 + 9007	Two records, same account, same date, no Call ID	Ambiguous → don't edit anything
+PREP-9008	Notes for ACC-406, which has no call	Catches matching by company name
+CHG-101 → CHG-102	Rename chain, two hops	Must follow to the end, not stop halfway
+CHG-104	Effective 25 Sept — after every call	Must not be flagged
+CHG-105	Plans Affected = Starter only	Must not bite Pro customers
+CHG-106	No effective date	→ Needs Product Confirmation
+Bulk Import row	Last reviewed in April — stale	Can't settle a claim on its own
+Offline Mode	Doesn't exist anywhere	→ Needs Product Confirmation, never "Current"
+Why the file keeps saying "this is a trap, not a mistake"
+The setup agent is helpful by nature. It will look at "AI Assistant is included on their plan" and want to correct it. It must not. Wrong notes are the entire point — if the setup fixes them, the master run has nothing to find and Codex scores well, which is a failed eval.
+
+So the file repeats the warning at each trap:
+
+"Row 3 carrying a Scheduled Call Date of 2026-09-05 while Salesforce says 2026-09-15 for SC-3003 is a trap and not a typo to correct. Type 2026-09-05 and leave it."
+
+Same reason the SETUP RUN ONLY list at the top forbids classifying claims, filling the 5 verification properties, or posting to Slack. Those are the master run's job.
+
+The "cannot be faked" section
+Four things that will trip up a run that doesn't know about them:
+
+Warning	Why
+Salesforce picks its own record IDs	That's why we create our own text field Account ID with values like ACC-401
+Salesforce adds __c to every custom name	Normal. Don't fight it — the labels are what matter
+Tick Allow Reports on the new object	Miss it and Part 4 has nothing to build a report on
+Slack handles won't resolve to real people	These people don't exist. Write handles as plain text

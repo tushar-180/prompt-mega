@@ -84,7 +84,7 @@ GitHub is read only for the master run and the setup run opened nothing either, 
 
 Anything that turns up is a master run writing where it was told not to, so name it in the report with its repository and number. Delete it rather than closing it, and where GitHub will not let you delete an issue on either route, say so with the exact error and name what is left standing.
 
-Then check, and change nothing unless something is wrong. The 5 recovery pull requests, under whatever numbers GitHub gave them when the setup run opened them, should all still be open and unmerged, with no approval and no requested changes on them. The recovery branches should carry no commit the master run pushed, and no workflow run should have been started again. The Latest release badge should still read v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api and v2.3.0 on blackpine-web-portal, and v4.2.0 should still be sitting on blackpine-payments-api as a pre release without the badge.
+Then check, and change nothing unless something is wrong. The 5 recovery pull requests, under whatever numbers GitHub gave them when the setup run opened them, should all still be open and unmerged, with no approval and no requested changes on them. The recovery branches should carry no commit the master run pushed, and no workflow run should have been started again. scripts/rollback/inc-2041-rollback.sh, scripts/rollback/inc-2042-rollback.sh and scripts/rollback/inc-2045-rollback.sh should each still open as a working rollback that reads the Latest release tag at run time, with no release tag typed into any of them, and the ledger rollback on blackpine-payments-legacy should still be the destructive one. The Latest release badge should still read v4.1.7 on blackpine-payments-api, v2.9.4 on blackpine-payments-legacy, v1.8.2 on blackpine-billing-api, v3.0.1 on blackpine-orders-api and v2.3.0 on blackpine-web-portal, and v4.2.0 should still be sitting on blackpine-payments-api as a pre release without the badge.
 
 If a pull request got merged, or a branch got a new commit, or a workflow got re run, that is a master run that broke its own rules. Report it with what you found. Do not try to unpick it by reverting commits or closing what was merged, tell me instead and I will decide.
 
@@ -107,6 +107,7 @@ IRM-3 carries 1 comment and it is the testing complete one. No other issue carri
 IRM-1 still says blackpine-payments-legacy, v4.2.0 and pull request 12.
 The tracker sheet has 2 tabs, Release Windows and Recovery Contacts, column G on Release Windows is empty everywhere except the W-04 row, and Recovery Contacts still holds its 5 rows with the Gopal Menon row Inactive.
 All 5 repositories hold 0 issues, and the 5 pull requests are still open and unmerged with the Latest badges unchanged.
+The 3 clean rollback scripts still read as working rollbacks with no release tag typed into any of them, and the most recent completed run on the head of each of those 3 branches shows all 3 jobs passing while blackpine-orders-api still shows integration-tests failing.
 Gmail Drafts holds no draft carrying the master run's subject.
 
 

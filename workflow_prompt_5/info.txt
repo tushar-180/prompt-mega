@@ -1,0 +1,295 @@
+Situation
+
+A BDE named Rahul has a product demo with ABC Technologies tomorrow at 3 PM.
+
+ABC Technologies is currently on the Pro Plan.
+
+Rahul prepares some notes for the call:
+
+“We will show the customer our AI Assistant and Advanced Analytics. Both features are available on their plan.”
+
+Now imagine there is no workflow.
+
+Before using the workflow
+Step 1: BDE checks the upcoming call
+
+Rahul opens Salesforce and sees:
+
+ABC Technologies
+Demo Call: Tomorrow, 3 PM
+Plan: Pro
+Assigned BDE: Rahul
+
+So far, everything is fine.
+
+Step 2: BDE prepares for the call
+
+Rahul opens his preparation notes in Notion.
+
+He writes:
+
+AI Assistant is available.
+Advanced Analytics is available.
+
+Maybe he remembers this information from a previous demo or from an older document.
+
+Step 3: Rahul manually checks the product
+
+Now Rahul has to remember:
+
+“Wait, did the product team change anything recently?”
+
+He may open the product changelog and search manually.
+
+Suppose the latest changelog says:
+
+AI Assistant has been renamed to AI Copilot.
+
+And another update says:
+
+Advanced Analytics is now available only on Enterprise plans.
+
+Rahul has to notice both changes himself.
+
+Step 4: Possible problem
+
+Maybe Rahul doesn't check the changelog.
+
+Then he goes into the client call and says:
+
+“Our AI Assistant can do X.”
+
+But the actual product name is now AI Copilot.
+
+Even worse, he says:
+
+“Advanced Analytics is included in your Pro Plan.”
+
+But ABC Technologies is actually on Pro, while Advanced Analytics is Enterprise only.
+
+Now the customer might ask:
+
+“Really? Can you show us Advanced Analytics?”
+
+Rahul opens the product and realizes:
+
+“Oh... this isn't available on their plan.”
+
+That's a bad sales experience.
+
+The customer may think:
+
+“Does this sales person actually know their own product?”
+
+After using the workflow
+
+Now let's run exactly the same situation with the workflow.
+
+Step 1: Workflow checks Salesforce
+
+The workflow automatically looks at Salesforce.
+
+It finds:
+
+Client: ABC Technologies
+Call: Tomorrow, 3 PM
+BDE: Rahul
+Plan: Pro
+
+So the workflow now knows:
+
+Who is having the call + when + which BDE + customer's plan.
+
+Step 2: Workflow opens the preparation notes
+
+It goes to Notion and reads Rahul's preparation notes.
+
+It finds:
+
+“AI Assistant is available.”
+“Advanced Analytics is available.”
+
+Instead of trusting these statements, the workflow says:
+
+“I need to verify these claims.”
+
+Step 3: Workflow checks the latest product information
+
+It checks the latest Notion product changelog and feature availability information.
+
+It discovers:
+
+Claim 1:
+
+AI Assistant
+
+Latest product information:
+
+Renamed to AI Copilot.
+
+So:
+
+AI Assistant → RENAMED
+
+Claim 2:
+
+Advanced Analytics is available on the customer's plan.
+
+Latest information:
+
+Advanced Analytics → Enterprise only.
+
+Salesforce says ABC Technologies has:
+
+Pro Plan
+
+So:
+
+Advanced Analytics → PLAN RESTRICTED
+
+Step 4: Workflow checks the date
+
+This is another important part.
+
+Suppose the changelog says:
+
+Advanced Analytics will become Enterprise-only from September 15.
+
+And Rahul's call is:
+
+September 12
+
+The workflow understands:
+
+The feature is still available for the customer on the date of the call.
+
+So it doesn't incorrectly flag the claim.
+
+But if the call is:
+
+September 20
+
+then it flags the claim because the restriction is already effective.
+
+So the workflow doesn't just look at what changed.
+
+It checks:
+
+What is true on the actual date of the customer call?
+
+Step 5: Workflow fixes Rahul's notes
+
+Before workflow:
+
+“We will show AI Assistant and Advanced Analytics. Both features are available on their plan.”
+
+After workflow:
+
+“We will demonstrate AI Copilot. Advanced Analytics is available only on Enterprise and should not be presented as included in the customer's Pro Plan.”
+
+Now Rahul has accurate information before entering the call.
+
+Step 6: Workflow sends Slack notification
+
+Because this is a material correction, the workflow sends Rahul a Slack message.
+
+Something like:
+
+Call Preparation Correction
+
+ABC Technologies' demo is tomorrow at 3 PM.
+
+AI Assistant has been renamed to AI Copilot.
+
+Advanced Analytics is restricted to Enterprise and is not included in the customer's Pro Plan.
+
+Please use the corrected wording during the demo.
+
+Rahul sees this before the call.
+
+Step 7: No repeated notifications
+
+Imagine the workflow runs again two hours later.
+
+Without proper logic, Rahul could receive:
+
+Correction! Advanced Analytics is Enterprise only.
+
+Then another:
+
+Correction! Advanced Analytics is Enterprise only.
+
+Then another:
+
+Correction! Advanced Analytics is Enterprise only.
+
+That's annoying.
+
+The workflow keeps track of the call + changelog version + notification.
+
+So it knows:
+
+“I already notified Rahul about this correction for this call and this version of the product information.”
+
+Therefore:
+
+No duplicate Slack message.
+
+Now compare both situations
+Without workflow	With workflow
+BDE manually checks Salesforce	Workflow checks Salesforce
+BDE manually finds upcoming calls	Workflow finds upcoming calls
+BDE writes preparation notes	Preparation notes are automatically reviewed
+BDE may forget to check changelog	Workflow checks latest changelog
+BDE may use old feature name	Workflow detects renamed feature
+BDE may promise unavailable feature	Workflow detects plan restriction
+BDE may not notice future changes	Workflow checks effective date
+BDE manually fixes notes	Workflow updates/corrects notes
+BDE may forget to inform themselves/team	Slack notification is sent
+Repeated checking can cause duplicate alerts	Workflow prevents duplicate alerts
+The real benefit
+
+The workflow isn't really about just reading Notion.
+
+Its real purpose is to prevent this situation:
+
+BDE prepares → uses outdated information → promises something incorrectly → customer discovers it during demo → BDE looks unprepared.
+
+Instead, it changes the process to:
+
+Upcoming call found → customer plan checked → preparation checked → product information verified → outdated claims corrected → BDE notified → BDE enters call with accurate information.
+
+Very simple way to remember it
+
+Salesforce tells us:
+👉 Who is the customer and what plan do they have?
+
+Notion tells us:
+👉 What does the BDE plan to say, and what is actually true about the product?
+
+Workflow compares the two:
+👉 Is the BDE's information correct for this customer and this call date?
+
+Slack tells the BDE:
+👉 Hey, something in your preparation needs to be corrected.
+
+So basically, this workflow acts like a pre-call fact checker for the BDE.
+
+Naming convention used
+
+I would keep the names in this format because they are easy for a person and the workflow to understand:
+
+Salesforce
+
+Report: Upcoming Sales Calls
+Section: Accounts
+
+Notion
+
+Database: Sales Call Preparation
+Database/Page: Product Changelog
+Database: Feature Availability
+
+Slack
+
+Channel: #sales-call-alerts

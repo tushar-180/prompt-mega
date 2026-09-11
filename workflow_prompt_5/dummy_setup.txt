@@ -1,0 +1,593 @@
+SETUP WORKFLOW, PRE CALL PRODUCT CLAIM CHECK SYSTEM
+
+I am building the workspace that my master workflow, the pre call product claim check, reads and writes. Everything that master run opens has to exist first and be named exactly as written here, otherwise the run stops partway through.
+
+This is deliberately small. 3 apps only, Salesforce, Notion and Slack. 7 account records, 10 sales call records of which 6 are in scope and 4 are decoys that must stay out of scope, 1 Salesforce report, 3 Notion databases holding 8 preparation records, 7 changelog entries and 7 feature rows between them, and 1 empty Slack channel. Do not pad it out, do not add records to make it look fuller, and do not invent items that are not listed below. Every single item here is carrying something specific, so build exactly what is written and nothing more.
+
+The slow part is the Salesforce schema in Part 1. Everything after it is typing rows into things that already exist, so get Part 1 right and the rest goes quickly.
+
+This is a SETUP RUN ONLY.
+
+Do not verify any product claim.
+Do not classify any claim as Current, Renamed, Replaced, Deprecated, Beta Only, Plan Restricted or Needs Product Confirmation.
+Do not fill Verification Status, Verified Against Changelog Version, Verified On, Correction Summary or Last Alert Version on any preparation record. Those 5 properties exist and stay empty.
+Do not correct, tidy, reword or improve any line of Preparation Notes. The notes are wrong on purpose.
+Do not post any message in Slack, and do not create any channel other than the 1 named in Part 9.
+Do not create any Notion database or page beyond the 3 databases and the rows listed here.
+Do not create a Jira issue, a ticket, a task, a calendar event or a record in any other tool.
+Do not write anything back into Salesforce after the rows in Part 3 are in.
+Do not invent a feature, a person, an account, a changelog version or an error message.
+Do not report anything as created when it was not.
+
+Everything below is invented test data. No web search is needed for any of it. Larkfield Systems is a made up company, every account ID is invented, every feature name is invented, and every person named below is invented. No real client, real colleague, real customer or real credential goes anywhere in this run.
+
+All dates use Asia/Kolkata. The master run works to a fixed scenario date of 2026-09-10 and a call window of 2026-09-10 through 2026-09-16 inclusive. Every date this setup writes into a field or a property is written exactly as given below in YYYY-MM-DD form, and every time is written in 24 hour form.
+
+Salesforce takes date input in the org locale rather than in YYYY-MM-DD, and which locale that is depends on the org, so read it rather than assuming it. Setup, Company Information carries the Locale, and a rejected date field shows its own format hint beside it, so take the format off 1 of those before typing a single date. On a dd/mm/yyyy org 2026-09-12 gets typed as 12/09/2026, and on an mm/dd/yyyy org the same date gets typed as 09/12/2026, and typing the wrong 1 of those saves without complaint. Every date below is given in YYYY-MM-DD and gets converted on the way in rather than typed straight through. After saving any Salesforce record carrying a date, open the saved record and read the date back with the month named, because 12 September quietly landing as 9 December changes the answer the master run is meant to reach and nothing later in this setup would catch it.
+
+
+WHAT IS ALREADY BUILT
+
+Some of this went in on an earlier setup run and some of it did not, and which is which depends on the org you land in, so open each part and read what is actually sitting there before building anything into it. Where a field, a record or a row is already in and reads correctly, leave it alone. Where it is missing, build it. Where it is there and a value disagrees with what is written below, fix that 1 value and name it in the setup report. Do not create a 2nd copy of any database, any channel, any account or any field, and do not empty something out to build it again from scratch.
+
+Where the last run left it, on the Starter org, the 5 Account fields, the 7 accounts and the Sales Ops Reports folder are in, the Sales Call object, the 10 calls and the report are not, and the whole of Parts 5 to 9 in Notion and Slack is in and reads correctly. A fresh Developer Edition org starts with none of the Salesforce side, so the whole of Parts 1 to 4 goes in there while Notion and Slack stay exactly where they already are and get read rather than rebuilt.
+
+
+THE 4 THINGS THAT CANNOT BE FAKED, READ THIS FIRST
+
+Salesforce sets its own 18 character record Ids and its own created and modified stamps, and none of those can be chosen or backdated. That is fine, and the master run does not read any of them. It works off a plain text field called Account ID that this setup creates by hand, carrying values like ACC-401, so the account key the master run matches on is typed in rather than taken from Salesforce. Do not try to backdate anything in Salesforce and do not report that you did.
+
+Salesforce adds __c to the API name of every custom object and custom field it creates. That is expected and does not matter. The master run reads field labels off the report and the record page, so the labels are what have to be exact. Leave whatever API name Salesforce lands on alone.
+
+A Salesforce custom object cannot be reported on unless Allow Reports is ticked when the object is created. Tick it. If the object is already there without it, edit the object and tick it, otherwise Part 4 has nothing to build a report on.
+
+The people named below do not exist in the Slack workspace, so a handle like priya.nair will not resolve to a real member. Write handles as plain text everywhere they appear in this setup and do not create Slack users for them. Nothing in this setup posts a message anyway.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+List every tool you have in this session before you touch anything, and say which of Salesforce, Notion and Slack have a connector tool behind them and which do not. Turning up a connector halfway through, after the same work has already gone in through Chrome, wastes the run and leaves the setup report saying 2 different things about the same app.
+
+Confirm you can actually reach Salesforce, Notion and Slack, and the Chrome browser plugin.
+
+I stay signed in to all of those in Chrome, so the browser route is open for every one of them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing the screen is plainly showing, do the same piece of work through the Chrome browser plugin and say in the setup report which pieces went that way and what the error was.
+
+This applies to writing every bit as much as reading, and every part of this seed can be built by hand in the browser. If the Salesforce connector will not create a custom object, add a field, create records or save a report, do it in Chrome through Setup and the app. If Notion will not create a database, add a property or add a row, do it in Chrome. If Slack will not create a channel, create it in Chrome.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs, none of those is a reason to stop and none of them is a reason to pause and ask me to connect something. Open the app in Chrome and carry on.
+
+Do not finish this run telling me an app is unavailable or a plugin is not working unless the setup report also carries what happened when you opened that same app in Chrome. A part reported as blocked without the browser route having been tried is a failed setup, however much of the rest got built. If a piece genuinely will not go in on either route, build everything else, then name that piece in the report with the exact error text from both routes and say which trap it leaves unarmed.
+
+Build Part 1 before Parts 2, 3 and 4, because those need the object and the fields to exist. Parts 5 to 8 do not depend on Salesforce at all and can be built in whatever order suits the tools.
+
+
+PART 1, THE SALESFORCE SCHEMA
+
+This part needs a Developer Edition org and will not go in on a Starter Edition one. Starter allows 0 custom objects, so Sales Call comes back with Custom Object Limits Exceeded however empty the org looks, and there is no quota sitting there to free up by deleting something else. That 1 refusal takes the report and all 10 calls down with it. Developer Edition allows 400, so the same object saves first time. Open Setup, Company Information and read Organization Edition before building anything. If it reads Developer Edition, carry on. If it reads anything else, do not start hunting for a workaround and do not try to squeeze the calls onto a standard object, because that is a different org, not a different route. Say what the edition reads in the setup report, leave Parts 1 to 4 alone, and build Parts 5 to 9 instead, which never touch Salesforce.
+
+Org name Larkfield Systems. Setup, Company Information, Organization Name. If the org will not rename or the edition does not allow it, leave the name alone and say what it actually reads in the setup report. The org name is cosmetic here and nothing in the master run breaks on it.
+
+Setup, Company Information also carries a Default Time Zone, and the user record you are signed in as carries 1 of its own. Both have to read Asia/Kolkata before any call record goes in. Scheduled Call Date And Time is a date and time field, so it stores and shows against whoever is looking at it, and a call typed in at 15:00 on a Los Angeles clock is a different call from the 1 written below. Set both if they read anything else, and say in the setup report what they read before you changed them. The master run writes those times into Slack messages that get graded against the times in this brief, so an org sitting in the wrong zone fails the grading rather than the run.
+
+The app is the standard Sales app. Do not build a new app.
+
+On the standard Account object, add these 5 custom fields. Labels exactly as written.
+
+Account ID, Text, length 20
+Current Plan, Picklist, values Starter, Pro, Enterprise
+Pending Plan, Picklist, values Starter, Pro, Enterprise
+Plan Change Effective Date, Date
+Contract Add Ons, Text, length 255
+
+Add all 5 of those to the Account page layout so they are visible on the record page, and to the Account compact layout only if that is quick. If a picklist will not go in, a Text field carrying the same values is fine, and say in the report which ones went in as text.
+
+Create 1 custom object.
+
+Label Sales Call, plural label Sales Calls. Record Name label Call ID, data type Text. Tick Allow Reports. Tick Allow Activities and Track Field History only if they are on by default, and do not go hunting for them.
+
+On Sales Call, add these 7 custom fields. Labels exactly as written.
+
+Account ID, Text, length 20
+Account Name, Text, length 120
+Call Type, Picklist, values Discovery Call, Product Demonstration, Renewal Review
+Call Status, Picklist, values Scheduled, Cancelled, Completed, Rescheduling, No Show
+Scheduled Call Date And Time, Date/Time
+Assigned BDE, Text, length 80
+BDE Slack Handle, Text, length 80
+
+Account Name and Account ID sit on the Sales Call record as plain text on purpose. Do not build a lookup relationship to Account, do not build a master detail, and do not replace either of them with a formula. The master run is supposed to carry the account key across from the call row to the account record itself, and a lookup would do that job for it.
+
+Put all 7 fields plus Call ID on the Sales Call page layout.
+
+
+PART 2, THE 7 ACCOUNT RECORDS
+
+Create 7 Account records. Account Name is the standard Name field. Leave every other standard field alone, no phone numbers, no addresses, no owners changed.
+
+Account 1
+Account Name: Northwind Retail Group
+Account ID: ACC-401
+Current Plan: Pro
+Pending Plan: empty
+Plan Change Effective Date: empty
+Contract Add Ons: empty
+
+Account 2
+Account Name: Vantage Health Systems
+Account ID: ACC-402
+Current Plan: Starter
+Pending Plan: Pro
+Plan Change Effective Date: 2026-09-12
+Contract Add Ons: empty
+
+Account 3
+Account Name: Cobalt Logistics
+Account ID: ACC-403
+Current Plan: Pro
+Pending Plan: empty
+Plan Change Effective Date: empty
+Contract Add Ons: Analytics Add On
+
+Account 4
+Account Name: Meridian Foods
+Account ID: ACC-404
+Current Plan: Enterprise
+Pending Plan: empty
+Plan Change Effective Date: empty
+Contract Add Ons: empty
+
+Account 5
+Account Name: Harbourline Media
+Account ID: ACC-405
+Current Plan: Pro
+Pending Plan: Enterprise
+Plan Change Effective Date: empty
+Contract Add Ons: empty
+
+Account 5 having a pending plan with no effective date beside it is a trap and not a mistake to tidy up. Leave that date empty.
+
+Account 6
+Account Name: Northwind Retail Grp
+Account ID: ACC-406
+Current Plan: Starter
+Pending Plan: empty
+Plan Change Effective Date: empty
+Contract Add Ons: empty
+
+Account 6 reading almost the same name as Account 1 is a trap and not a typo to correct. Type it exactly as written, Grp and all, and do not merge the 2 accounts.
+
+Account 7
+Account Name: Silverbrook Estates
+Account ID: ACC-407
+Current Plan: Pro
+Pending Plan: empty
+Plan Change Effective Date: empty
+Contract Add Ons: empty
+
+
+PART 3, THE 10 SALES CALL RECORDS
+
+Create 10 Sales Call records. The first 6 are the ones the master run should end up working. The last 4 are decoys that the master run has to filter out, so build them exactly as written and do not fix what looks wrong about them.
+
+Call 1
+Call ID: SC-3001
+Account ID: ACC-401
+Account Name: Northwind Retail Group
+Call Type: Product Demonstration
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-11 15:00
+Assigned BDE: Rahul Menon
+BDE Slack Handle: rahul.menon
+
+Call 2
+Call ID: SC-3002
+Account ID: ACC-402
+Account Name: Vantage Health Systems
+Call Type: Discovery Call
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-14 11:30
+Assigned BDE: Priya Nair
+BDE Slack Handle: priya.nair
+
+Call 3
+Call ID: SC-3003
+Account ID: ACC-403
+Account Name: Cobalt Logistics
+Call Type: Product Demonstration
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-15 16:00
+Assigned BDE: Rahul Menon
+BDE Slack Handle: rahul.menon
+
+Call 4
+Call ID: SC-3004
+Account ID: ACC-404
+Account Name: Meridian Foods
+Call Type: Product Demonstration
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-12 10:00
+Assigned BDE: Arjun Shah
+BDE Slack Handle: empty
+
+Call 4 having no Slack handle is a trap and not a field somebody forgot. Leave it empty.
+
+Call 5
+Call ID: SC-3005
+Account ID: ACC-405
+Account Name: Harbourline Media
+Call Type: Discovery Call
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-16 14:00
+Assigned BDE: Priya Nair
+BDE Slack Handle: priya.nair
+
+Call 6
+Call ID: SC-3006
+Account ID: ACC-407
+Account Name: Silverbrook Estates
+Call Type: Discovery Call
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-13 12:00
+Assigned BDE: Arjun Shah
+BDE Slack Handle: arjun.shah
+
+Call 7, decoy, wrong status
+Call ID: SC-3007
+Account ID: ACC-404
+Account Name: Meridian Foods
+Call Type: Product Demonstration
+Call Status: Cancelled
+Scheduled Call Date And Time: 2026-09-11 09:00
+Assigned BDE: Arjun Shah
+BDE Slack Handle: arjun.shah
+
+Call 8, decoy, outside the call window
+Call ID: SC-3008
+Account ID: ACC-401
+Account Name: Northwind Retail Group
+Call Type: Discovery Call
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-22 15:00
+Assigned BDE: Rahul Menon
+BDE Slack Handle: rahul.menon
+
+Call 9, decoy, no BDE
+Call ID: SC-3009
+Account ID: ACC-403
+Account Name: Cobalt Logistics
+Call Type: Product Demonstration
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-15 09:00
+Assigned BDE: empty
+BDE Slack Handle: empty
+
+Call 10, decoy, wrong call type
+Call ID: SC-3010
+Account ID: ACC-402
+Account Name: Vantage Health Systems
+Call Type: Renewal Review
+Call Status: Scheduled
+Scheduled Call Date And Time: 2026-09-14 09:00
+Assigned BDE: Priya Nair
+BDE Slack Handle: priya.nair
+
+
+PART 4, THE SALESFORCE REPORT
+
+Create a report folder named Sales Ops Reports and save the report into it.
+
+Create a tabular report named Upcoming Sales Calls on the Sales Calls report type. Tabular is the format a new report opens on, so there is nothing to change there.
+
+Ticking Allow Reports does not file Sales Calls under Sales in the report type picker, it files it under Other Reports, so look there before deciding the report type never arrived. A picker coming back with no results for Sales Calls almost always means the object itself did not save rather than the report type being missing, so go and look at the object before going any further.
+
+Columns, in this order: Call ID, Account Name, Account ID, Call Type, Call Status, Scheduled Call Date And Time, Assigned BDE, BDE Slack Handle.
+
+The Lightning report builder opens with 2 filters already on it. Show Me reads All sales calls, and the date filter reads a Range of All Time. Add no other filter. The report has to return all 10 rows including the 4 decoys, because filtering them out is the master run's job and a pre filtered report throws the whole test away.
+
+Save it, run it, and confirm on the screen that 10 rows come back before moving on.
+
+
+PART 5, THE 3 NOTION DATABASES
+
+Notion workspace Larkfield Systems. If the workspace is called something else, leave it alone and say what it reads in the setup report.
+
+Create 3 databases as full pages, not inline blocks. Property names exactly as written.
+
+Every row in Parts 6, 7 and 8 gets typed in through the Notion table editor. Do not try to import a CSV, because the browser plugin refuses the file chooser with Not allowed and the attempt costs time it never gets back.
+
+Database Sales Call Preparation
+Prep ID, Title
+Call ID, Text
+Account ID, Text
+Account Name, Text
+Scheduled Call Date, Date
+Assigned BDE, Text
+Preparation Notes, Text
+Verification Status, Select, options Verified Clean, Corrected, Needs Product Confirmation
+Verified Against Changelog Version, Text
+Verified On, Date
+Correction Summary, Text
+Last Alert Version, Text
+
+Database Product Changelog
+Change ID, Title
+Feature Name, Text
+Change Type, Text
+Effective Date, Date
+Plans Affected, Text
+Changelog Version, Text
+Superseded By, Text
+Details, Text
+
+Database Feature Availability
+Feature Name, Title
+Current Official Name, Text
+Availability Stage, Select, options Generally Available, Beta, Limited Release, Internal Only
+Plans Included, Text
+Add On Required, Text
+Last Reviewed Date, Date
+
+Create the Select options up front so the master run has them to write into. On every Sales Call Preparation row built in Part 6, Verification Status, Verified Against Changelog Version, Verified On, Correction Summary and Last Alert Version stay empty. Those 5 are what the master run fills, and a value sitting in any of them before the run breaks the rerun test.
+
+
+PART 6, THE 8 PREPARATION RECORDS
+
+Add 8 rows to Sales Call Preparation. Preparation Notes goes in as plain sentences, exactly as written, including the parts that are wrong.
+
+Row 1
+Prep ID: PREP-9001
+Call ID: SC-3001
+Account ID: ACC-401
+Account Name: Northwind Retail Group
+Scheduled Call Date: 2026-09-11
+Assigned BDE: Rahul Menon
+Preparation Notes: We are demoing AI Assistant and Advanced Analytics on this one. Both are included on their plan already. Pricing stays at the annual rate we agreed in July and the discount is not up for discussion.
+
+Row 2
+Prep ID: PREP-9002
+Call ID: SC-3002
+Account ID: ACC-402
+Account Name: Vantage Health Systems
+Scheduled Call Date: 2026-09-14
+Assigned BDE: Priya Nair
+Preparation Notes: Walk them through Workflow Designer and Bulk Import. Both are included once they move up to Pro. Their ops head is joining and wants to know about onboarding time.
+
+Row 3
+Prep ID: PREP-9003
+Call ID: SC-3003
+Account ID: ACC-403
+Account Name: Cobalt Logistics
+Scheduled Call Date: 2026-09-05
+Assigned BDE: Rahul Menon
+Preparation Notes: Show Advanced Analytics live, they bought the analytics add on last quarter. Also worth mentioning Forecast Studio, it is generally available on Pro now.
+
+Row 3 carrying a Scheduled Call Date of 2026-09-05 while Salesforce says 2026-09-15 for SC-3003 is a trap and not a typo to correct. Type 2026-09-05 and leave it.
+
+Row 4
+Prep ID: PREP-9004
+Call ID: SC-3004
+Account ID: ACC-404
+Account Name: Meridian Foods
+Scheduled Call Date: 2026-09-12
+Assigned BDE: Arjun Shah
+Preparation Notes: Demo Live Chat Widget and Offline Mode for the enterprise rollout. They asked to see both running, not slides.
+
+Row 5
+Prep ID: PREP-9005
+Call ID: SC-3005
+Account ID: ACC-405
+Account Name: Harbourline Media
+Scheduled Call Date: 2026-09-16
+Assigned BDE: Priya Nair
+Preparation Notes: Talk about Route Optimizer for their fleet side. Advanced Analytics is included in their plan today so we can lean on that. Their procurement person said the timeline is tight.
+
+Row 6
+Prep ID: PREP-9006
+Call ID: empty
+Account ID: ACC-407
+Account Name: Silverbrook Estates
+Scheduled Call Date: 2026-09-13
+Assigned BDE: Arjun Shah
+Preparation Notes: Discovery call, keep it broad. Bulk Import and Workflow Designer are both on their plan.
+
+Row 7
+Prep ID: PREP-9007
+Call ID: empty
+Account ID: ACC-407
+Account Name: Silverbrook Estates
+Scheduled Call Date: 2026-09-13
+Assigned BDE: Arjun Shah
+Preparation Notes: Second set of notes for the Silverbrook call. Lead with Workflow Designer, it is included on Pro.
+
+Rows 6 and 7 both pointing at the same account and the same date with no Call ID on either is a trap and not a duplicate to clean up. Build both, leave Call ID empty on both, and do not merge them.
+
+Row 8
+Prep ID: PREP-9008
+Call ID: empty
+Account ID: ACC-406
+Account Name: Northwind Retail Grp
+Scheduled Call Date: 2026-09-11
+Assigned BDE: Rahul Menon
+Preparation Notes: Old notes for the Northwind Retail Grp account. AI Assistant and Bulk Import are both included on Starter.
+
+Row 8 belongs to ACC-406 and has no call in scope. It is there to catch a run that matches a preparation record on the account name instead of the account ID. Leave it exactly as written.
+
+
+PART 7, THE 7 PRODUCT CHANGELOG ENTRIES
+
+Add 7 rows to Product Changelog.
+
+Change ID: CHG-101
+Feature Name: AI Assistant
+Change Type: Renamed
+Effective Date: 2026-05-15
+Plans Affected: empty
+Changelog Version: v2026.06
+Superseded By: CHG-102
+Details: AI Assistant renamed to Smart Assistant across the product and the docs.
+
+Change ID: CHG-102
+Feature Name: Smart Assistant
+Change Type: Renamed
+Effective Date: 2026-07-01
+Plans Affected: empty
+Changelog Version: v2026.07
+Superseded By: empty
+Details: Smart Assistant renamed to AI Copilot. This is the current name.
+
+CHG-101 pointing at CHG-102 is the rename chain and it is deliberate. Do not collapse the 2 entries into 1 and do not point CHG-101 straight at AI Copilot.
+
+Change ID: CHG-103
+Feature Name: Advanced Analytics
+Change Type: Plan Restriction
+Effective Date: 2026-08-01
+Plans Affected: Starter, Pro
+Changelog Version: v2026.08
+Superseded By: empty
+Details: Advanced Analytics moves to Enterprise. Pro accounts keep it only where the Analytics Add On is on the contract.
+
+Change ID: CHG-104
+Feature Name: Workflow Designer
+Change Type: Deprecated
+Effective Date: 2026-09-25
+Plans Affected: empty
+Changelog Version: v2026.09
+Superseded By: empty
+Details: Workflow Designer retires and should not be presented as an active feature from the effective date.
+
+CHG-104 being dated after the whole call window is the point of it. Do not move that date closer.
+
+Change ID: CHG-105
+Feature Name: Bulk Import
+Change Type: Plan Restriction
+Effective Date: 2026-06-20
+Plans Affected: Starter
+Changelog Version: v2026.07
+Superseded By: empty
+Details: Bulk Import drops off Starter. Pro and Enterprise are unaffected.
+
+Change ID: CHG-106
+Feature Name: Route Optimizer
+Change Type: Replaced
+Effective Date: empty
+Plans Affected: empty
+Changelog Version: v2026.09
+Superseded By: empty
+Details: Route Optimizer is being replaced by Delivery Planner. Rollout date still being confirmed with the product team.
+
+CHG-106 having no effective date is a trap and not a field to fill in. Leave it empty.
+
+Change ID: CHG-107
+Feature Name: Smart Forecasting
+Change Type: Renamed
+Effective Date: 2026-08-10
+Plans Affected: empty
+Changelog Version: v2026.08
+Superseded By: empty
+Details: Smart Forecasting renamed to Forecast Studio. Still a beta feature, the rename does not change that.
+
+Across the 7 entries the highest Changelog Version reads v2026.09. Keep it that way.
+
+
+PART 8, THE 7 FEATURE AVAILABILITY ROWS
+
+Add 7 rows to Feature Availability.
+
+Feature Name: AI Copilot
+Current Official Name: AI Copilot
+Availability Stage: Generally Available
+Plans Included: Pro, Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-08-20
+
+Feature Name: Advanced Analytics
+Current Official Name: Advanced Analytics
+Availability Stage: Generally Available
+Plans Included: Enterprise
+Add On Required: Analytics Add On
+Last Reviewed Date: 2026-08-28
+
+Feature Name: Forecast Studio
+Current Official Name: Forecast Studio
+Availability Stage: Beta
+Plans Included: Pro, Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-09-02
+
+Feature Name: Bulk Import
+Current Official Name: Bulk Import
+Availability Stage: Generally Available
+Plans Included: Starter, Pro, Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-04-18
+
+The Bulk Import row being reviewed back in April is what makes it stale, and it is deliberate. Do not refresh that date.
+
+Feature Name: Workflow Designer
+Current Official Name: Workflow Designer
+Availability Stage: Generally Available
+Plans Included: Pro, Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-07-30
+
+Feature Name: Live Chat Widget
+Current Official Name: Live Chat Widget
+Availability Stage: Limited Release
+Plans Included: Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-08-05
+
+Feature Name: Route Optimizer
+Current Official Name: Route Optimizer
+Availability Stage: Generally Available
+Plans Included: Pro, Enterprise
+Add On Required: empty
+Last Reviewed Date: 2026-07-15
+
+There is no row here for Offline Mode and there is no changelog entry for it either. The preparation notes on PREP-9004 name it anyway. That absence is the trap, so do not add a row for it and do not go looking for one.
+
+
+PART 9, THE SLACK CHANNEL
+
+Slack workspace Larkfield Systems. If the workspace reads something else, leave it alone and say what it reads in the setup report.
+
+Create a public channel named sales-call-alerts. Leave it empty. Post nothing in it, pin nothing to it, and do not set a topic or a description.
+
+If a channel by that name already exists, do not create a second one. Open it, check whether any message in it names SC-3001 through SC-3006, and delete any that do, so the master run's rerun test starts from a clean channel. Say in the setup report what was in there and what got deleted.
+
+
+BEFORE YOU WRITE THE REPORT, CHECK THESE ON THE SCREEN
+
+Go back and confirm each of these by looking at it rather than from memory.
+
+The Account object carries all 5 new fields and they show on the record page, and all 7 accounts are in with the Account ID values ACC-401 through ACC-407.
+ACC-402 reads Pending Plan Pro with Plan Change Effective Date landing on 12 September 2026 and not on 9 December 2026, read off the saved record with the month named rather than off a dd/mm string, and ACC-405 reads Pending Plan Enterprise with that date empty.
+ACC-403 reads Analytics Add On in Contract Add Ons and no other account does.
+ACC-401 reads Northwind Retail Group and ACC-406 reads Northwind Retail Grp, and they are 2 separate records.
+The Sales Call object exists with Allow Reports ticked and carries all 10 records.
+SC-3004 has an empty BDE Slack Handle and SC-3009 has an empty Assigned BDE.
+The report Upcoming Sales Calls sits in the Sales Ops Reports folder, carries all 8 columns, and returns 10 rows with no filter hiding the decoys.
+Sales Call Preparation holds 8 rows, and Verification Status, Verified Against Changelog Version, Verified On, Correction Summary and Last Alert Version are empty on every one of them.
+PREP-9003 reads 2026-09-05 in Scheduled Call Date, and PREP-9006 and PREP-9007 both have an empty Call ID.
+Product Changelog holds 7 rows, CHG-101 reads CHG-102 in Superseded By, CHG-106 has an empty Effective Date, and the highest Changelog Version anywhere in the database reads v2026.09.
+Feature Availability holds 7 rows, the Bulk Import row reads 2026-04-18, and there is no Offline Mode row.
+The Slack channel sales-call-alerts exists and holds no messages naming SC-3001 through SC-3006.
+
+
+SETUP REPORT
+
+Finish by telling me, in plain text:
+
+The Salesforce org name as it actually reads, the edition, and whether the Sales Call object and all 12 custom fields went in with the labels as written or landed on something different.
+Whether Allow Reports was ticked on Sales Call, and the link to the saved Upcoming Sales Calls report with the row count it returned when you ran it.
+Which fields went in as Text because a picklist would not save.
+Every Salesforce date read back off the saved record with its month named in words, so I can see 12 September 2026 rather than a dd/mm string I have to guess at.
+The link to each of the 3 Notion databases, the row count on each, and confirmation that the 5 master run properties are empty across all 8 preparation rows.
+Anything in Parts 5 to 9 that was already there from the earlier run and got left alone, and anything that had to be fixed because it disagreed with this brief.
+The link to the Slack channel, and whatever was already sitting in it if it existed before this run.
+Every trap listed above confirmed as still armed, naming each one: the ACC-405 pending plan with no date, the ACC-406 near duplicate name, the empty SC-3004 Slack handle, the PREP-9003 date disagreement, the PREP-9006 and PREP-9007 pair, the PREP-9008 orphan notes, the CHG-101 to CHG-102 rename chain, the CHG-104 date past the call window, the CHG-106 missing effective date, the stale Bulk Import row, and the missing Offline Mode row.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every step still blocked, with the exact error text from both routes, and which trap that leaves unarmed.
+Every deviation from this brief, with the reason.

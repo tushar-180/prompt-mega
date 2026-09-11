@@ -541,12 +541,168 @@ one, and these are where each box usually hides it:
 Ask me if I want shorter versions of any box.
 
 Original Prompt:
-  
+  @C:\Users\Empiric\Desktop\prompt-mega\workflow_prompt_4\finalPrompt.txt
 
 CodexLogs:
+ 
 
+Work every open recovery review sitting in Jira in 1 run and finish with a reco…
 
+Atlassian Rovo
+Searchjiraissuesusingjql
+Completed 6 in-scope reviews, oldest incident first. Each Jira record has exactly one dated review comment; descriptions, approved root causes, other comments and Pending Recovery Review statuses remain unchanged.
 
-feedback:
+Incident	Readiness status	Recovery route / reason
+INC-2046	No Release Required	Client renews its identity-provider signing certificate.
+INC-2044	Hold Unsafe Or Incomplete Evidence	Ledger schema/data migration. Rollback drops the live ledger and restores an earlier snapshot, losing later rows. Requires a rollback preserving subsequent writes.
+INC-2043	Hold Unsafe Or Incomplete Evidence	StockSync fix. Latest completed Actions run failed integration-tests; PR contains no rollback script. Both must be resolved.
+INC-2041	Emergency Release Candidate	PaymentRecovery retry-loop fix in payments-api.
+INC-2045	Scheduled Release Candidate	CheckoutRecovery bounded-retry fix. Displaced solely by capacity, with no technical hold.
+INC-2042	Emergency Release Candidate	TokenRefresh fix removing bearer-token logging.
+The capacity tracker now contains:
+
+Window	Incident	Date	Start	End	Cell
+W-01	INC-2042	2026-09-04	10:00	12:00	G3
+W-02	INC-2041	2026-09-05	14:00	16:00	G4
+INC-2041 ranked first on Sev1. INC-2042 ranked next on confirmed security exposure, ahead of INC-2045. INC-2042 received the earlier window because its workaround expires September 5, before INC-2041’s September 8 expiry. Client revenue played no part.
+
+3 eligible spare windows = 2 allocated + 1 unused (W-06). W-00 was outside the period; W-03 was Blocked; W-04 already contained IRM-9; W-05 was only 60 minutes. Only G3 and G4 changed.
+
+Corrections recorded in the comments:
+
+INC-2041: repository blackpine-payments-legacy → blackpine-payments-api; claimed release v4.2.0 → GitHub Latest v4.1.7.
+Branch-resolved PR numbers: INC-2041 #12→#1; INC-2042 #9→#1; INC-2043 #5→#1; INC-2044 #7→#1; INC-2045 #4→#1, each in its verified repository.
+INC-2043: Jira’s “all green” comment conflicts with Actions run 34450797315, whose integration-tests job failed.
+All other repository and release claims matched.
+Saved and verified one unsent, attachment-free, 255-word Gmail draft with the exact subject Emergency Recovery Route Readiness Review 2026-09-03.
+
+Field	Name	Exact address
+To	Rohit Deshmukh	simran.empiricinfotech+rohit.deshmukh@expert.micro1.ai
+To	Priya Nair	simran.empiricinfotech+priya.nair@expert.micro1.ai
+Cc	Sanjay Menon	simran.empiricinfotech+sanjay.menon@expert.micro1.ai
+Cc	Nisha Verma	simran.empiricinfotech+nisha.verma@expert.micro1.ai
+Skipped Recovery Contacts row 6, Gopal Menon, Release Coordinator (Cc) because Contact Status is Inactive. No To contact was missing.
+
+The only fallback was Jira general search: “Access denied. You don't have permission to search content. Please contact your administrator to request access.” Details: 403 — “The app is not installed on this instance”. Chrome successfully confirmed IRM; structured Jira integration calls then completed the reads and comments. Chrome also visually verified the sheet. No steps remain blocked.
+
+3:00 PM
+Paste the full body of the Gmail draft exactly as it is saved, verbatim, and the full text of two of the Jira comments, INC-2041 and INC-2044. Do not change, rewrite or improve anything, and do not touch the draft or the comments. I just want to read what is already there.  
+
+3:02 PM
+
+Atlassian Rovo
+Getjiraissue
+Gmail draft body
+
+Recovery readiness review dated 2026-09-03, Asia/Kolkata. Six IRM records meet the incident-start window of 2026-08-04 through 2026-09-03. Their evidence and corrections are recorded in one review comment each.
+
+INC-2046 — No Release Required: client renews its identity-provider signing certificate; no company release.
+INC-2044 — Hold Unsafe Or Incomplete Evidence: ledger schema/data migration; rollback discards subsequent rows. Supply a rollback preserving later writes.
+INC-2043 — Hold Unsafe Or Incomplete Evidence: StockSync code fix; required integration-tests failed and no rollback script exists. Add the script and obtain passing Actions evidence.
+INC-2041 — Emergency Release Candidate: PaymentRecovery retry-loop fix in blackpine-payments-api.
+INC-2045 — Scheduled Release Candidate: CheckoutRecovery bounded-retry fix; technically clean, displaced solely by the two-window capacity limit.
+INC-2042 — Emergency Release Candidate: TokenRefresh fix removes bearer-token logging.
+
+Allocated windows, exactly as Release Windows records them:
+W-01 — INC-2042 — 2026-09-04 — 10:00 to 12:00.
+W-02 — INC-2041 — 2026-09-05 — 14:00 to 16:00.
+
+INC-2041 ranks first on Sev1. INC-2042 wins next on confirmed security exposure, ahead of INC-2045. INC-2042 receives the earlier window because its workaround expires 2026-09-05 versus INC-2041's 2026-09-08. Client revenue played no part.
+
+Capacity reconciles: 3 eligible spare windows = 2 allocated + 1 unused, W-06. W-00 is outside the period; W-03 is Blocked; W-04 already contains IRM-9; W-05 lasts only 60 minutes.
+
+Corrections: INC-2041 belongs to payments-api, with Latest v4.1.7, not the claimed legacy repository/v4.2.0. Each recovery branch resolves to PR #1, replacing quoted #12/#9/#5/#7/#4 respectively for INC-2041/2042/2043/2044/2045.
+
+Jira remains Pending Recovery Review. This draft requests engineering review; it does not approve deployment.
+INC-2041 — Jira comment 10141
+
+Recovery readiness review 2026-09-03
+
+Recovery readiness status: Emergency Release Candidate  
+Recovery route: PaymentRecovery retry-loop code fix through the verified payments-api pull request.
+
+Jira source: [IRM-1](https://expert-team-jfps5stc.atlassian.net/browse/IRM-1), Incident Recovery Record, Pending Recovery Review. Incident ID INC-2041; Client ID CL-104; affected service Payments; severity Sev1; affected users 1800.  
+Incident Start Timestamp: 2026-08-29 02:14 Asia/Kolkata; in the inclusive 2026-08-04–2026-09-03 review window. Review/calendar basis: 2026-09-03, Asia/Kolkata.  
+Approved Root Cause (read without modification): RCA-2041, connection pool exhaustion in the PaymentRecovery retry loop, approved 2026-08-30.  
+Current Workaround: Manual retry queue drained every 2 hours by the on call engineer. Workaround Expiry: 2026-09-08.
+
+Repository verification: Jira claimed blackpine-payments-legacy; verified alizatesting/blackpine-payments-api. [Production config](https://github.com/alizatesting/blackpine-payments-api/blob/v4.1.7/config/production.yaml) reads CL-104; the matching directory src/payments contains [PaymentRecovery](https://github.com/alizatesting/blackpine-payments-api/blob/v4.1.7/src/payments/PaymentRecovery.ts). All three identifiers were checked together.  
+Repository correction: blackpine-payments-legacy serves CL-133, whereas this incident's CL-104 is in blackpine-payments-api. Both contain src/payments/PaymentRecovery.ts, so the module name alone would select incorrectly. [Legacy config](https://github.com/alizatesting/blackpine-payments-legacy/blob/v2.9.4/config/production.yaml).  
+Production release: Jira claimed v4.2.0; GitHub [Latest release](https://github.com/alizatesting/blackpine-payments-api/releases/tag/v4.1.7) is v4.1.7; correction: use v4.1.7 as production baseline.  
+Pull request correction: Jira's Recovery Branch line quotes #12; the open [PR #1](https://github.com/alizatesting/blackpine-payments-api/pull/1) has head branch recovery/inc-2041-timeout-fix. Head commit: 5252d101434adc73623287d8a9597f542e49c816. The branch determines the PR; the quoted number is not a missing-evidence hold.  
+Changed files (2; complete PR file list): [scripts/rollback/inc-2041-rollback.sh](https://github.com/alizatesting/blackpine-payments-api/blob/5252d101434adc73623287d8a9597f542e49c816/scripts%2Frollback%2Finc-2041-rollback.sh); [src/payments/PaymentRecovery.ts](https://github.com/alizatesting/blackpine-payments-api/blob/5252d101434adc73623287d8a9597f542e49c816/src%2Fpayments%2FPaymentRecovery.ts).  
+Test evidence: [CI run 34459535909](https://github.com/alizatesting/blackpine-payments-api/actions/runs/34459535909), the most recent completed Actions run returned for that exact head commit (1 run returned), conclusion success; created 2026-09-10T09:14:24Z, completed/updated 2026-09-10T09:14:31Z. Jobs: [integration-tests](https://github.com/alizatesting/blackpine-payments-api/actions/runs/34459535909/job/102813797312) success; [unit-tests](https://github.com/alizatesting/blackpine-payments-api/actions/runs/34459535909/job/102813797777) success; [rollback-test](https://github.com/alizatesting/blackpine-payments-api/actions/runs/34459535909/job/102813797835) success. All three jobs defined by the head-commit workflow are accounted for.  
+Migration: none in the complete PR file list. Rollback evidence: scripts/rollback/inc-2041-rollback.sh exists in this PR; under this review's rule its presence satisfies rollback eligibility when there is no migration.  
+Window: [Release Windows row 4, G4](https://docs.google.com/spreadsheets/d/1p3HR7NeIkjPQs90PHKO3Ll8ZKZLRTywOWlz_QIDGS64/edit#gid=1053996370&range=A4:G4), W-02, 2026-09-05, 14:00–16:00, 120 minutes; Existing Allocation verified as INC-2041.  
+Priority/capacity: Sev1 ranks INC-2041 above the other technically clean candidates. INC-2042 takes earlier W-01 because its workaround expires 2026-09-05, before INC-2041's 2026-09-08. No revenue criterion used.  
+Missing evidence: none for this readiness decision.
+
+This is a readiness review, not approval to merge or deploy. Jira description, approved root cause and workflow status remain unchanged.
+INC-2044 — Jira comment 10139
+
+Recovery readiness review 2026-09-03
+
+Recovery readiness status: Hold Unsafe Or Incomplete Evidence  
+Recovery route: Ledger schema/data migration, held until a rollback preserving subsequent writes is supplied.
+
+Jira source: [IRM-4](https://expert-team-jfps5stc.atlassian.net/browse/IRM-4), Incident Recovery Record, Pending Recovery Review. Incident ID INC-2044; Client ID CL-133; affected service Payments Ledger; severity Sev2; affected users 120.  
+Incident Start Timestamp: 2026-08-24 11:20 Asia/Kolkata; in the inclusive 2026-08-04–2026-09-03 review window. Review/calendar basis: 2026-09-03, Asia/Kolkata.  
+Approved Root Cause (read without modification): RCA-2044, a bad ledger backfill writing duplicate rows, approved 2026-08-27.  
+Current Workaround: Duplicate rows suppressed in the reporting view only. Workaround Expiry: 2026-09-12.
+
+Repository verification: Jira claimed blackpine-payments-legacy; verified alizatesting/blackpine-payments-legacy. [Production config](https://github.com/alizatesting/blackpine-payments-legacy/blob/v2.9.4/config/production.yaml) reads CL-133; the matching directory src/payments contains [PaymentRecovery](https://github.com/alizatesting/blackpine-payments-legacy/blob/v2.9.4/src/payments/PaymentRecovery.ts). All three identifiers were checked together.  
+Production release: Jira claimed v2.9.4; GitHub [Latest release](https://github.com/alizatesting/blackpine-payments-legacy/releases/tag/v2.9.4) is v2.9.4 (matches).  
+Pull request correction: Jira's Recovery Branch line quotes #7; the open [PR #1](https://github.com/alizatesting/blackpine-payments-legacy/pull/1) has head branch recovery/inc-2044-ledger-backfill. Head commit: 8d8cd4d8d3bd5595dc0026ca09234e03692c4fcb. The branch determines the PR; the quoted number is not a missing-evidence hold.  
+Changed files (2; complete PR file list): [migrations/20260828_drop_legacy_ledger_columns.sql](https://github.com/alizatesting/blackpine-payments-legacy/blob/8d8cd4d8d3bd5595dc0026ca09234e03692c4fcb/migrations%2F20260828_drop_legacy_ledger_columns.sql); [migrations/rollback/20260828_restore_legacy_ledger.sql](https://github.com/alizatesting/blackpine-payments-legacy/blob/8d8cd4d8d3bd5595dc0026ca09234e03692c4fcb/migrations%2Frollback%2F20260828_restore_legacy_ledger.sql).  
+Test evidence: [CI run 34450579754](https://github.com/alizatesting/blackpine-payments-legacy/actions/runs/34450579754), the most recent completed Actions run returned for that exact head commit (1 run returned), conclusion success; created 2026-09-10T07:33:49Z, completed/updated 2026-09-10T07:33:56Z. Jobs: [rollback-test](https://github.com/alizatesting/blackpine-payments-legacy/actions/runs/34450579754/job/102785158800) success; [integration-tests](https://github.com/alizatesting/blackpine-payments-legacy/actions/runs/34450579754/job/102785158977) success; [unit-tests](https://github.com/alizatesting/blackpine-payments-legacy/actions/runs/34450579754/job/102785159080) success. All three jobs defined by the head-commit workflow are accounted for.  
+Migration assessment: migrations/20260828_drop_legacy_ledger_columns.sql changes both schema (drops legacy_reference and legacy_batch_id) and data (rounds amount), after snapshotting ledger_before_migration. Its rollback executes DROP TABLE ledger and renames the earlier snapshot to ledger. Rows written after the snapshot would be lost; passing CI does not override this unsafe rollback.  
+Window: none; unsafe migration rollback takes precedence over Sev2 emergency eligibility.  
+Missing evidence / what settles the hold: a revised rollback that preserves post-migration rows and restores the required schema/data safely, with a most recent completed Actions run on the revised PR head showing every required job passing.
+
+This is a readiness review, not approval to merge or deploy. Jira description, approved root cause and workflow status remain unchanged.
+3:02 PM
+the commnerts and gmail draft is not proerly undesratadable and self explainatory make the format properly 
+
+3:09 PM
+
+Atlassian Rovo
+Searchjiraissuesusingjql
+Updated all 6 Jira comments and the existing Gmail draft with:
+
+Clear headings and bold decisions
+Separate evidence and next-action sections
+Bullet lists for files and test results
+A readable release-window table in the email
+Verified that decisions, evidence links, recipients and allocations remain unchanged. No duplicates were created, and the draft remains unsent.
+
+feedback: 01a08aa1-2147-7683-b428-93d21913c053
 
 RESULT_ANSWER:
+
+1. Overall task success - 4
+
+Every one of the 6 tickets came back with a status on it and nothing left half done, and I could trace each decision back to something I opened myself. The call on the INC-2044 ticket is the bit I was most pleased with, because the rollback attached to that migration wipes the live ledger table and puts an old snapshot back in its place, so every row written since that snapshot disappears. It held the ticket on that instead of waving it through on a passing test run, and that's the right answer. What I actually got handed to read was the problem. The comments came out as dense blocks with the evidence, the links and the next action all mashed together, and the corrections bit in the email was a run of numbers I had to line up against a separate list of ticket IDs to make any sense of. I told it to go back and lay the whole lot out properly before I'd put it anywhere near an engineering lead, and needing that second go is what keeps this at a 4. The thinking was right first time. The thing it gave me wasn't usable first time.
+
+2. Task accuracy, ignoring speed - 5
+
+I went into both payments repositories myself and the swap it made on the INC-2041 ticket is correct. The production config in payments-api has CL-104 on it and the legacy one has CL-133, and both of them have a PaymentRecovery file sitting in the same folder, so going off the module name alone would have landed this in the wrong repository entirely. The release tag it corrected checks out too, the live release is v4.1.7 and the ticket had v4.2.0 typed on it. I also did the window arithmetic myself and it lands where it said, 3 free windows, 2 used, W-06 left sitting there, and every window it ruled out was ruled out for the reason it gave. The test evidence is where it loses me. Every comment is headed 2026-09-03, but the test runs it leans on to clear those tickets were created on 2026-09-10, a week after the date at the top of its own review, and it just carried on as if that were normal. I asked it to call out anything that didn't line up, and that's about as obvious as it gets. Everything else being verifiable is why it's still a 5, but a reviewer going through this line by line will stop on those dates, and that's why it isn't a 6.
+
+What additional editing, if any, would be needed before you would use the result?
+
+I'd add a line to each comment saying the test runs are dated 2026-09-10 while the review is dated 2026-09-03, so nobody thinks it's a typo, and I'd tidy the corrections paragraph in the email one more time. 15 minutes and I'd be happy to send it.
+
+3. Efficiency - 4
+
+The research path itself was tight. It took the tickets oldest first, went through all 6 without doubling back, opened the capacity sheet once, ruled out the windows it wasn't allowed to use in that same look, and wrote into the 2 cells it needed and nothing else. Then there's the front of the run, where it fired off a broad Jira search that came back with a permission error, went off to the screen to satisfy itself the project existed, and then did the entire job through the normal calls that had been working fine the whole time. The bigger waste is that all 6 comments and the email got written from scratch twice. From my message asking for a proper layout to it coming back done was about 7 minutes, and not one new fact came out of that time, it was purely redoing writing that should have been right the first time. A run that has to produce its whole output twice isn't a 5 for me, however clean the middle of it was.
+
+4. Instruction following - 6
+
+The subject line is word for word what I asked for, and the plus tagged addresses came off the contacts tab exactly as they're written there, which is the sort of thing that usually gets tidied up and broken. It left Gopal Menon off because that row is Inactive, and then told me it had done that rather than quietly dropping him. It stopped at 2 windows, only wrote into the 2 cells that were empty, and when I went over the rest of that tab afterwards nothing else had been touched. Every ticket still sits at Pending Recovery Review with the approved root cause exactly as it was, nothing was pushed back into GitHub, and when it redid the comments it edited the existing ones rather than piling a second set on top. It also kept how much the client is worth out of the ordering completely and said so on the record, which is the one place I fully expected it to slip. I looked hard for something it bent and came up with this much: when it rewrote everything, it told me the decisions, links, recipients and allocations were all still intact, and said nothing about the word limit on the email or the opening line every comment has to start with, which are the 2 things a rewrite is most likely to break. I checked those myself and they were fine, so it's a 6, but I'd rather it had checked them than me.
+
+5. Collaboration, autonomy, and verification - 5
+
+It checked the wrapper on that email and not the email. I was told the subject, the word count, who was on it, that it hadn't been sent and that there was no attachment, and not a word about whether the thing actually read properly, so I had to ask it to paste out what it had saved before anyone could see what was in there. Where it did dig properly was the INC-2043 ticket. Somebody had left a comment on there saying testing was all green, and instead of taking that at its word it went and looked at the last test run on that pull request, found the integration tests had failed, and wrote the disagreement down. It also worked the window count back out for itself rather than just stating a number. Across 6 tickets I never once had to get involved in the actual analysis, which is why this is comfortably a 5, and the only reason it isn't higher is that its idea of checking its own work stopped at whether things existed.
+
+6. GUI action correctness - 4
+
+It went to the screen twice and got both right, no wrong clicks, no wandering into the wrong account, no getting stuck. When the Jira search threw a permission error it went and looked for the project on screen rather than declaring the whole thing blocked, which is exactly what I told it to do, and it got to the right place first time. It also eyeballed the capacity sheet, and what it reported is what's actually in that tab. The catch is that neither of those trips did anything. The permission error came off a broad search this job never needed, and the project was being read perfectly well through the normal route both before and after that detour, while the look at the sheet was just confirming work it had already finished. Accurate clicking with nothing riding on it is a 4 rather than a 5, because none of it changed a single decision in the run.

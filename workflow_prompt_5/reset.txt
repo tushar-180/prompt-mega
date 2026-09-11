@@ -1,0 +1,172 @@
+RESET WORKFLOW, PRE CALL PRODUCT CLAIM CHECK SYSTEM
+
+I run this after a master run of my pre call product claim check workflow, so the workspace goes back to the exact state my setup run left it in and I can test the master prompt again against the same starting conditions.
+
+This is a RESET RUN ONLY.
+
+Do not verify any product claim.
+Do not classify any claim as Current, Renamed, Replaced, Deprecated, Beta Only, Plan Restricted or Needs Product Confirmation.
+Do not post any Slack message.
+Do not rebuild the Salesforce schema, the 7 accounts, the 10 sales call records, the Upcoming Sales Calls report, the 3 Notion databases, the 7 changelog entries or the 7 feature rows. That is the setup run's job, and this run only undoes what the master run wrote.
+Do not delete the Sales Call Preparation database, and do not delete any of the 8 preparation rows.
+Do not delete the Slack channel sales-call-alerts. The channel stays, the messages in it go.
+Do not delete anything that is not named in this brief.
+
+All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
+
+
+WHAT THE MASTER RUN ACTUALLY WROTE, SO THIS IS SHORT
+
+The master run only writes in 2 places. It updates the Sales Call Preparation rows in Notion, and it posts messages into the Slack channel sales-call-alerts. Undoing those 2 things is the whole job here, and everything else in this brief is a check that the master run stayed inside its lane.
+
+The Notion side is the part that needs care. The master run does not just fill 5 empty properties, it also rewrites the Preparation Notes text in place, and that text is the thing the whole test runs on. Clearing the properties and leaving corrected notes behind would hand the next master run a set of notes that are already right, which tests nothing. So the notes get typed back exactly as Part 1 gives them, word for word, including the parts that read wrong. The wrong parts are the test.
+
+There is a reason the 5 properties have to be emptied rather than left sitting there. The master run reads Verified Against Changelog Version and Last Alert Version before it writes anything, and where they already match the highest changelog version it skips the record and posts nothing. Leave them filled and the second test run takes the skip path instead of the working path, which is a different test from the one I want to repeat.
+
+Same story in Slack. The master run reads the channel for an existing message on a Call ID before posting, so a message left in there sends the next run down the leave it alone path.
+
+The master run is not allowed to write to Salesforce, edit Product Changelog or Feature Availability, create a Notion page or database, create a Jira issue or a ticket in any other tool, post in any other Slack channel, or contact a customer. Every one of those is checked below, and anything you find is a rule that run broke, so name it in the report rather than quietly tidying it away.
+
+Run this twice and the second run should find nothing left to undo and say so. An item that is already clean is not an error, it is the expected result. Report it as already clean and move on.
+
+
+BEFORE YOU START, CONNECTIONS AND TOOLS
+
+Confirm you can reach Salesforce, Notion and Slack, and the Chrome browser plugin. I stay signed in to all of them in Chrome, so the browser route is open for every one of them.
+
+Nothing here is called missing, unavailable, unauthorised or blocked until the Chrome browser plugin has been pointed at it and failed too. Where an integration is absent, errors, times out, refuses the call, reports a tool it does not recognise, or hands back nothing while the screen is plainly showing something, do that same piece of work through the Chrome browser plugin and say in the reset report which pieces went that way and what the error was.
+
+This applies to editing and deleting, not just reading. If Notion will not clear a property or retype a text block, do it in Chrome. If Slack will not delete a message, delete it in Chrome. If Salesforce will not open a record to check it, open it in Chrome.
+
+A connector that was never set up, a permission refusal, a message saying there is no tool for that job, a plugin that will not load, or a page that hangs are all reasons to open the app in Chrome and keep going, never reasons to stop. Do not ask me to connect an integration mid run either, the browser route is already there.
+
+Do not finish this run telling me an app is unavailable or a plugin is not working unless the reset report also carries what happened when you opened that same app in Chrome. A piece reported as blocked without the browser route having been tried is a failed reset, and I will find out on the next master run rather than now.
+
+If something genuinely cannot be undone on either route, mark that piece blocked, quote the exact error text from both routes, and carry on with everything else.
+
+
+PART 1, THE 8 SALES CALL PREPARATION ROWS
+
+Open the Notion database Sales Call Preparation in the workspace Larkfield Systems.
+
+It holds 8 rows, PREP-9001 through PREP-9008. Any row beyond those 8 came from the master run, so delete it and name it in the report.
+
+On all 8 rows, empty these 5 properties: Verification Status, Verified Against Changelog Version, Verified On, Correction Summary, Last Alert Version. Empty means no value at all, not a blank space and not a dash. Do this on all 8 even though the master run only reaches some of them, because a row it should not have touched carrying a value is exactly what I want caught.
+
+Then put Preparation Notes back to the text below, word for word, on all 8 rows. Where a row already reads exactly this, leave it alone and count it as already clean. Where it does not, replace the whole notes body with this text rather than patching bits of it, and say in the report what it read before you overwrote it, because that is the master run's output and I want to see it.
+
+PREP-9001
+We are demoing AI Assistant and Advanced Analytics on this one. Both are included on their plan already. Pricing stays at the annual rate we agreed in July and the discount is not up for discussion.
+
+PREP-9002
+Walk them through Workflow Designer and Bulk Import. Both are included once they move up to Pro. Their ops head is joining and wants to know about onboarding time.
+
+PREP-9003
+Show Advanced Analytics live, they bought the analytics add on last quarter. Also worth mentioning Forecast Studio, it is generally available on Pro now.
+
+PREP-9004
+Demo Live Chat Widget and Offline Mode for the enterprise rollout. They asked to see both running, not slides.
+
+PREP-9005
+Talk about Route Optimizer for their fleet side. Advanced Analytics is included in their plan today so we can lean on that. Their procurement person said the timeline is tight.
+
+PREP-9006
+Discovery call, keep it broad. Bulk Import and Workflow Designer are both on their plan.
+
+PREP-9007
+Second set of notes for the Silverbrook call. Lead with Workflow Designer, it is included on Pro.
+
+PREP-9008
+Old notes for the Northwind Retail Grp account. AI Assistant and Bulk Import are both included on Starter.
+
+Every one of those reads wrong somewhere on purpose. AI Assistant is an old name, Advanced Analytics is not on the plans the notes claim, Forecast Studio is not generally available, Offline Mode does not exist anywhere, and Bulk Import on Starter is out of date. None of that gets fixed here. Type it back exactly as it stands above.
+
+Then check these 6 things on the same 8 rows and change something only where it has moved off what is written here.
+
+Call ID reads SC-3001 on PREP-9001, SC-3002 on PREP-9002, SC-3003 on PREP-9003, SC-3004 on PREP-9004 and SC-3005 on PREP-9005.
+Call ID is empty on PREP-9006, PREP-9007 and PREP-9008. If the master run filled any of those in, empty it again and name it in the report, because working out the Call ID for an unmatched record is not its job.
+Scheduled Call Date reads 2026-09-05 on PREP-9003. That date disagrees with Salesforce on purpose. If the master run corrected it to 2026-09-15, put 2026-09-05 back and name it in the report.
+Scheduled Call Date reads 2026-09-11 on PREP-9001, 2026-09-14 on PREP-9002, 2026-09-12 on PREP-9004, 2026-09-16 on PREP-9005, 2026-09-13 on PREP-9006 and PREP-9007, and 2026-09-11 on PREP-9008.
+Account ID reads ACC-401, ACC-402, ACC-403, ACC-404, ACC-405, ACC-407, ACC-407 and ACC-406 down the 8 rows in order.
+No row carries a property the setup run did not create. The database has 12 properties and no more. A new property is master run output, so delete it and name it.
+
+Verification Status carries exactly 3 Select options, Verified Clean, Corrected and Needs Product Confirmation. Notion quietly makes a new option out of whatever gets typed into a Select, so a run that wrote anything else leaves a 4th option sitting in the list even after the cell is emptied. Open the property, read the options, delete any beyond those 3, and name what it read in the report, because an option nobody put there is the clearest sign a run invented a status of its own.
+
+
+PART 2, THE 2 READ ONLY NOTION DATABASES
+
+Product Changelog and Feature Availability are read only to the master run, so this part changes nothing unless something has moved.
+
+Product Changelog holds exactly 7 rows, CHG-101 through CHG-107. CHG-101 reads CHG-102 in Superseded By. CHG-104 reads an Effective Date of 2026-09-25. CHG-106 has an empty Effective Date. The highest Changelog Version anywhere in the database reads v2026.09.
+
+Feature Availability holds exactly 7 rows: AI Copilot, Advanced Analytics, Forecast Studio, Bulk Import, Workflow Designer, Live Chat Widget and Route Optimizer. The Bulk Import row reads a Last Reviewed Date of 2026-04-18. There is no Offline Mode row and there should not be one.
+
+If any of that has changed, or a row has been added, put it back to what is written here, delete the added row, and name every one of those in the report as a rule the master run broke. If a row was deleted outright and you cannot tell what it held, say so rather than inventing it, and I will rebuild it from the setup brief.
+
+Do not create an Offline Mode row. The master run naming a missing feature is not permission to add it.
+
+
+PART 3, THE SLACK CHANNEL
+
+Open the channel sales-call-alerts in the Slack workspace Larkfield Systems.
+
+The setup run left this channel empty of anything a person posted, so every real message in it came from the master run. Delete all of them, including thread replies, and including any message that only names a call the master run should not have worked. Leave the channel itself in place, keep it public, and do not change its name, topic, description or membership.
+
+Slack writes its own joined the channel line when a channel is created, and that line is Slack's rather than the master run's. Leave it where it is, do not count it as a message the run posted, and do not report the channel as dirty because of it. A channel holding nothing but that line is a clean channel.
+
+Count the messages before you delete them and write the count into the report along with the Call ID each one named, so I can see how many alerts that run fired and on which calls. If a message names a Call ID outside SC-3001 through SC-3006, say so plainly, because that is a call the master run should never have reached.
+
+Then check that no other channel carries a message from that run. The master run is allowed to post in sales-call-alerts and nowhere else. If you find one elsewhere, delete it and name the channel in the report.
+
+If any message is too old for the workspace to allow deletion, or the workspace blocks message deletion entirely, say so with the exact error and leave it. Do not edit a message you cannot delete into something blank, because a blank message still counts as a message on the next run and I would rather know it is there.
+
+
+PART 4, SALESFORCE, CHECK ONLY
+
+Salesforce is read only to the master run, so nothing here should have moved and this part writes nothing unless something has.
+
+The Sales Call object holds 10 records, SC-3001 through SC-3010. SC-3004 has an empty BDE Slack Handle and SC-3009 has an empty Assigned BDE. SC-3007 reads Call Status Cancelled, SC-3008 reads a Scheduled Call Date And Time of 2026-09-22 15:00, and SC-3010 reads Call Type Renewal Review.
+
+The Account object holds 7 records, ACC-401 through ACC-407. ACC-402 reads Pending Plan Pro with Plan Change Effective Date 2026-09-12. ACC-405 reads Pending Plan Enterprise with an empty Plan Change Effective Date. ACC-403 is the only account carrying Analytics Add On in Contract Add Ons. ACC-401 reads Northwind Retail Group and ACC-406 reads Northwind Retail Grp.
+
+The report Upcoming Sales Calls still sits in the Sales Ops Reports folder, carries its 8 columns, and returns 10 rows with no filter added.
+
+If the master run changed a field, added a record, deleted one or edited the report filters, put it back to what is written here and name it in the report. If you cannot tell what a deleted record held, say so rather than guessing.
+
+
+PART 5, ANYWHERE ELSE
+
+The master run was told to touch nothing outside Salesforce, Notion and Slack. Check that it did not, and delete whatever it left.
+
+No Jira issue, ticket or task naming any of SC-3001 through SC-3010, any of the 7 accounts, or any of the features named in this brief.
+No new Notion page or database in the Larkfield Systems workspace beyond the 3 the setup run built.
+No calendar event, no email, no draft, and nothing at all sent to a customer. If you find anything that went outside the workspace, do not delete it quietly, name it at the top of the report, because that is the most serious rule that run could break and I need to know before I test it again.
+
+
+BEFORE YOU WRITE THE REPORT, CHECK THESE ON THE SCREEN
+
+Go back and confirm each of these by looking at it rather than from memory.
+
+All 8 preparation rows read exactly the Preparation Notes text given in Part 1, and none of them carries a corrected feature name, a plan warning or a status word anywhere in that text.
+Verification Status, Verified Against Changelog Version, Verified On, Correction Summary and Last Alert Version are empty on all 8 rows.
+Call ID is empty on PREP-9006, PREP-9007 and PREP-9008, and PREP-9003 reads 2026-09-05 in Scheduled Call Date.
+Sales Call Preparation holds 8 rows and 12 properties, no more.
+Product Changelog holds 7 rows with CHG-106 still missing its Effective Date, and Feature Availability holds 7 rows with no Offline Mode row.
+The channel sales-call-alerts exists, is public, and holds no messages beyond Slack's own joined the channel line.
+Verification Status carries exactly 3 Select options and no 4th one left behind by the master run.
+Salesforce still holds 10 sales call records and 7 accounts, and the report returns 10 rows.
+
+
+RESET REPORT
+
+Finish by telling me, in plain text:
+
+Anything the master run sent outside the workspace, named first and on its own, or a line saying there was none.
+For each of the 8 preparation rows, whether the notes were already clean or got overwritten, and where they were overwritten, the exact text they held before you replaced them.
+The value each of the 5 properties held on each row before you emptied them, so I can see what that run decided without opening the records myself.
+The number of Slack messages deleted, the Call ID each one named, and any message that named a call outside SC-3001 through SC-3006.
+Every rule the master run broke: a filled Call ID on an unmatched row, a corrected Scheduled Call Date, a new property, a new row, an edit to Product Changelog or Feature Availability, a write to Salesforce, a post in another channel, or a record in another tool.
+Anything that was already clean, so I know the reset had nothing to do there.
+Every step that fell back to the Chrome browser plugin, with the error that sent it there.
+Every step still blocked, with the exact error text from both routes, and what that leaves sitting in the workspace for the next master run to trip over.
+Every deviation from this brief, with the reason.

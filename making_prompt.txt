@@ -1,0 +1,74 @@
+1.Define a real [subject] workflow
+
+NOTE: Prompts must be unique each batch for the SMB Specific Workflows campaign. 
+Give the AI a task that does real work, not just writing 
+Codex can do more than answer questions. It can use several apps in a row to finish a task, like a person would. That is different from a normal AI that only writes a reply  (Learn more about Codex here).
+
+
+A task that only writes something (a Word doc, an Excel sheet, a slideshow) does not count. Making a document can be part of the task, but it should not be the whole task.
+
+Look at information in one or more apps,
+Think about what it found,
+Then do something in another app.
+
+The basic rule: the task must use at least two different apps or tools:
+One tool where the AI changes something or prepares a real next step
+For example: update a Google Sheet, create a Notion task, draft a Gmail reply, send/post a Slack message, create a Calendar event, add a GitHub label/comment, or update a project tracker. Creating only a document, report, CSV, slide deck, or summary is not enough. Document/report generation is not ideal if it is the main or only output.
+Real tool actions should be the core.
+The number of tools alone is not enough. Using two websites, three files, or four platforms does not automatically qualify. When checking your prompt, ask: does the AI need to read or inspect information from at least one specific source/input tool, reason across that information, and take a concrete, verifiable action in at least one specific action/output tool?
+
+⚠️Only use tools where you personally have access AND can safely grant that access to the AI. This connects to criterion 4 below. If your real workflow involves any of those, swap in a personal or fictionalized equivalent (e.g., use a personal Google Sheet instead of company Salesforce).
+The AI must interact with these tools through:
+Connectors: The AI connects to specific apps the expert can personally access and safely authorize, such as Gmail, Google Drive, Google Docs, Google Sheets, Google Calendar, Notion, Slack, or GitHub. The AI may read information and, when appropriate, update records, create tasks, draft messages, or log outcomes.
+Plug-ins: The AI uses approved extensions to add specific capabilities needed for the workflow. This may include web search, PubMed or citation lookup, screenshot capture, OCR, translation, file conversion, website inspection, or other task-specific capabilities. 
+Computer use: the AI controls a computer like a human would (opens a browser, logs into websites, clicks through UIs, fills forms, accesses local files, downloads files, or updates systems)
+⛔️Don’t manually upload every input / reference file into the prompt.
+✅Let the AI use connectors, plug-ins, or computer use to access source data.
+
+Avoid directly using work devices you are not authorized to use agents on, and don’t use confidential, proprietary, private, or NDA-protected material in your prompt or uploaded file
+This includes:
+Employer / customer confidential info
+Personal / private info
+Passwords, API keys, credentials
+If your real workflow involves any of the above, use a scrubbed or fictionalized version from the start.
+6️⃣ Specific to workspace and outputs, Open-ended in method!
+If you did not provide specific folder names and specific output success criteria, and the model
+Keep asking where to find things, locate the wrong file or use made-up data 
+Produce output that doesn’t line up with what you imagine
+This is a prompt specificity issue, not a model failure.
+Workspace (specific)
+✅You should tell the AI where data lives and what apps are available. 
+Input tools: where the AI reads, searches, or analyzes information
+Output/action tools: where the AI updates, creates, logs, sends, posts, or assigns something
+⛔️Don’t manually upload every input into the prompt: let the AI use connectors, plug-ins, or computer use to access source data.
+✅Name the specific folder/file/sheet/channel/recipient group. Not just generic app names. 
+Example:
+❌use Google Drive / check Jira / update the tracker
+✅use Drive folder “Q2 Customer Feedback” / Sheet “Customer Issue Tracker”/ Slack channel “#design-system-governance”
+Outputs (specific)
+✅The prompt should clearly define what success looks like: the goal, expected deliverable, and any hard constraints.
+✅Tell the AI what each output should contain: which fields, what elements, what format.
+Example:
+❌“create follow-up emails for priority customers”
+✅“Gmail drafts include the customer issue, proposed resolution, and requested next step”
+❌“update the tracker”
+✅“update the tracker with recurring high-priority issues, including issue category, priority, owner, customer impact, and recommended next action”
+Method (open-ended)
+The AI should be able to infer context from the prompt and tools available, rather than following rigid guidance.
+⛔️The prompt should NOT walk the AI through how to get there. The prompt should allow the AI to determine its own approach.
+Example:
+❌“First do X, then Y, then Z”
+✅“Use [tool A] [name a] and [tool B] [name b] to [achieve a specific outcome]”
+Vague example: Use customer feedback documents in Google Drive and the issue tracker to send Gmail follow-up emails for priority customers.
+
+This is agentic and not step-by-step,
+but it is too vague because it does not say which Drive folder, which tracker, what fields to update, or what the follow-up emails should include.
+
+Better example: Use customer feedback documents in Google Drive folder “Q2 Customer Feedback” and Google Sheet “Customer Issue Tracker.” The tracker should be updated with recurring high-priority issues, including issue category, priority, owner, customer impact, and recommended next action. Send Gmail follow-up emails to customers marked “High Priority” in the tracker, including the customer issue, proposed resolution, and requested next step.
+This is agentic and specific about workspace resources and outputs,
+while still avoiding step-by-step instructions.
+
+P.S. Please be sure to name your task in Feather as well (by clicking on the pencil icon)!
+When you hover over the icon, you should see “Edit title” to make changes.
+
+

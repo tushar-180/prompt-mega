@@ -12,7 +12,7 @@ Do not delete the Sales Call Preparation database, and do not delete any of the 
 Do not delete the Slack channel sales-call-alerts. The channel stays, the messages in it go.
 Do not delete anything that is not named in this brief.
 
-All dates here use Asia/Kolkata and are written as YYYY-MM-DD.
+All dates here use Asia/Kolkata and are written as YYYY-MM-DD against the same scenario day of 2026-09-10 that the setup run works to. Where that setup was built on another day and every date was shifted by the same count of days, read every date below with that same shift on it, so 2026-09-05 means the 5th day before the scenario day rather than that literal date. This reset puts back what the master run wrote and it re-dates nothing, so testing again on the day the workspace was built to needs this brief and nothing else, while testing again days later needs the setup brief run first with today as the fresh scenario day, otherwise the calls are sitting behind the window the master run reads off today.
 
 
 WHAT THE MASTER RUN ACTUALLY WROTE, SO THIS IS SHORT

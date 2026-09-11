@@ -1,0 +1,9 @@
+wf_355:-
+General
+[Prompt Review] (4) Great! Thanks for the detailed feedback. Make sure to include the files that the model would need only for the work when work should be done repeatedly. One time use only file would not fit to this section. Also, the slack channels and workspaces as well.
+
+General
+[Prompt Review] (1) Please use the relative date rather than fixed date for the prompt. (i.e., "2026-09-10 through 2026-09-16" to "For the next one week (or 7 days), including today.") This increases the repeatability of your prompt. (2) Please specify the locations of your inputs and the outputs. It seems the required input locations are very vaguely addressed ("Upcoming Sales Calls"). Is this report a file that is saved in local directory? or is it the report available only on the Salesforce app? Please specify where you can find the data that Codex required to use for the workflow. (3) Just a note that you don't need to take any action for #3. Overall, this workflow looks very detailed, but ironically this would lower the workflow difficulty that would make model work too easy. So, please balance your specificity and the difficulty of the workflow moving forward on the next prompt.
+
+General
+[Prompt Review] Thanks for submitting strong workflow prompt. It seems we need only a few edits before we move to next stage. Please refer the comments I left to make changes on your prompt. And feel free to reach out anytime if there is any instruction or feedback that need further clarification. Thank you!
